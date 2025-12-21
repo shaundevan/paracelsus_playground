@@ -1,0 +1,20 @@
+{
+    "name": "pegasus/programmegrid",
+    "allowedBlocks": ["pegasus/programme"],
+    "title": "Programme Grid",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "pegasus/tabs",
+    "title": "Tabs",
+    "allowedBlocks": ["pegasus/tab"],
+    "description": "",
+    "style": [ "" ],
+    "category": "widgets",
+    "icon": "table-col-after",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

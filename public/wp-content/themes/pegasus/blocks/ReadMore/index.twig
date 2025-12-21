@@ -1,0 +1,9 @@
+<div {{ block.is_preview is empty ? 'x-data="{readMoreOpen:false}"' }} class="Read_More">
+    <div {{ block.is_preview is empty ? 'x-show="readMoreOpen" x-collapse' }}>
+        <InnerBlocks />
+    </div>
+    <button @click="readMoreOpen = !readMoreOpen" class="eyebrow">
+        <span x-show="!readMoreOpen">{{button_label}}</span>
+        <span {{ block.is_preview is empty ? 'x-show="readMoreOpen"' }}>{{button_label_close}}</span>
+    </button>
+</div>

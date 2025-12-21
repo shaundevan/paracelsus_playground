@@ -1,0 +1,38 @@
+
+<div class="Card__With__Text__On__Hover relative w-full">
+	{% if link.url is not empty %}
+		<a href="{{ link.url }}" {{ link.target is not empty ? 'target="_blank"' }} class="block w-full h-[50dvh] {{ height == 'sm' ? 'sm:h-[20dvw]'}}{{ height == 'md' ? 'sm:h-[25dvw]' }}{{ height == 'lg' ? 'sm:h-[40dvw]' }} overflow-hidden rounded-lg relative group">
+    {% else %}
+        <div class="w-full h-[50dvh] {{ height == 'sm' ? 'sm:h-[20dvw]'}}{{ height == 'md' ? 'sm:h-[25dvw]' }}{{ height == 'lg' ? 'sm:h-[40dvw]' }} overflow-hidden rounded relative group">
+    {% endif %}
+			<div class="relative z-20 p-10 h-full flex flex-col items-start justify-between sm:opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+				{% if tag is not empty %}
+					<span class="font-body has-x-small-font-size p-2 border rounded-full {{ content_color == 'light' ? 'border-white text-white' : 'border-black text-black' }}">{{ tag }}</span>
+				{% endif %}
+				{% if content is not empty %}
+					<div class="{{ content_color == 'light' ? 'text-white' : 'text-black' }} font-body">
+						{{ content }}
+					</div>
+				{% endif %}
+				{% if link.url is not empty %}
+					<span class="font-body uppercase has-x-small-font-size underline underline-offset-4 {{ content_color == 'light' ? 'text-white' : 'text-black' }}">
+						{{ link.title }}
+					</span>
+				{% endif %}
+			</div>
+			{% if image is not empty %}
+				{{ pegasus_picture(image, 'thumb-16x9', {
+                    img_atts: {
+                        class: 'absolute-center !h-full w-full object-cover'
+                    }
+                }) }}
+			{% endif %}
+			{% if (this.getData().block.style.color.background or this.getData().block.style.color.gradient or this.getData().block.backgroundColor) %}
+				<div class="transition-opacity duration-500 ease-in-out group-hover:opacity-100 sm:opacity-0 z-10 row-background absolute w-full bottom-0 left-0 h-full {{ this.getData().block.backgroundColor is not empty ? 'has-' ~ this.getData().block.backgroundColor ~ '-background-color' }}" style="{{ this.getData().block.styleStrings.color }}"></div>
+			{% endif %}
+    {% if link.url is not empty %}
+        </a>
+	{% else %}
+		</div>
+	{% endif %}
+</div>

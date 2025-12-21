@@ -1,0 +1,24 @@
+{
+    "name": "pegasus\/iconcarousel",
+    "title": "Icon carousel",
+    "description": "",
+    "style": [
+        ""
+    ],
+    "category": "widgets",
+    "icon": "ellipsis",
+    "keywords": [
+        "carousel",
+        "icon"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "spacing": {
+            "padding": true
+        }
+    }
+}

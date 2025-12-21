@@ -1,0 +1,27 @@
+{
+  "assets/js/tracking/adform-tracking.js": {
+    "file": "Cjm_Ele6.js",
+    "name": "adform-tracking",
+    "src": "assets/js/tracking/adform-tracking.js",
+    "isEntry": true
+  },
+  "assets/scripts/main.js": {
+    "file": "CGBqs_Rr.js",
+    "name": "main",
+    "src": "assets/scripts/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/styles/CJ-KzOvo.css"
+    ]
+  },
+  "assets/styles/editor.scss": {
+    "file": "assets/styles/editor.css",
+    "src": "assets/styles/editor.scss",
+    "isEntry": true
+  },
+  "assets/styles/main.scss": {
+    "file": "assets/styles/Cf-1eSeH.css",
+    "src": "assets/styles/main.scss",
+    "isEntry": true
+  }
+}

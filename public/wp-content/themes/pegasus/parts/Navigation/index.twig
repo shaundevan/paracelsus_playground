@@ -1,0 +1,202 @@
+{# bg-transparent bg-pale-01 bg-pale-02 sm:bg-transparent sm:bg-pale-01 sm:bg-pale-02 #}
+<div x-intersect:leave="atTop = false" x-intersect:enter="atTop = true" class="absolute pointer-events-none top-0 left-0 w-px h-px opacity-0"></div>
+<div x-intersect:leave="nearTop = false" x-intersect:enter="nearTop = true" class="absolute pointer-events-none top-[50vh] left-0 w-px h-px opacity-0"></div>
+<div x-data="navigation" {{ languagePrompt is not empty ? 'class="transition-all" :class="languagePrompt ? \'pb-40 md:pb-20\' : \'\'"' }} x-cloak>
+	<div class="fixed z-40 w-full top-0 transition duration-300 bg-{{ menu_background_mobile is not empty ? menu_background_mobile : menu_background }} sm:bg-{{ menu_background }}" :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
+
+		{% if languagePrompt is not empty %}
+			<div class="bg-dark-01 text-white body-xs relative z-50" x-show="languagePrompt" x-collapse>
+				<div class="container md:flex justify-between items-center py-4 max-w-[1440px]">
+					<div class="flex justify-between items-top pb-[22px] mb-[18px] md:pb-0 md:mb-0 border-b md:border-b-0 border-[#363836] -ml-5 -mr-5 md:ml-0 md:mr-0 px-5 md:px-0">
+						<span class="max-w-[70vw]">{{ languagePrompt.prompt_text }}</span>
+						<button @click.prevent="languagePrompt = false" class="flex md:hidden scale-75" aria-label="{{ __('Close', 'pegasus') }}">
+							{% include '@PegasusTheme/assets/imgs/icons/close.svg' %}
+						</button>
+					</div>
+					<div class="flex items-center grow justify-end">
+						<div class="relative  w-full max-w-[333px]">
+							<button @click="languagePromptOpen = !languagePromptOpen" @keydown.escape="languagePromptOpen = false" class="py-3.5 px-4 bg-[#363836] rounded-lg w-full flex justify-between items-center">
+								<span x-text="$refs['lang' + languageLocation].innerText"></span>
+								{% include '@PegasusTheme/assets/imgs/icons/plus.svg' %}
+							</button>
+							<ul x-show="languagePromptOpen" @click.away="languagePromptOpen = false" class="absolute right-0 bg-pale-02 shadow-lg rounded-[10px] p-[7px_5px] min-w-full mt-2 text-dark-01" x-transition.scale.origin.top x-cloak>
+								{% for location in languagePrompt.location_options %}
+									<li class="text-nowrap mb-0.5">
+										<button x-ref="lang{{loop.index0}}" data-url="{{location.location.url}}" @click="languageLocation={{loop.index0}}; setTimeout(function(){ languagePromptOpen = false }, 200)">
+											<span :class="languageLocation == {{loop.index0}} ? '' : 'opacity-0'">&bull;</span>
+											{{location.location.title}}
+										</button>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<button class="btn btn__rounded btn__rounded--outlined ml-6 md:mr-3.5" @click="location = $refs['lang' + languageLocation].dataset.url">
+							{{languagePrompt.button_text}}
+						</button>
+						<button @click.prevent="languagePrompt = false" class="hidden md:block" aria-label="{{ __('Close', 'pegasus') }}">
+							{% include '@PegasusTheme/assets/imgs/icons/close.svg' %}
+						</button>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? 'text-pale-01 transition-colors' : 'text-pale-01 transition-colors sm:text-dark-01') : menu_colour == 'light' ? 'sm:text-pale-01 transition-colors' }}" :class="{ {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? '\'text-pale-01\':atTop,' : '\'text-pale-01\':atTop,\'sm:text-dark-01\':atTop,') : menu_colour == 'light' ? '\'sm:text-pale-01\':atTop,' }} }">
+			<div class="w-1/3" {{ isHomePage ? 'x-show="navigationIn"' : '' }}
+				 x-transition:enter='transition ease-in-out duration-1000'
+                 x-transition:enter-start='-translate-y-10 opacity-0'
+                 x-transition:enter-end='translate-y-0 opacity-100'>
+				<button class="site-menu-toggle h-[80px] md:w-[64px] relative grid place-items-center" aria-label="{{ __('Open Menu', 'pegasus') }}" @click="activeMenuItem = 'menu'">
+					{% include '@PegasusTheme/assets/imgs/icons/menu.svg' %}
+				</button>
+			</div>
+			<div class="w-1/3 md:pl-9" {{ isHomePage ? ':class="atTop ? \'opacity-0 sm:opacity-100\' : \'\'"' : '' }} {{ isHomePage ? 'x-show="navigationIn"' : '' }}
+				 x-transition:enter='transition ease-in-out duration-1000 delay-300'
+                 x-transition:enter-start='-translate-y-10 sm:opacity-0'
+                 x-transition:enter-end='translate-y-0 sm:opacity-100'>
+				<a href="{{ site.url }}" class="site-logo block w-[36px] md:w-max mx-auto" {{ hide_logo_on_desktop != "false" ? ':class="atTop ? \'sm:hidden\' : \'\'"' : '' }} title="{{ site.name }}">
+					{% if logo is not empty %}
+						{{ pegasus_picture(logo, "thumbnail", {'skip_image_indexing': true}) }}
+					{% else %}
+						{% include '@PegasusTheme/assets/imgs/icons/logo.svg' %}
+					{% endif %}
+				</a>
+			</div>
+			<div class="w-1/3 flex items-center justify-end" {{ isHomePage ? 'x-show="navigationIn"' : '' }}
+				 x-transition:enter='transition ease-in-out duration-1000'
+                 x-transition:enter-start='-translate-y-10 opacity-0'
+                 x-transition:enter-end='translate-y-0 opacity-100'>
+				<div class="hidden xl:block relative eyebrow w-max ltr:ml-auto ">
+					<button @click="open = !open" @keydown.escape="open = false" class="flex items-center pr-1" aria-label="{{ __('Toggle Language Selector', 'pegasus') }}">
+						<span class="ltr:mr-2.5 text-base uppercase">{{fn('apply_filters', 'wpml_current_language', null)}}</span>
+						{% include '@PegasusTheme/assets/imgs/icons/dropdown.svg' %}
+					</button>
+					<div x-show="open" @click.away="open = false" class="absolute right-0 text-right bg-pale-02 rounded-[10px] p-[7px_5px] min-w-full mt-2 {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? 'bg-transparent transition-colors' : 'bg-transparent sm:bg-pale-02 transition-colors') : menu_colour == 'light' ? 'sm:bg-transparent transition-colors' }} " :class="{ {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? '\'bg-transparent\':atTop' : '\'bg-transparent\':atTop,\'sm:bg-pale-02\':atTop') : menu_colour == 'light' ? '\'sm:bg-transparent\':atTop' }} }" x-transition.scale.origin.top x-cloak>
+						{{fn('do_action', 'wpml_add_language_selector')}}
+					</div>
+				</div>
+				{% if header_link is not empty %}
+					<a href="{{ header_link.url }}" {{ open_in_modal == 'true' ? 'data-pegasus-modal="Modal--Full -right"' }} class="{{(is_preview ? 'pointer-events-none')}} btn btn__rounded ltr:ml-5 {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? 'btn__rounded--pale transition-colors' : 'btn__rounded--pale-xs transition-colors') : menu_colour == 'light' ? 'btn__rounded--pale-sm transition-colors' }}" :class="{ {{ menu_colour_mobile == 'light' ? (menu_colour == 'light' ? '\'btn__rounded--pale\':atTop' : '\'btn__rounded--pale-xs\':atTop') : menu_colour == 'light' ? '\'btn__rounded--pale-sm\':atTop' }} }">
+						<span>{{ header_link.title }}</span>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="fixed inset-0 z-50 bg-black/80" x-show="activeMenuItem" @click.stop="activeMenuItem = false" x-cloak x-transition.opacity.duration.300ms></div>
+	<nav class="nav-draw fixed left-0 top-0 bottom-0 right-0 sm:right-auto transform transition-transform duration-200 -translate-x-full z-50 overflow-hidden xl:overflow-visible" :class="{'!-translate-x-0': activeMenuItem !== false}" x-cloak>
+		<div class="bg-yellow-01 text-dark-01 py-10 px-5 xl:px-10 h-full sm:min-w-[397px] overflow-auto border-r border-dark transition-colors duration-300 flex flex-col" @click="activeMenuItem = 'menu'">
+			<div class="flex items-center justify-between mb-10">
+				<button class="site-menu-toggle eyebrow flex items-center gap-2" aria-label="{{ __('Close Menu', 'pegasus') }}" @click.stop="activeMenuItem = false">
+					{% include '@PegasusTheme/assets/imgs/icons/close.svg' %}
+					{{ __('Close', 'pegasus') }}
+				</button>
+				<div class="flex items-center justify-end">
+					<button @click.away="openSearchForm = false" class="search-toggle flex items-center" aria-label="{{ __('Toggle Search Form', 'pegasus') }}" @click="openSearchForm = !openSearchForm" :class="{'text-dark-02':openSearchForm}">
+						{% include '@PegasusTheme/assets/imgs/icons/search.svg' %}
+						<span class="sr-only">{{ __('Search', 'pegasus') }}</span>
+					</button>
+					<button @click="open = !open" @keydown.escape="open = false" class="flex items-center pr-1 ml-10 xl:hidden eyebrow" aria-label="{{ __('Toggle Language Selector', 'pegasus') }}">
+						<span class="ltr:mr-2.5 uppercase">{{fn('apply_filters', 'wpml_current_language', null)}}</span>
+						{% include '@PegasusTheme/assets/imgs/icons/dropdown.svg' %}
+					</button>
+				</div>
+			</div>
+			<form role="search" method="get" class="searchform" action="{{ site.link }}" x-show="openSearchForm" x-cloak x-transition.duration.300ms x-collapse @click.stop="">
+				<div class="xl:pt-5 pb-10">
+					<div class="border-b border-dark flex justify-between">
+						<input type="text" value="{{ fn('get_search_query') }}" placeholder="{{ __('Enter search term...', 'pegasus') }}" name="s" class="placeholder:text-dark-02 bg-transparent"/>
+						<button type="submit" value="Search" aria-label="{{ __('Search', 'pegasus') }}">
+							{% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}
+						</button>
+					</div>
+				</div>
+			</form>
+			<div x-show="open" @click.away="open = false" class="xl:hidden eyebrow" x-collapse x-cloak>
+				{{fn('do_action', 'wpml_add_language_selector')}}
+				<div class="py-10">
+					<div class="border-t border-mid"></div>
+				</div>
+			</div>
+			<ul class="nav-main xl:pt-5 transition-colors duration-300" :class="{'xl:text-black/25':activeMenuItem&&activeMenuItem!='menu'}">
+				{% for item in primaryMenu.items %}
+					<li class="nav-main-item mb-5 transition-colors duration-300 {{ item.classes|join(' ') }}" :class="{'text-dark-01':activeMenuItem == {{ item.ID }}}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }} {{ item.children ? '@click.stop.prevent="activeMenuItem = ' ~ item.ID ~ '"' }}>{{ item.title }}
+							{% include item.children ? '@PegasusTheme/assets/imgs/icons/chevron.svg' ignore missing %}
+						</a>
+						{% if item.children %}
+							<div x-cloak class="absolute w-full xl:-z-10 -right-full  xl:right-auto xl:left-0 top-0 bottom-0 transition-transform duration-300" :class="{'-translate-x-full xl:translate-x-full':activeMenuItem == {{ item.ID }}}" @click.stop>
+								<div class="bg-yellow-01 py-10 xl:p-10 h-full overflow-auto border-r border-dark transition-colors duration-300" :class="{'xl:text-black/25':activeSubMenuItem}" @click="activeSubMenuItem = false">
+									<div class="px-5 xl:px-0">
+										<button class="xl:hidden inline-flex items-center eyebrow" @click.stop="activeMenuItem = 'menu'">
+											<span class="rotate-180  ltr:mr-2.5">
+												{% include item.children ? '@PegasusTheme/assets/imgs/icons/chevron.svg' ignore missing %}
+											</span>
+											{{ __('Back', 'pegasus') }}
+										</button>
+										<a class="block heading-five pt-1 mt-10 xl:mt-20" href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}
+										</a>
+									</div>
+									<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 mt-10 xl:mt-5" :class="{'xl:border-t-black/25':activeSubMenuItem}">
+										{% for child in item.children %}
+											<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == {{ child.ID }}}">
+												{% if 'menu-item-view-all' in child.classes %}
+													<a class="subtitle-md eyebrow flex justify-between items-center" href="{{ item.link }}" {{ child.is_target_blank ? 'target="_blank"' }} {{ child.children ? '@click.stop.prevent="activeSubMenuItem = activeSubMenuItem == ' ~ child.ID ~ ' ? false : ' ~ child.ID ~ '"' }}>
+														<span class="max-w-[245px] xl:max-w-full">{{ child.title|upper }}</span>
+													</a>
+												{% else %}
+													<a class="text-base flex justify-between items-center" href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }} {{ child.children ? '@click.stop.prevent="activeSubMenuItem = activeSubMenuItem == ' ~ child.ID ~ ' ? false : ' ~ child.ID ~ '"' }}>
+														<span class="max-w-[245px] xl:max-w-full">{{ child.title }}</span>
+														{% if child.children %}
+															<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == {{ child.ID }}}">{% include '@PegasusTheme/assets/imgs/icons/chevron-open.svg' %}</span>
+														{% endif %}
+													</a>
+												{% endif %}
+												{% if child.children %}
+													<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == {{ child.ID }}}" @click.stop x-show="activeSubMenuItem == {{ child.ID }}" x-collapse>
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }}>{{ child.title }}
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+															{% for grandChild in child.children %}
+																<li class="nav-drop-item mb-4">
+																	{% if 'menu-item-view-all' in grandChild.classes %}
+																		<a class="eyebrow block" href="{{ child.link }}" {{ grandChild.is_target_blank ? 'target="_blank"' }}>{{ grandChild.title|upper }}</a>
+																	{% else %}
+																		<a class="body-sm" href="{{ grandChild.link }}" {{ grandChild.is_target_blank ? 'target="_blank"' }}>{{ grandChild.title }}</a>
+																	{% endif %}
+																</li>
+															{% endfor %}
+														</ul>
+													</div>
+												{% endif %}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+				<div class="flex items-end justify-between mt-auto">
+					<div class="text-[14px] font-light leading-[1.2]">
+						<div>{{company_name}}</div>
+						{{street_address}}{{ street_address and (postal_code or address_locality) ? ' | ' }}{{postal_code}}
+						{{address_locality}}
+						<div>{{country}}</div>
+					</div>
+					{% include '@PegasusTheme/assets/imgs/icons/icon.svg' %}
+				</div>
+			</div>
+		</nav>
+		{% if dynamic_button is not empty and (disable_dynamic_button is empty or disable_dynamic_button == 'false' ) %}
+			<div class="fixed bottom-0 left-0 right-0">
+				<a href="{{ dynamic_button.url }}" {{ open_in_modal == 'true' ? 'data-pegasus-modal="Modal--Full -right"' }} class="{{(is_preview ? 'pointer-events-none')}} inline-flex justify-between items-center btn--large btn__rounded absolute left-1/2 transition -translate-x-1/2" :class="{'translate-y-[-150%]':(!nearTop&&!goingUp)}">
+					<span class="pr-5">{{ dynamic_button.title }}</span>
+					{% include '@PegasusTheme/assets/imgs/icons/cta.svg' %}
+				</a>
+			</div>
+		{% endif %}
+	</div>

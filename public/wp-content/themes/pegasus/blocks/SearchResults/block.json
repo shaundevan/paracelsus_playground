@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/searchresults",
+    "title": "Search Results",
+    "description": "",
+    "style": [ "" ],
+    "category": "theme",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

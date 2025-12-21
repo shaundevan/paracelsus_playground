@@ -1,0 +1,38 @@
+<div class="Quote__List-post py-10 first:mt-0 mt-[30px] md:mt-[60px] border-b border-mid" x-show="{{key}} < postsToShow" data-pegasus-single-card x-collapse {{ posts_to_show >= key ? 'x-cloak' }}>
+    {% block postContent %}
+        {% if 'quote' in data.card_content %}
+            <div class="subtitle-lg mb-10">&ldquo;{{ item.meta('quote') }}&rdquo;</div>
+        {% endif %}
+        <div class="sm:flex items-center body-sm">
+
+            {% if 'source_logo' in data.card_content %}
+                {% if item.terms('source') is not empty %}
+                    <div class="mr-10 mb-5 sm:mb-0">
+                        {{ pegasus_picture(item.terms('source')[0].meta('logo'), 'thumbnail') }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <div>
+            {% if 'title' in data.card_content %}
+                {% block cardTitle %}
+                <div class="">{{ item.title }}</div>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'source' in data.card_content %}
+                {% if item.terms('source') is not empty %}
+                    <span class="">{{ item.terms('source')[0] }}</span>{{ 'date' in data.card_content ? ',' }}
+                {% endif %}
+                <span class=""></span>
+            {% endif %}
+
+            {% if 'date' in data.card_content %}
+                {% block cardDate %}
+                <span class="">{{ item.post_date|date("Y") }}</span>
+                {% endblock %}
+            {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+</div>

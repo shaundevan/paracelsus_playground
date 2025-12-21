@@ -1,0 +1,12 @@
+<div class="{{ include_panel_spacing ? 'mb-3' }} {{ this.getData().block.backgroundColor is not empty ? 'has-' ~ this.getData().block.backgroundColor ~ '-background-color' }} {{ this.getData().block.borderColor is not empty ? 'has-' ~ this.getData().block.borderColor ~ '-border-color' }}"
+     style="{{ this.getData().block.styleStrings.border }} {{ this.getData().block.style.color.background is not empty ? 'background: ' ~ this.getData().block.style.color.background : (this.getData().block.style.color.gradient is not empty ? 'background: ' ~ this.getData().block.style.color.gradient : '')  }} ">
+
+    <div class="Accordion__Link py-3 {{ hasBackground ? 'px-6' }}">
+        <a href="{{ link.url }}" {{ link.target is not empty ? 'target="_blank"' }} style="{{ this.getData().block.styleStrings.spacing }}" class="flex items-center justify-between">
+            <div style="{{block.fontSize ? 'font-size:var(--wp--preset--font-size--' ~ block.fontSize ~ ');' }}">{{ link.title }}</div>
+            <div class="flex items-center justify-center" style="{{ this.getData().block.styleStrings.button }}">
+                {% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}
+            </div>
+        </a>
+    </div>
+</div>

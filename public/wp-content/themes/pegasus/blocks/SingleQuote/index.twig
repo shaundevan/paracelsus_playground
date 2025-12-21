@@ -1,0 +1,33 @@
+<div class="Single__Quote sm:flex {{ block.align is empty ? 'max-w-[1360px] mx-auto' }}">
+{% if item is not empty %}
+    {% if 'quote' in card_content %}
+        <div class="heading-two mb-8 sm:mb-0 basis-2/3">&ldquo;{{ item.meta('quote') }}&rdquo;</div>
+    {% endif %}
+    <div class="sm:flex sm:mt-1 body-sm order-first basis-1/3">
+
+        {% if 'source_logo' in card_content %}
+            {% if item.terms('source') is not empty %}
+                <div class="mr-10 mb-5 sm:mb-0">
+                    {{ pegasus_picture(item.terms('source')[0].meta('logo'), 'thumbnail') }}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div>
+        {% if 'title' in card_content %}
+            <div class="mb-2.5">{{ item.title }}</div>
+        {% endif %}
+
+        {% if 'source' in card_content %}
+            {% if item.terms('source') is not empty %}
+                <span class="text-dark-02">{{ item.terms('source')[0] }}</span>{{ 'date' in card_content ? ',' }}
+            {% endif %}
+        {% endif %}
+
+        {% if 'date' in card_content %}
+            <span class="text-dark-02">{{ item.post_date|date("Y") }}</span>
+        {% endif %}
+        </div>
+    </div>
+{% endif %}
+</div>

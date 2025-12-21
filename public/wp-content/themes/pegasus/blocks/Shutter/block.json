@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/shutter",
+    "title": "Shutter",
+    "description": "",
+    "style": [ "" ],
+    "category": "widgets",
+    "icon": "image-flip-vertical",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

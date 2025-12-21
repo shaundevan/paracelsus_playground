@@ -1,0 +1,42 @@
+{
+    "name": "pegasus\/accordion",
+    "title": "Accordion",
+    "description": "",
+    "style": [
+        ""
+    ],
+    "category": "widgets",
+    "icon": "menu",
+    "keywords": [
+        ""
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "mode": false,
+        "anchor": true,
+        "jsx": true,
+        "__experimentalBorder": {
+            "radius": true,
+            "color": true,
+            "width": true,
+            "style": true,
+            "__experimentalDefaultControls": {
+                "width": true,
+                "color": true
+            }
+        }
+    },
+    "example": {
+        "attributes": {
+            "data": {
+                "thumbnail": true
+            }
+        }
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-accordion"
+    }
+}

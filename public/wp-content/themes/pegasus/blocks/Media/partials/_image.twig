@@ -1,0 +1,71 @@
+{% if data.layout == 'original' %}
+    <div class="relative">
+    {% if data.image is empty %}
+        <img src="https://placehold.co/1920x975?text=Awaiting+Image" width="100%" height="auto" class="image-original" />
+    {% endif %}
+    {{ pegasus_picture(data.image, (data.dynamic_image_size ? data.dynamic_image_size : 'large'), {
+        img_atts: {
+            class: 'image-original ' ~ (data.round_corners ? 'rounded-sm sm:rounded-[10px]') ~ (data.image_focal_point is not empty and data.image_focal_point != 'object-center' ? 'object-none ' ~ data.image_focal_point : ''),
+        }
+    }) }}
+    {% if data.text is not empty %}
+        <div class="absolute inset-0 bg-black/50 p-10 text-white">
+            {{ data.text }}
+        </div>
+    {% endif %}
+    </div>
+{% elseif data.layout == 'full-width' %}
+    {% if data.image is empty %}
+        <img src="https://placehold.co/1920x975?text=Awaiting+Image" width="100%" height="auto" class="image-original" />
+    {% endif %}
+    {{ pegasus_picture(data.image, (data.dynamic_image_size ? data.dynamic_image_size : 'large'), {
+        img_atts: {
+            width: '100%',
+            height: 'auto',
+            class: 'image-original w-full h-auto ' ~ (data.image_focal_point is not empty and data.image_focal_point != 'object-center' ? 'object-none ' ~ data.image_focal_point : ''),
+        }
+    }) }}
+
+    {% if data.text is not empty %}
+    <div class="absolute inset-0 bg-black/50 p-10 text-white">
+        {{ data.text }}
+    </div>
+    {% endif %}
+{% else %}
+    <div class="relative w-full h-full overflow-hidden" style="min-height: {{ data.block.style.dimensions.minHeight }}">
+        {% if data.image is empty %}
+            <img src="https://placehold.co/1920x975?text=Awaiting+Image" width="100%" height="auto" class="absolute-center w-full !h-full {{ data.layout }}" />
+        {% endif %}
+        {{ pegasus_picture(data.image, (data.dynamic_image_size ? data.dynamic_image_size : 'large'), {
+            img_atts: {
+                class: 'object-cover w-full h-full ' ~ (data.image_focal_point is not empty ? data.image_focal_point : 'object-center'),
+            }
+        }) }}
+        {% if data.text is not empty %}
+        <div class="absolute inset-0 bg-black/50 p-3 sm:p-10 text-white">
+            {{ data.text }}
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if data.video_placeholder is not empty %}
+    <div x-ref="videoPlaceholder" class="absolute-center w-full !h-full">
+
+        {{ pegasus_video(data.video_placeholder, {
+            class: 'video-placeholder absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full !h-full object-cover',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+        }) }}
+
+        {% if data.text is not empty %}
+        <div class="absolute inset-0 bg-black/50 p-3 sm:p-10 text-white">
+            {{ data.text }}
+        </div>
+        {% endif %}
+
+    </div>
+{% endif %}

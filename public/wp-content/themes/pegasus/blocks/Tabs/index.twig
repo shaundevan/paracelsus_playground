@@ -1,0 +1,9 @@
+<div class="Tabs {{ block.is_preview is empty ? 'md:grid md:grid-cols-[46%_54%]" x-data="{openTab: 1}"' }}>
+    <div class="hidden md:block md:pt-16">
+        <div id="tabButtons{{tabs}}" class="md:sticky md:top-24"></div>
+    </div>
+    <div id="tabs{{tabs}}" class="md:pt-16"></div>
+    <div class="{{ block.is_preview is empty ? 'hidden' }}">
+        <InnerBlocks />
+    </div>
+</div>

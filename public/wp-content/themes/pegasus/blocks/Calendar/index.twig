@@ -1,0 +1,9 @@
+{% if choose_therapy_calendar is not empty %}
+    <div class="selected-post">
+        <div class="post-content">
+            {{ choose_therapy_calendar.post_content | apply_filters('the_content') }}
+        </div>
+    </div>
+{% else %}
+    <p>Nothing to show...</p>
+{% endif %}

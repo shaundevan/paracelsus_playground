@@ -1,0 +1,20 @@
+{
+    "name": "pegasus/twocolumnbanner",
+    "title": "Two column banner",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "jsx": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

@@ -1,0 +1,18 @@
+.CallToAction {
+    
+    .wp-block-heading {
+        @include xs {
+            text-align: center;
+        }
+    }
+
+    .wp-block-group {
+        @include xs {
+            max-width: none !important;
+
+            & > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+                max-width: none !important;
+            }
+        }
+    }
+}

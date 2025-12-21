@@ -1,0 +1,16 @@
+<section class="Two__Column__Banner relative h-fit md:h-screen">
+    <div class="columns h-full flex {{ mobile_arrangement == "stack" ? "flex-col-reverse md:flex-row" }}">
+        <div class="w-full md:w-1/2 relative z-10 {{ mobile_arrangement == "overlay" ? "h-screen md:h-full" : "h-full" }} ">
+            <InnerBlocks class="h-full" />
+        </div>
+        <div class="w-full md:w-1/2 {{ mobile_arrangement == "overlay" ? "absolute md:relative h-screen md:h-full" : "relative h-[450px] md:h-full" }} ">
+            {% if image is not empty %}
+                {{ pegasus_picture(image, 'full', {
+                    img_atts: {
+                        class: 'absolute-center w-full !h-full object-cover'
+                    }
+                }) }}
+            {% endif %}
+        </div>
+    </div>
+</section>

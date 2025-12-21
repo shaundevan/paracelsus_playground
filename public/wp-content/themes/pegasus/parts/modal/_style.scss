@@ -1,0 +1,278 @@
+.modal-open {
+    overflow: hidden;
+    height: 100dvh;
+    touch-action: none;
+}
+
+.Modal {
+    @apply relative;
+    z-index: 9999;
+
+    &__body {
+        .container {
+            .container {
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
+    }
+
+    &__close-btn {
+        @apply uppercase text-dark flex items-center justify-center px-5;
+    }
+
+    &.Modal--team {
+        .Modal__close-btn {
+            @apply bg-white text-black;
+        }
+    }
+
+    &.-right {
+        .Modal__dialog-wrapper {
+            right: 0;
+            left: auto;
+        }
+
+        .-translate-x-full {
+            transform: translateX(100%);
+        }
+    }
+
+    &--Large {
+        .Modal__dialog-wrapper {
+            background: white;
+
+            @include sm {
+                width: 90vw;
+            }
+
+
+            @include lg{
+                width: 70vw;
+            }
+
+            @include xxl{
+                width: 50vw;
+            }
+
+            .Modal__body {
+                background: white;
+
+                .wp-block-columns {
+                    &.wp-block-columns-is-layout-flex {
+                        &:not(.is-not-stacked-on-mobile) {
+                            @apply flex flex-col;
+                            @container (min-width: 1280px) {
+                                @apply flex flex-row;
+                            }
+
+                            .wp-block-group {
+                                &.is-vertical {
+                                    @container (min-width: 768px) {
+                                        @apply flex flex-row;
+
+                                        >*:nth-child(2) {
+                                            @apply p-10;
+                                        }
+                                    }
+
+                                }
+
+                                @container (min-width: 1280px) {
+                                    @apply flex flex-col;
+                                    >*:nth-child(2) {
+                                        padding: unset;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .mobile-stacking-reverse {
+                    .wp-block-columns {
+                        &.wp-block-columns-is-layout-flex {
+                            &:not(.is-not-stacked-on-mobile) {
+                                @apply flex flex-col-reverse;
+                                @container (min-width: 1280px) {
+                                    @apply flex flex-row;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.Modal--Video {
+        .Modal__dialog-wrapper {
+            @apply sm:w-[90vmin] md:w-[90vmin] max-w-[1344px] sm:left-1/2 sm:-translate-x-1/2;
+        }
+
+        .Modal__backdrop {
+            @apply bg-[#181918B2] backdrop-blur-xl;
+        }
+
+        .Modal__content {
+            @apply justify-center items-center;
+
+            > div {
+                @apply rounded-none;
+            }
+        }
+
+        .Modal__header {
+            @apply relative py-4 px-0;
+
+            .Modal__close-btn {
+                @apply text-white inline-flex items-center;
+
+                &:after {
+                    content: "Close";
+                    @apply ml-3.5;
+                }
+
+                svg {
+                    @apply w-[20px] h-[20px];
+                    path {
+                        @apply fill-[#FAF6EE];
+                    }
+                }
+            }
+        }
+    }
+
+    &--with-nav {
+        .Modal__footer {
+            @apply flex;
+        }
+
+        &.Modal--team {
+            .Modal__navigation {
+                padding-left: var(--wp--preset--spacing--30);
+                padding-right: var(--wp--preset--spacing--40);
+                @apply w-full md:w-3/6;
+                @include lg {
+                    width: 57%;
+                }
+            }
+        }
+
+        .Modal__navigation {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+
+            @include md {
+                position: static;
+            }
+            .links {
+                padding: 0 3px;
+                display: flex;
+                justify-content: center;
+
+                @include md {
+                    justify-content: flex-start;
+                }
+                .arrow-btn {
+                    position: relative;
+
+                    &.-disabled {
+                        @apply opacity-50;
+                    }
+
+                    &:after {
+                        content: "";
+                        @apply inline-block border-dark border-r-2 border-b-2 p-2 bg-transparent;
+                    }
+
+                    &:before {
+                        content: "";
+                        @apply absolute top-1/2 transform -translate-y-1/2 origin-right bg-dark w-6;
+                        height: 2px;
+                        margin-top: -3px;
+                    }
+
+                    &.next-link {
+                        @apply ml-10;
+                        &:after {
+                            @apply -rotate-45;
+                        }
+                        &:before {
+                            right: -1px;
+                        }
+                    }
+
+                    &.prev-link {
+                        @apply mr-10;
+                        &:after {
+                            @apply rotate-[135deg] left-0;
+                        }
+                        &:before {
+                            left: -1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.Modal__body {
+    .team-template {
+        .team-container {
+            @apply pt-0;
+        }
+    }
+}
+
+.Modal__dialog-wrapper {
+    max-width: 720px;
+}
+
+.modal-form {
+    .Modal__header {
+        @apply py-7;
+
+        & > div {
+            justify-content: flex-end;
+            padding-right: 0;
+        }
+    }
+
+    .Modal__Form {
+        border-radius: 5px 0px 5px 5px;
+        overflow: hidden;
+    }
+
+    .Modal__dialog-wrapper {
+        max-width: 600px;
+    }
+}
+
+.modal-bottom-left {
+
+    .Modal__dialog-wrapper {
+        @apply p-2.5 sm:p-5;
+
+        left: 0;
+        transform: none !important;
+    }
+
+    .Modal__content {
+        position: absolute;
+        bottom: 0;
+        height: auto;
+        max-height: 100vh;
+        overflow: auto;
+    }
+
+    .Modal__body {
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+}
+

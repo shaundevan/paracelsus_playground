@@ -1,0 +1,28 @@
+<section x-data="callToAction" x-intersect.half.once="visible = true" 
+         class="CallToAction relative w-full mx-auto px-5 py-[120px] md:py-24 sm:px-20 sm:max-w-[85vw] xl:max-w-[80vw] rounded-t md:rounded text-center sm:text-left transition duration-700 ease-in-out {{ block.textColor ? 'text-' ~ block.textColor }} {{ block.backgroundColor ? 'bg-' ~ block.backgroundColor : 'bg-dark-01' }} {{ block.style.background.backgroundSize == 'auto' ? '!bg-[length:100%_100%]' }}" 
+         :class="visible ? 'translate-y-0' : 'translate-y-1/2'"
+         {{ block.is_preview is not empty ? 'style="' ~ block.styleStrings.background ~ '"' }}>
+    <div class="relative z-10">
+        <InnerBlocks />
+    </div>
+    
+    {% if background_image is not empty %}
+        <div class="absolute inset-0 w-full h-full object-cover z-0">
+            {{ pegasus_picture(background_image, 'full', {
+                img_atts: {
+                    class: 'w-full h-full object-cover object-center bg-[position:50%_0]',
+                    style: 'background-size: 100% 100%!important'
+                }
+            }) }}
+        </div>
+    {% endif %}
+</section>
+{% if display_footer_start is not empty %}
+    {% if block.is_preview is empty %}
+    <div class="hidden sm:block bg-dark-01 w-full h-[230px] mt-[-138px]">
+    </div>
+    {% else %}
+    <div class="hidden sm:block bg-dark-01 w-full h-[92px]">
+    </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,73 @@
+<div class="max-w-[1440px] px-5 md:px-10 mx-auto pt-10">
+    <div class="flex justify-between items-start">
+        <div class="max-w-[580px]">{{ footer_content }}</div>
+        {% if footer_icon is not empty %}
+            {{ pegasus_picture(footer_icon, "thumbnail", {
+                class: 'w-[40px] md:w-[61px] ml-10'
+                }
+            ) }}
+        {% else %}
+            {% include '@PegasusTheme/assets/imgs/icons/footer-logo.svg' %}
+        {% endif %}
+    </div>
+    <div class="pt-20 pb-3.5 lg:flex justify-between">
+        <div class="mb-10 pb-5">
+            <div>{{company_name}}</div>
+            {{street_address}}{{ street_address and (postal_code or address_locality) ? ' | ' }}{{postal_code}} {{address_locality}}
+            <div class="mb-10">
+                {{country}}
+                {% if contact_phone is not empty %}
+                <a href="tel:{{contact_phone|replace({' ': ''})}}" class="block mt-5 phone-fz-class">{{contact_phone}}</a>
+                {% endif %}
+            </div>
+            <div class="flex flex-wrap gap-4 pt-5">
+                {% if contact_email is not empty %}
+                <a href="mailto:{{contact_email}}" class="btn btn__rounded btn__rounded--outlined uppercase">{{ __('Email', 'pegasus') }}</a>
+                {% endif %}
+                {% if whatsapp is not empty %}
+                <a href="{{whatsapp}}" class="btn btn__rounded btn__rounded--outlined uppercase">{{ __('WhatsApp', 'pegasus') }}</a>
+                {% endif %}
+                {% if telegram is not empty %}
+                <a href="{{telegram}}" class="btn btn__rounded btn__rounded--outlined uppercase">{{ __('Telegram', 'pegasus') }}</a>
+                {% endif %}
+            </div>
+        </div>
+        <nav>
+            <ul class="flex flex-wrap justify-between xl:block xl:columns-3 gap-5 xl:gap-9 xl:w-min">
+            {% for item in footerMenu.items %}
+                <li class="basis-[calc(50%-10px)] pb-10 mb-2.5 xl:w-[197px] xl:break-inside-avoid-column">
+                    {% if item.link is not empty %}
+                    <a class="" href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+                    {% else %}
+                    {{ item.title }}
+                    {% endif %}
+                    {% if item.children %}
+                    <ul class="pt-5">
+                        {% for child in item.children %}
+                        <li class="mb-3">
+                            <a class="body-xs" href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }}>{{ child.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    {% if footer_logo is not empty %}
+        {{ pegasus_picture(footer_logo, "1536x1536", {
+            img_atts: {
+                class: 'w-full mt-16 mb-10'
+            }
+        }) }}
+    {% endif %}
+    <div class="flex flex-col sm:flex-row align-center justify-between text-dark-02 py-5 body-xs gap-y-2">
+        <div>
+            &copy; {{ "now"|date("Y") }} {{ copyright }}
+        </div>
+        <div>
+            {# <a href="https://without.studio/">{{ __('Design by', 'pegasus') }} Without</a> | <a href="https://www.plugandplaydesign.co.uk/">{{ __('Web Agency', 'pegasus') }} Plug & Play</a> #}
+        </div>
+    </div>
+</div>

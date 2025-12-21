@@ -1,0 +1,6 @@
+{% if post is not empty %}
+<div class="Post__Title md:text-center">
+    <div class="mb-10 eyebrow text-dark-02">{{post.date('d.m.Y')}}</div>
+    <h1 class="heading-one {{block.textColor ? 'text-' ~ block.textColor }}" style="{{block.fontSize ? 'font-size:var(--wp--preset--font-size--' ~ block.fontSize ~ ');' }}">{{post.title}}</h1>
+</div>
+{% endif %}

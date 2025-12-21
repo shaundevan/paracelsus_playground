@@ -1,0 +1,27 @@
+.wp-block-pegasus-accordionpanel {
+    padding: 0 !important; // Prevent doubling up of padding in editor
+    margin: 0 !important; // Prevent doubling up of margin in editor
+    border: 0 !important; // Prevent doubling up of border in editor
+}
+
+.Accordion__Content {
+    .acf-innerblocks-container {
+        @apply pb-4;
+
+        @include xs {
+            --wp--preset--spacing--20: 40px;
+        }
+    }
+}
+
+.Accordion {
+    @include xs {
+        --wp--preset--spacing--20: 20px;
+    }
+}
+
+.Accordion__Title {
+    p {
+        margin-bottom:0;
+    }
+}

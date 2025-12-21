@@ -1,0 +1,36 @@
+/**
+ * Global Variables
+ * Description: Variables that are used globally throughout the site
+ */
+
+/**
+ * Contents of this file:
+ * 1.0 - Screen Sizes
+ */
+
+/**
+ * 1.0 Screen Sizes
+ * ----------------------------------------------------------------------------
+ */
+
+ $screens: (
+    xxs: 0,
+    xs: 600px,
+    sm: 782px,
+    md: 960px,
+    lg: 1080px,
+    xl: 1280px,
+    xxl: 1440px,
+    xxxl: 1640px,
+);
+
+:root {
+    --pegasus-screen-xxs: 0,
+    --pegasus-screen-xs: 600,
+    --pegasus-screen-sm: 782px,
+    --pegasus-screen-md: 960px,
+    --pegasus-screen-lg: 1080px,
+    --pegasus-screen-xl: 1280px,
+    --pegasus-screen-2xl: 1440px,
+    --pegasus-screen-3xl: 1640px,
+}

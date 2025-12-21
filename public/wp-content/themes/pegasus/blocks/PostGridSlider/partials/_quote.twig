@@ -1,0 +1,40 @@
+<div class="Quote__Slider-post pr-2.5 sm:pr-5" data-pegasus-single-card>
+    <div class="bg-yellow-02 p-[31px] sm:p-[60px] rounded-[5px]">
+        {% block postContent %}
+            {% if 'excerpt' in data.card_content %}
+                <div class="heading-four mb-[50px] sm:mb-[61px]">&ldquo;{{ item.meta('quote') }}&rdquo;</div>
+            {% endif %}
+            <div class="sm:flex items-center body-sm">
+
+                {% if 'thumbnail' in data.card_content %}
+                    {% if item.terms('source') is not empty %}
+                        <div class="mr-10 mb-5 sm:mb-0">
+                            {{ pegasus_picture(item.terms('source')[0].meta('logo'), 'thumbnail') }}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <div>
+                {% if 'title' in data.card_content %}
+                    {% block cardTitle %}
+                    <div class="">{{ item.title }}</div>
+                    {% endblock %}
+                {% endif %}
+
+                {% if 'tags' in data.card_content %}
+                    {% if item.terms('source') is not empty %}
+                        <span class="">{{ item.terms('source')[0] }}</span>{{ 'date' in data.card_content ? ',' }}
+                    {% endif %}
+                    <span class=""></span>
+                {% endif %}
+
+                {% if 'date' in data.card_content %}
+                    {% block cardDate %}
+                    <span class="">{{ item.post_date|date("Y") }}</span>
+                    {% endblock %}
+                {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</div>

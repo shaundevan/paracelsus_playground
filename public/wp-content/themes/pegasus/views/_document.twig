@@ -1,0 +1,66 @@
+<!doctype html>
+{% if not modal %}
+
+<html class="html {{ body_class }}" {{ function('language_attributes') }} {{ function('is_rtl') ? 'dir="rtl"' : 'dir="ltr"' }}>
+    <head>
+
+        {{ function('wp_head') }}
+        {% set schemas = {
+            'service_schema': function('get_field', 'service_schema'),
+            'faq_schema': function('get_field', 'faq_schema'),
+            'organization_schema': function('get_field', 'organization_schema'),
+            'medical_schema': function('get_field', 'medical_schema')
+        } %}
+
+        {% for name, schema in schemas %}
+            {% if schema %}
+                <script type="application/ld+json">
+{{ schema|raw }}
+</script>
+            {% endif %}
+        {% endfor %}
+    </head>
+
+    <body x-data="paracelsusApp" class="body-main" :class="(atTop ? 'at-top' : 'scrolled') + (activeMenuItem ? ' overflow-hidden' : '')">
+        {{ function('wp_body_open') }}
+        <header id="page-header" class="relative z-30">
+            {% block navigation %}
+                {{ page_part('Navigation') }}
+            {% endblock %}
+        </header>
+
+        <main id="content">
+
+{% endif %}
+
+            <article id="{{ post.post_type ~ '-' ~ post.ID }}" class="{{ modal and navigation.open_in_modals_as_a_form ? 'Modal__Form' }} {{ modal and navigation.modal_position ? 'Modal__Position' }}">
+                {% if function('post_password_required') %}
+                    {{ function('get_the_password_form') }}
+                {% else %}
+                    {% block content %}
+                        No <code>{{ '{% block content %}' }}</code> defined for this template.
+                    {% endblock %}
+                {% endif %}
+
+            </article>
+
+{% if not modal %}
+
+        </main>
+
+        <footer id="site-footer" class="bg-dark-01 text-pale-01 relative">
+            {% block footer %}
+                {{ page_part('Footer') }}
+            {% endblock %}
+        </footer>
+
+        {{ page_part('modal') }}
+
+        {{ render_edit_post_link(post.id, '<span class="sr-only">'~__('Edit this page', 'pegasus')~'</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24"><path d="M64 368v80h80l235.727-235.729-79.999-79.998L64 368zm377.602-217.602c8.531-8.531 8.531-21.334 0-29.865l-50.135-50.135c-8.531-8.531-21.334-8.531-29.865 0l-39.468 39.469 79.999 79.998 39.469-39.467z" fill="currentColor"/></svg>') }}
+
+        {{ function('wp_footer') }}
+
+    </body>
+</html>
+
+{% endif %}

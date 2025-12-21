@@ -1,0 +1,20 @@
+{
+    "name": "pegasus/share",
+    "title": "Share",
+    "description": "",
+    "style": [ "" ],
+    "category": "posts",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "color": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

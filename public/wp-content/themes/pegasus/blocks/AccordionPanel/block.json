@@ -1,0 +1,45 @@
+{
+    "name": "pegasus\/accordionpanel",
+    "title": "Accordion Panel",
+    "description": "",
+    "style": [
+        ""
+    ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [
+        ""
+    ],
+    "parent": [
+        "pegasus\/accordion"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "jsx": true,
+        "spacing": {
+            "padding": true,
+            "margin": true
+        },
+        "color": {
+            "text": false,
+            "gradients": true,
+            "button": true
+        },
+        "__experimentalBorder": {
+            "color": true,
+            "width": true,
+            "style": true,
+            "__experimentalDefaultControls": {
+                "width": true,
+                "color": true
+            }
+        }
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-accordion-panel"
+    }
+}

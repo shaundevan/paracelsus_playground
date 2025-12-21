@@ -1,0 +1,47 @@
+{
+    "key": "group_674f305e71773",
+    "title": "Block: Accordion Link",
+    "fields": [
+        {
+            "key": "field_674f305de2a66",
+            "label": "Link",
+            "name": "link",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "link",
+            "value": null,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/accordionlink"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1733242999
+}

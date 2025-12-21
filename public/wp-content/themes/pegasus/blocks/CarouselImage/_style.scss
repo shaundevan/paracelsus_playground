@@ -1,0 +1,86 @@
+.block_carouselimage {
+  padding:6rem 2rem;
+
+  .carosuelimage-swiper {
+    font-family: var(--wp--preset--font-family--body);
+    color: #333;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    height: 100%;
+    align-items: baseline;
+    justify-items: stretch;
+    margin: 0 auto;
+    min-width: 80vw;
+  }
+
+  .swiper {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+    display: block;
+    max-width: 100%;
+
+    .swiper-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      box-sizing: content-box;
+    }
+
+    .swiper-slide {
+      display: flex;
+      flex-direction: column;
+      min-width: calc(24% - 1%);
+      border: 1px solid #dfdfdf;
+
+      @media (max-width: 1024px) {
+        min-width: 100%;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+       aspect-ratio: 3/4;
+      }
+    }
+
+    .swiper-button-prev {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      background: url(/wp-content/themes/pegasus/blocks/CalendarEventTable/left.svg) no-repeat;
+      background-size: contain !important;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      cursor: pointer;
+    }
+
+    .swiper-button-next {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      background-size: contain !important;
+      background: url(/wp-content/themes/pegasus/blocks/CalendarEventTable/right.svg) no-repeat;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      cursor: pointer;
+    }
+
+    .buttons-swipers {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+    }
+
+
+  }
+}

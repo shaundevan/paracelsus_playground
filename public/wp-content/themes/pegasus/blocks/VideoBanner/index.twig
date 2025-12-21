@@ -1,0 +1,70 @@
+{% if fallback_image is not empty %}
+    {# Preload critical images for LCP optimization #}
+    {{ pegasus_image_preload(fallback_image, 'full', {media: '(min-width: 640px)'}) | raw }}
+{% endif %}
+{% if logo_small is not empty %}
+    {{ pegasus_image_preload(logo_small, 'full', {media: '(max-width: 640px)'}) | raw }}
+{% endif %}
+
+<section x-data="videoBanner" class="Video__Banner relative dvh-screen text-white bg-black">
+    <div class="container relative grid grid-cols-1 grid-rows-3 items-stretch h-full z-10">
+        <div class="pt-[99px] sm:pt-9">
+            <div class="max-w-lg mx-auto text-center">
+                {{content}}
+            </div>
+        </div>
+        <div class="w-full flex items-center justify-between eyebrow">
+            <div>{{text_left}}</div>
+            <div>{{text_right}}</div>
+        </div>
+        <div class="w-[90%] sm:w-full flex items-start justify-center py-5 sm:py-10 sm:gap-8 absolute bottom-[env(safe-area-inset-bottom,0px)] left-1/2 -translate-x-1/2">
+        {% if logo is not empty %}
+            {{ pegasus_picture(logo, 'full', {
+                img_atts: {
+                    class: 'hidden sm:block flex-1',
+                },
+                priority: true,
+            }) }}
+        {% endif %}
+        {% if secondary_logo is not empty %}
+            {{ pegasus_picture(secondary_logo, 'full', {
+                img_atts: {
+                    class: 'hidden sm:block flex-1',
+                },
+                priority: true,
+            }) }}
+        {% endif %}
+
+        {% if logo_small is not empty %}
+            {{ pegasus_picture(logo_small, 'full', {
+                img_atts: {
+                    class: 'sm:hidden flex-1 w-full h-full',
+                },
+                priority: true,
+            }) }}
+        {% endif %}
+        </div>
+    </div>
+    {% if fallback_image is not empty %}
+        {{ pegasus_picture(fallback_image, 'full', {
+            img_atts: {
+                class: 'absolute h-full w-full object-cover object-center',
+                loading: 'eager',
+                fetchpriority: 'high'
+            },
+            priority: true,
+        }) }}
+    {% endif %}
+
+    {% if video is not empty or mobile_video is not empty %}
+        <div 
+            class="video-container absolute inset-0"
+            data-desktop-video="{{ video.url|default('') }}"
+            data-mobile-video="{{ mobile_video.url|default('') }}"
+            data-poster="{{ fallback_image.url|default('') }}"
+            x-ref="videoContainer"
+        >
+            <!-- Video element will be inserted here -->
+        </div>
+    {% endif %}
+</section>

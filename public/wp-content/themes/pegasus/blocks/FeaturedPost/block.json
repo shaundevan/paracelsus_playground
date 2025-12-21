@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/featuredpost",
+    "title": "Featured Post",
+    "description": "",
+    "style": [ "" ],
+    "category": "posts",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

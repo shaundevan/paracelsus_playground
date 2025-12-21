@@ -1,0 +1,52 @@
+{
+    "key": "group_673de424594dd",
+    "title": "Block: Team Member Slider",
+    "fields": [
+        {
+            "key": "field_673de424e05ef",
+            "label": "Post Grid Slider",
+            "name": "post_grid_slider",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "clone",
+            "value": null,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_663dd3a858a7a"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/teammemberslider"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1732110059
+}

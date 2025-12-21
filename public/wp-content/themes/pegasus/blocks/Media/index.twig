@@ -1,0 +1,21 @@
+<section x-data="PegasusMediaBlock({{open_in_modal ? 'true' : 'false' }}, '{{media_type}}')"
+         class="Media relative {{ layout not in ['original', 'full-width'] ? 'w-full layout h-full' : (layout == 'full-width' ? 'w-full' : '') }} {{ 'align'~this.getData().block.align }} {{ this.getData().block.className is not empty ? this.getData().block.className }}"
+         style="{{ pegasus_block_styles(this.getData().block)}} min-height: {{ this.getData().block.style.dimensions.minHeight }}">
+    <div class="relative w-full h-full {{ text is not empty ? 'min-h-[165px] sm:min-h-[339px]'}} {{round_corners ? 'rounded-sm sm:rounded-[10px]'}} overflow-hidden grid place-items-center" style="{{this.getData().block.styleStrings.dimensions}}">
+    {% block start %}
+    {# inject code into start of block #}
+    {% endblock %}
+
+    {% block main %}
+    {% if media_type is not empty %}
+        {{ this.getPartial('/_'~media_type~'.twig', {data: this.getData()})  }}
+    {% else %}
+        {{ __('No Media Type Chosen', 'pegasus') }}
+    {% endif %}
+    {% endblock %}
+
+    {% block end %}
+    {# inject code into end of block #}
+    {% endblock %}
+    </div>
+</section>

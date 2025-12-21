@@ -1,0 +1,42 @@
+{% extends '@PegasusCore/pegasus-one-accordion-panel/src/index.twig' %}
+
+    {% block accordionTitle %}
+    <div class="Accordion__Title {{ always_open_on_large_screens ? 'py-5 md:pt-10' : 'py-8' }} {{ hasBackground ? 'px-6' }}" {{ start_open ? 'x-init="panelOpen = true"' }}>
+        <button type="button" x-on:click="panelOpen = !panelOpen" class="w-full flex items-center justify-between group" style="{{ this.getData().block.styleStrings.spacing }}">
+
+            <span class="text-left">{{ panel_title }}</span>
+            {% block accordionTitleButtonIcon %}
+            <div class="rounded-full flex items-center justify-center {{ always_open_on_large_screens ? 'md:hidden' }}" style="{{ this.getData().block.styleStrings.button }}">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                {% if close_icon is empty %}
+                    <g class="transition ease-in-out duration-300 origin-center" :class="panelOpen ? 'rotate-90' : ''">
+                        <path d="M9.49609 17.2386V10.3438H10.5008L10.5022 10.4242V17.2386H9.49609Z" />
+                        <path d="M9.49892 9.65608L9.49609 9.57706V2.7627H10.4232L10.426 2.84172H10.5008V9.65608H9.49892Z" />
+                    </g>
+                    <path d="M8.81407 9.49707H2.76172V10.5032H8.81407V9.49707Z" />
+                    <path d="M17.237 9.49707H11.1875V10.5032H17.237V9.49707Z" />
+                    <!-- Add full-width horizontal line that only shows when open -->
+                    <path class="opacity-0 transition-opacity duration-300" :class="panelOpen ? 'opacity-100' : 'opacity-0'" d="M2.76172 9.49707H17.237V10.5032H2.76172V9.49707Z" />
+                {% else %}
+                    <g class="transition ease-in-out duration-300 origin-center" :class="panelOpen ? 'rotate-45' : ''">
+                        <path d="M9.49609 17.2386V10.3438H10.5008L10.5022 10.4242V17.2386H9.49609Z" />
+                        <path d="M9.49892 9.65608L9.49609 9.57706V2.7627H10.4232L10.426 2.84172H10.5008V9.65608H9.49892Z" />
+                        <path d="M8.81407 9.49707H2.76172V10.5032H8.81407V9.49707Z" />
+                        <path d="M17.237 9.49707H11.1875V10.5032H17.237V9.49707Z" />
+                    </g>
+                {% endif %}
+                </svg>
+            </div>
+            {% endblock %}
+
+        </button>
+    </div>
+    {% endblock %}
+
+    {% block accordionContent %}
+    <div class="Accordion__Content {{ always_open_on_large_screens ? 'md:!block md:!h-[auto]' }}" x-show="panelOpen" x-collapse>
+        <div style="{{ this.getData().block.styleStrings.spacing }}">
+            <InnerBlocks />
+        </div>
+    </div>
+    {% endblock %}

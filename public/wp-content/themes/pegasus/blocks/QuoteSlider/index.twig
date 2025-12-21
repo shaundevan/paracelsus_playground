@@ -1,0 +1,68 @@
+<section x-data="quoteSlider('{{ autoplay_speed }}', {{ infinite_loop ? 1 : 0 }})" class="Quote__slider relative sm:pr-[74px] arrow-vertical-{{ arrow_position.vertical }}" x-intersect.once="inView = true" style="--carousel-arrow-spacing: {{ arrow_position.spacing }}%; --carousel-arrow-inset: {{ arrow_position.inset }}rem">
+	{% if intro_text is not empty %}
+		<div class="intro w-3/5 xs:w-4/5 text-left pb-6">
+			{{ intro_text }}
+		</div>
+	{% endif %}
+
+	<div class="relative slider-container" :style="inView ? 'transform:translateX(0)' : ''">
+		{% block sliderContainer %}
+		<div x-ref="slider" class="slider w-full" data-pegasus-filterable="{{ this.getData().block.id }}">
+			{% block posts %}
+				{% if items is not empty %}
+					{% for key,item in items %}
+						<div class="slide" style="--slide-width: {{ posts_to_show ? (100 / posts_to_show) ~ '%' : '100%' }}">
+							{{ this.getPartial( '/_single_post.twig', { item: item, data: this.getData(), block: block } ) }}
+						</div>
+					{% endfor %}
+				{% else %}
+					{% block noPosts %}
+						<div class="py-10" data-pegasus-filterable="{{ block_id }}">
+							{% if no_posts_message is not empty %}
+								{{ no_posts_message }}
+							{% else %}
+								<p class="text-center">{{ 'No posts found.' }}</p>
+							{% endif %}
+						</div>
+					{% endblock %}
+				{% endif %}
+			{% endblock %}
+		</div>
+		{% endblock %}
+
+	{% block sliderNavigation %}
+		{% if show_arrows %}
+			<div class="Navigation__Arrows absolute alignment vertical-{{ arrow_position.vertical }} horizontal-{{ arrow_position.horizontal }} ">
+				{% block navigationPreviousButton %}
+					<button x-on:click="previousSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500" style="{{ this.getData().block.styleStrings.button }}">
+						<span class="sr-only">{{ __('Previous Slide', 'pegasus') }}</span>
+						<svg width="29" height="29" viewbox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M22.8047 14.6992L6.60438 14.6992" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M14.7031 22.8008L6.60297 14.7006L14.7031 6.60048" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				{% endblock %}
+				{% block navigationNextButton %}
+					<button x-on:click="nextSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500" style="{{ this.getData().block.styleStrings.button }}">
+						<span class="sr-only">{{ __('Next Slide', 'pegasus') }}</span>
+						<svg width="28" height="28" viewbox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5.92188 14.0264H22.1222" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M14.0234 5.92871L22.1236 14.0289L14.0234 22.129" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				{% endblock %}
+			</div>
+		{% endif %}
+	{% endblock %}
+
+	{% block progressBar %}
+		<div class="w-full {{ show_progress is empty ? 'xs:hidden' }}">
+			<div class="relative w-full">
+				<div class="scroll-progress-bg absolute rounded left-0 right-0 h-[2px] bg-[#e1e1dd]"></div>
+				<div x-ref="progressBar" class="scroll-progress rounded max-w-full h-[2px] bg-black relative transition-all" id="scroll-progress"></div>
+			</div>
+		</div>
+	{% endblock %}
+	</div>
+
+</section>

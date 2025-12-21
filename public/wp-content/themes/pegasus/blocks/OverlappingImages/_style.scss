@@ -1,0 +1,147 @@
+.OverlappingImages {
+    height: 420px;
+
+    @include sm {
+        height: 760px;
+    }
+
+    &__image-1,
+    &__image-2 {
+        display: flex;
+        justify-content: center;
+        transform: translateX(-50%);
+    }
+
+    &__image-1 {
+        transform: translate(-50%, calc(var(--parallax-offset) * -10%));
+    }
+
+    &__image-2 {
+        transform: translate(-50%, calc(var(--parallax-offset) * 10%));
+    }
+}
+
+.layout-1 {
+    .OverlappingImages__image-1 {
+        height: 60%;
+        left: 56%;
+        min-width: 64%;
+        top: 36%;
+    }
+
+    .OverlappingImages__image-2 {
+        height: 60%;
+        left: 35%;
+        min-width: 64%;
+        top: 6%;
+    }
+}
+
+.layout-2 {
+    .OverlappingImages__image-1 {
+        height: 73%;
+        left: 55%;
+        min-width: 58%;
+        top: 24%;
+    }
+
+    .OverlappingImages__image-2 {
+        height: 63%;
+        left: 39%;
+        min-width: 66%;
+        top: 1%;
+    }
+}
+
+.layout-3 {
+    .OverlappingImages__image-1 {
+        height: 70%;
+        left: 36%;
+        min-width: 60%;
+        top: 28%;
+    }
+
+    .OverlappingImages__image-2 {
+        height: 79%;
+        left: 52%;
+        min-width: 84%;
+        top: 1%;
+    }
+}
+
+.layout-4 {
+    .OverlappingImages__image-1 {
+        height: 42%;
+        left: 72%;
+        min-width: 44%;
+        top: 44%;
+    }
+
+    .OverlappingImages__image-2 {
+        height: 60%;
+        left: 37%;
+        min-width: 62%;
+        top: 3%;
+    }
+}
+
+.wp-block-column:first-child {
+
+    .OverlappingImages {
+
+        &__image-1,
+        &__image-2 {
+            left: auto;
+            transform: translateX(50%);
+        }
+
+        &__image-1 {
+            transform: translate(50%, calc(var(--parallax-offset) * -10%));
+        }
+
+        &__image-2 {
+            transform: translate(50%, calc(var(--parallax-offset) * 10%));
+        }
+    }
+
+    .layout-1 {
+        .OverlappingImages__image-1 {
+            right: 56%;
+        }
+
+        .OverlappingImages__image-2 {
+            right: 35%;
+        }
+    }
+
+    .layout-2 {
+        .OverlappingImages__image-1 {
+            right: 55%;
+        }
+
+        .OverlappingImages__image-2 {
+            right: 39%;
+        }
+    }
+
+    .layout-3 {
+        .OverlappingImages__image-1 {
+            right: 36%;
+        }
+
+        .OverlappingImages__image-2 {
+            right: 52%;
+        }
+    }
+
+    .layout-4 {
+        .OverlappingImages__image-1 {
+            right: 72%;
+        }
+
+        .OverlappingImages__image-2 {
+            right: 37%;
+        }
+    }
+
+}

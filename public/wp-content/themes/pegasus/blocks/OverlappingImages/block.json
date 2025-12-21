@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/overlappingimages",
+    "title": "Overlapping Images",
+    "description": "",
+    "style": [ "" ],
+    "category": "media",
+    "icon": "format-gallery",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

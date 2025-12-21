@@ -1,0 +1,285 @@
+{
+    "key": "group_67925c197be1a",
+    "title": "Block Calendar Event Table",
+    "fields": [
+        {
+            "key": "field_67926ba3549bd",
+            "label": "Therapy schedule",
+            "name": "therapy_schedule",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "repeater",
+            "value": null,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 2,
+            "acfe_repeater_stylised_button": 1,
+            "layout": "table",
+            "pagination": 0,
+            "min": 7,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Next Day",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_67926c641e51e",
+                    "label": "(Column 2\/12)",
+                    "name": "",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "acfe_column",
+                    "value": null,
+                    "menu_order": 0,
+                    "instructions": "",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 0,
+                    "columns": "2\/12",
+                    "endpoint": 0,
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_67926ba3549bd"
+                },
+                {
+                    "key": "field_67926c0c549be",
+                    "label": "Date Picker",
+                    "name": "name_of_o_day",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "date_picker",
+                    "value": null,
+                    "menu_order": 1,
+                    "instructions": "pick a date",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 0,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "l, d F Y",
+                    "first_day": 1,
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_67926ba3549bd"
+                },
+                {
+                    "key": "field_67926468938ae",
+                    "label": "(Column 10\/12)",
+                    "name": "",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "acfe_column",
+                    "value": null,
+                    "menu_order": 2,
+                    "instructions": "",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 1,
+                    "columns": "10\/12",
+                    "endpoint": 0,
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_67926ba3549bd"
+                },
+                {
+                    "key": "field_6792650ac6fd5",
+                    "label": "Type of the evening",
+                    "name": "type_of_the_evening",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "repeater",
+                    "value": null,
+                    "menu_order": 3,
+                    "instructions": "",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "80",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 2,
+                    "acfe_repeater_stylised_button": 1,
+                    "layout": "table",
+                    "min": 12,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add Row",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_67926ba3549bd",
+                    "sub_fields": [
+                        {
+                            "key": "field_67926524c6fd6",
+                            "label": "Activity",
+                            "name": "activity",
+                            "aria-label": "",
+                            "prefix": "acf",
+                            "type": "text",
+                            "value": null,
+                            "menu_order": 0,
+                            "instructions": "",
+                            "required": 0,
+                            "id": "",
+                            "class": "",
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "wpml_cf_preferences": 2,
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "Enter the type of activity",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6792650ac6fd5"
+                        },
+                        {
+                            "key": "field_6792657bc6b96",
+                            "label": "Time",
+                            "name": "time",
+                            "aria-label": "",
+                            "prefix": "acf",
+                            "type": "text",
+                            "value": null,
+                            "menu_order": 1,
+                            "instructions": "",
+                            "required": 0,
+                            "id": "",
+                            "class": "",
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "wpml_cf_preferences": 0,
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "00:00 - 00:00",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6792650ac6fd5"
+                        },
+                        {
+                            "key": "field_679272106b9b4",
+                            "label": "Do you need a short description of the activity?",
+                            "name": "need_a_short_description_bellow_evening",
+                            "aria-label": "",
+                            "prefix": "acf",
+                            "type": "true_false",
+                            "value": null,
+                            "menu_order": 2,
+                            "instructions": "",
+                            "required": 0,
+                            "id": "",
+                            "class": "",
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "wpml_cf_preferences": 0,
+                            "message": "",
+                            "default_value": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "parent_repeater": "field_6792650ac6fd5"
+                        },
+                        {
+                            "key": "field_67927103c874d",
+                            "label": "Short information",
+                            "name": "short_information",
+                            "aria-label": "",
+                            "prefix": "acf",
+                            "type": "textarea",
+                            "value": null,
+                            "menu_order": 3,
+                            "instructions": "",
+                            "required": 0,
+                            "id": "",
+                            "class": "",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_679272106b9b4",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "wpml_cf_preferences": 2,
+                            "default_value": "",
+                            "acfe_textarea_code": 0,
+                            "maxlength": 500,
+                            "allow_in_bindings": 0,
+                            "rows": 2,
+                            "placeholder": "",
+                            "new_lines": "",
+                            "parent_repeater": "field_6792650ac6fd5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfml_field_group_mode": "advanced",
+    "modified": 1744377567
+}

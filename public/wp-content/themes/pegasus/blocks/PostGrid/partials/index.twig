@@ -1,0 +1,35 @@
+<section x-data="postGrid"
+         class="Post__Grid relative"
+         data-pegasus-filterable="{{ this.getData().block.id }}"
+         style="--post-grid-grid-cols: {{ number_of_columns is not empty ? number_of_columns : 4 }};">
+    {% block filters %}
+        {% if filter_by is not empty and filters is not empty %}
+            {{ this.getPartial('/_filter_bar.twig', {filters: filters}) }}
+        {% endif %}
+    {% endblock %}
+
+    {% block posts %}
+        {% if items is not empty %}
+            <div class="Post__Grid-grid mt-4 {{ scroll_on_mobile ? 'overflow-auto no-scrollbar' : 'flex-col' }}" data-pegasus-filterable="{{ this.getData().block.id }}">
+                {% for key,item in items %}
+                    {{ this.getPartial( '/_single_post.twig', { item: item, data: this.getData() } ) }}
+                {% endfor %}
+
+                {% if pagination is not empty %}
+                    {{ this.getPartial( '/_'~pagination~'.twig', { items: items, data: this.getData() } ) }}
+                {% endif %}
+            </div>
+        {% else %}
+            {% block noPosts %}
+                <div class="py-10" data-pegasus-filterable="{{ this.getData().block.id }}">
+                {% if no_posts_message is not empty %}
+                    {{ no_posts_message }}
+                {% else %}
+                    <p class="text-center">{{ 'No posts found.' }}</p>
+                {% endif %}
+                </div>
+            {% endblock %}
+        {% endif %}
+    {% endblock %}
+
+</section>

@@ -1,0 +1,58 @@
+<div class="block_author-hero">
+    <div class="container">
+
+        <div class="{{ include_panel_spacing ? 'mb-3' }} {{ block.backgroundColor is not empty ? 'has-' ~ block.backgroundColor ~ '-background-color' }} {{ block.borderColor is not empty ? 'has-' ~ block.borderColor ~ '-border-color' }}"
+             style="{{ block.styleStrings.border }} {{ block.style.color.background is not empty ? 'background: ' ~ block.style.color.background : (block.style.color.gradient is not empty ? 'background: ' ~ block.style.color.gradient : '') }} {{ block.styleStrings.spacing }}">
+
+            <div class="author-grid {{ hasBackground ? 'px-6 py-4' : 'py-4' }}">
+                {# Lewa kolumna - zdjęcie #}
+                <div class="author-image">
+                    {% if author_full_Image %}
+                        <img src="{{ author_full_Image }}" alt="{{ academic_title_author }}">
+                    {% endif %}
+                </div>
+
+                {# Prawa kolumna - informacje #}
+                <div class="author-info">
+                    {% if academic_title_author %}
+
+
+
+
+                        <div class="TeamHeading">
+                            <p class="TeamHeading__title  has-medium-font-size wp-block-paragraph !mb-0" dir="ltr">   {{ academic_title_author }}</p>
+
+                            <h1 class="TeamHeading__name wp-block-heading  has-xxxx-large-font-size"> {{ name_and_surname_author }}</h1>
+                        {% if status_author %}
+                            <p class="TeamHeading__role  has-medium-font-size wp-block-paragraph">  {{ status_author }}</p>
+
+                        </div>
+
+
+                    {% endif %}
+
+                    {% if author_full_description %}
+                        <div class="author-description">
+                            {{ author_full_description|raw }}
+                        </div>
+                    {% endif %}
+
+
+                        <div class="author-status TeamHeading__role">
+
+                        </div>
+                    {% endif %}
+
+                    {% if url_author %}
+                        <div class="author-url">
+                            <a href="{{ url_author }}" target="_blank" rel="noopener noreferrer">
+                                {{ url_text }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,72 @@
+// Alignment classes
+.align {
+    &right {
+        display:flex;
+        justify-content: flex-end;
+    }
+    &center {
+        display:flex;
+        justify-content: center;
+    }
+    &left {
+        display:flex;
+        justify-content: flex-start;
+    }
+}
+
+// Helper to allow for absolute centering
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Hide the scrollbar on elements with scrolling overflow if needed
+.no-scrollbar {
+    &::-webkit-scrollbar {
+        width: 0;
+        background-color: transparent;
+        -webkit-appearance: none !important; /* Chrome, Safari and Opera */
+        width: 0;
+        height: 0;
+    }
+
+    & {
+        -ms-overflow-style: none !important; /* IE and Edge */
+        scrollbar-width: none !important; /* Firefox */
+    }
+}
+
+.content-list {
+    list-style: disc;
+    padding-left: 1.375em;
+
+    &:not(:first-child) {
+        margin-top: 2.125em;
+    }
+
+    li {
+        margin: 5px 0;
+        font-weight: 250;
+    }
+}
+
+// Move lazy loading styles to wrapper elements
+.pegasus-lazy-wrapper {
+    opacity: 0;
+    transform: translate3d(0, 0, 0); // Force GPU acceleration
+    backface-visibility: hidden; // Reduce repaints
+    will-change: opacity; // Signal intended property changes
+    contain: paint layout; // Optimize paint/layout containment
+    
+    img, picture {
+        backface-visibility: hidden;
+    }
+    
+    &.is-loaded {
+        opacity: 1;
+        transition: opacity 0.35s ease-in-out;
+        will-change: auto; // Release will-change after animation
+    }
+}

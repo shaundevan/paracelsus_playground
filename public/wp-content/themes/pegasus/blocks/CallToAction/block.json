@@ -1,0 +1,25 @@
+{
+    "name": "pegasus/calltoaction",
+    "allowedBlocks": ["core/paragraph", "core/heading", "core/buttons", "core/list", "core/spacer", "core/group",  "pegasus/container"],
+    "title": "Call to Action",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "background": {
+            "backgroundImage": true,
+            "backgroundSize": true
+        },
+        "color": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

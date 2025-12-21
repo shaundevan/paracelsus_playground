@@ -1,0 +1,179 @@
+// This make sure that no matter what the grid will display as a single column on mobile
+.is-layout-grid {
+    &.wp-block-group {
+        @media (max-width: (breakpoint("md") - 1)) {
+            grid-template-columns: 1fr;
+
+            > * {
+                grid-column: span all;
+            }
+        }
+    }
+}
+
+.is-layout-flex {
+    &.is-not-stacked-on-mobile {
+        @apply flex-row;
+    }
+
+    & {
+        @apply flex-col sm:flex-row;
+        @include md {
+            align-items: stretch !important;
+        }
+    }
+
+    &.are-vertically-aligned-top {
+        align-items: stretch !important;
+    }
+    &.are-vertically-aligned-center {
+        align-items: center !important;
+    }
+    &.are-vertically-aligned-bottom {
+        align-items: flex-end !important;
+    }
+
+    .reverse-column-stack & {
+        @apply flex-col-reverse sm:flex-row;
+    }
+}
+
+.wp-block-buttons-is-layout-flex {
+    @apply flex-row;
+
+    &.alignfull {
+        @include xs {
+            justify-content: center;
+        }
+    }
+}
+
+.wp-block-columns {
+    max-width: 100% !important;
+    &.is-layout-flex {
+        flex-wrap: nowrap !important;
+    }
+
+    &.alignwide {
+        @apply mx-auto w-full;
+
+        // max-width: 1440px;
+    }
+}
+
+.wp-block-column {
+    &.is-vertically-aligned-center {
+        align-items: center;
+        display: flex;
+    }
+
+    @media (max-width: 959px) {
+        border-left: 0 !important;
+        border-right: 0 !important;
+
+        .wp-block-group {
+            max-width: none !important;
+
+            & > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+                max-width: none !important;
+            }
+        }
+    }
+}
+
+// When using inline images in a heading block, make sure the text wraps and image are inline
+.wp-block-heading {
+    img {
+        display: inline;
+    }
+
+    // If an inline image is present, honor the whitespace
+    &:has(img) {
+        white-space: pre;
+    }
+}
+
+.wp-block-list {
+    margin-left: 1rem;
+
+    li {
+        list-style: inside;
+    }
+}
+
+.wp-block-container-is-layout-flow {
+    > .container {
+        margin-top: 0;
+    }
+}
+
+.Pegasus__Container {
+    &:where(.is-layout-flow) > * {
+        margin-top: 0 !important;
+    }
+}
+
+.columns-grid {
+    .wp-block-columns {
+        &:not(.is-not-stacked-on-mobile) {
+            @media screen and (max-width: 1080px) {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+        }
+    }
+}
+
+.Pegasus__Container {
+    &.sticky {
+        top: 96px;
+    }
+}
+
+.Pegasus__Container > .w-full {
+    .Pegasus__Container.sticky {
+        top: 0;
+    }
+}
+
+.wp-block-image {
+    &.aligncenter {
+        img {
+            @apply mx-auto;
+        }
+    }
+}
+
+.wp-block-paragraph:not(.is-style-eyebrow):not(.is-style-subtitle) {
+    a {
+        // text-decoration: underline !important;
+        text-underline-position: under;
+    }
+}
+
+[class*="wp-container-core-column"] {
+    & > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        max-width: 100% !important;
+    }
+}
+
+.wp-block-list {
+
+    &.block-editor-block-list__block {
+        li {
+            > div {
+                display: inline;
+            }
+        }
+    }
+    
+    li {
+        text-indent: calc((-1 * var(--wp--preset--spacing--10)) - 5px);
+    }
+
+    @supports (-webkit-appearance: none) {
+        li {
+            text-indent: calc(-1 * var(--wp--preset--spacing--10));
+        }
+    }
+}

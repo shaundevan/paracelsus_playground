@@ -1,0 +1,21 @@
+
+<section x-data="expandingImages()" class="ExpandingImages relative flex overflow-hidden flex-col md:flex-row">
+{% for image in images %}
+    <div class="relative w-full h-40 md:h-screen max-h-[905px]">
+        <a href="{{ image.link.url }}" target="{{ image.link.target }}" class="md:duration-300 md:ease-linear absolute top-0 bottom-0 -inset-x-px hover:z-10 {{block.is_preview ? 'pointer-events-none'}}">
+
+
+            {{ pegasus_picture(image.image, '1536x1536',
+                {
+                    img_atts: {
+                        class: "absolute max-w-none w-full h-full object-center object-cover left-1/2 top-0 -translate-x-1/2 md:ease-linear md:duration-300" ~ (block.is_preview ? "!max-w-none !h-full")
+                    }
+                }
+            ) }}
+
+            <span class="absolute left-0 right-0 bottom-16 text-center uppercase text-white is-style-eyebrow">{{ image.link.title }}</span>
+        </a>
+    </div>
+
+{% endfor %}
+</section>

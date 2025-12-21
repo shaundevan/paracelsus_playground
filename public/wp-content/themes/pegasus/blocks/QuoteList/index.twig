@@ -1,0 +1,24 @@
+<section x-data="quoteList('{{ posts_to_show }}', '{{ items|length }}')" class="Quote__list relative md:pb-12">
+    {% if items is not empty %}
+        {% for key,item in items %}
+            {{ this.getPartial( '/_single_post.twig', { key: key, item: item, data: this.getData() } ) }}
+        {% endfor %}
+        {% if items|length > posts_to_show %}
+            <button
+                class="mt-10 btn btn__rounded btn__rounded--dark-outline"
+                @click="postsToShow = {{ items|length }}"
+                x-show="postsToShow < {{ items|length }}"
+                x-collapse>{{ __('Load More', 'pegasus') }}</button>
+        {% endif %}
+    {% else %}
+        {% block noPosts %}
+            <div class="py-10">
+                {% if no_posts_message is not empty %}
+                    {{ no_posts_message }}
+                {% else %}
+                    <p class="text-center">{{ 'No posts found.' }}</p>
+                {% endif %}
+            </div>
+        {% endblock %}
+    {% endif %}
+</section>

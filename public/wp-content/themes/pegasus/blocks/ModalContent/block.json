@@ -1,0 +1,26 @@
+{
+    "name": "pegasus/modalcontent",
+    "title": "Modal Content",
+    "description": "",
+    "style": [ "" ],
+    "category": "theme",
+    "icon": "migrate",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "color": {
+            "background": true,
+            "text": false
+        },
+        "spacing": {
+            "padding": true
+        }
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

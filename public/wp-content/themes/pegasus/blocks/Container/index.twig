@@ -1,0 +1,41 @@
+<section x-data x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full {{ deviceVisibilityClasses }} {{ heightClasses }} {{ overflow }} {{ content_colour ? content_colour : 'text-content-dark' }} {{ columnClasses }} {{ this.getData().block.borderColor is not empty ? 'has-' ~ this.getData().block.borderColor ~ '-border-color' }} {{ this.getData().block.styleStrings.border matches '/border-bottom/' ? 'has-border-bottom' }} {{ this.getData().block.styleStrings.border matches '/border-top/' ? 'has-border-top' }} {{ this.getData().block.className is not empty ? this.getData().block.className }}" style="{{ heightVars is not empty ? heightVars }} {{ columnVars is not empty ? columnVars }} {{ this.getData().block.styleStrings.spacing ~ ' ' ~  this.getData().block.styleStrings.border }}" {{ this.getData().block.anchor ? 'id="'~ this.getData().block.anchor ~'"' : '' }}>
+	{% block start %}
+    {# inject code into start of block #}
+    {% endblock %}
+
+	{% block backgrounds %}
+		{# START Background image #}
+		{% if this.getData().block.style.background.backgroundImage.url is not empty %}
+			{{ this.getPartial('_background_image.twig', { data: this.getData() }) }}
+		{% endif %}
+		{# END Background image #}
+
+		{# START Background video upload #}
+		{% if (background_video == 'upload') and (background_video_upload is not empty) %}
+            {{ this.getPartial('/_background_video_upload.twig', {data: this.getData()}) }}
+        {% endif %}
+		{# END Background video upload #}
+
+		{# START Background video embed #}
+        {% if background_video == 'embed' and (background_video_embed is not empty) %}
+            {{ this.getPartial('/_background_video_embed.twig', {data: this.getData()}) }}
+        {% endif %}
+		{# END Background video embed #}
+
+		{# START Background color - Can be used as an overlay ontop of background images and videos #}
+		{% if (this.getData().block.style.color.background or this.getData().block.style.color.gradient or this.getData().block.backgroundColor) %}
+			{{  this.getPartial('_background_color.twig', {data: this.getData().block }) }}
+		{% endif %}
+		{# END Background color #}
+	{% endblock %}
+
+	{% block main %}
+	{# START Main content container #}
+	<InnerBlocks class="relative h-full {{ alignmentClasses }} {{ section_width }}" />
+	{# END Main content container #}
+	{% endblock %}
+
+	{% block end %}
+    {# inject code into end of block #}
+    {% endblock %}
+</section>

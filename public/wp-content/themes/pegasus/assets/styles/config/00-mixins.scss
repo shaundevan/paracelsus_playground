@@ -1,0 +1,97 @@
+/*
+Name: Mixins
+Author: Plug and Play Design
+Author URI: https://www.plugandplaydesign.co.uk/
+Description: Mixins and functions for faster sass development
+Version: 1.0
+*/
+@use 'sass:math';
+@use "sass:map";
+
+/**
+* font
+* @param {string} $name - The name of the font
+* @param {string} $path - The path to the font
+* @param {string} $filename - The filename of the font
+* @param {number} $weight - The weight of the font
+* @param {string} $style - The style of the font
+*/
+@mixin font($name, $path, $filename, $weight, $style:normal){
+  @font-face {
+    font-family: '#{$name}';
+    src: url('#{$path}/#{$filename}.woff2') format('woff2'),
+    url('#{$path}/#{$filename}.woff') format('woff');
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+}
+
+/**
+* breakpoint
+* @param {string} $breakpoint - The name of the breakpoint
+*/
+@function breakpoint($breakpoint) {
+  @if map.has-key($screens, $breakpoint) {
+    @return map.get($screens, $breakpoint);
+  } @else {
+    @warn "#{$breakpoint} does not exist";
+    @return null;
+  }
+}
+
+/**
+* Media queries
+*/
+@mixin xxxl {
+  @media (min-width: breakpoint('xxxl')) { @content; }
+}
+
+@mixin xxl {
+  @media (min-width: breakpoint('xxl')) { @content; }
+}
+
+@mixin xl {
+  @media (min-width: breakpoint('xl')) { @content; }
+}
+
+@mixin lg {
+  @media (min-width: breakpoint('lg')) { @content; }
+}
+
+@mixin md {
+  @media (min-width: breakpoint('md')) { @content; }
+}
+
+@mixin sm {
+  @media (min-width: breakpoint('sm')) { @content; }
+}
+
+@mixin xs {
+  @media (max-width: (breakpoint('sm') - 1)) { @content; }
+}
+
+@mixin xxs {
+  @media (max-width: (breakpoint('xs') - 1)) { @content; }
+}
+
+@function strip-unit($value) {
+  @return math.div($value, $value * 0 + 1);
+}
+
+/**
+* responsive-font
+* @param {number} $min-font-size - The minimum font size
+* @param {number} $max-font-size - The maximum font size
+*/
+@mixin responsive-font($min-font-size, $max-font-size) {
+
+  font-size: $min-font-size;
+  @media screen and (min-width: 768px) {
+    font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - 768px) / #{strip-unit(1680px - 768px)}));
+  }
+  @media screen and (min-width: 1680px) {
+    font-size: $max-font-size;
+  }
+
+}

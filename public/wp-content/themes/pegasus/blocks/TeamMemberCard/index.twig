@@ -1,0 +1,31 @@
+<div class="Team__Member w-full flex flex-col md:flex-row md:items-center">
+    <div>
+        <div><a href="{{ item.link }}" class="">{{ item.title }}</a></div>
+        {% for category in item.terms('team-category') %}
+            {% if not break %}
+                {% if i > 4 %}
+                    <span class="">...</span>
+                    {% set break = true %}
+                {% else %}
+                    <span class="">{{ category }}</span>
+                {% endif %}
+                {% set i = i + 1 %}
+            {% endif %}
+        {% endfor %}
+        <div class="mt-5">
+            {{ item.excerpt({words: 15, read_more: false, strip: false}) }}
+        </div>
+    </div>
+    <a href="{{ item.link }}" class="block mt-10 md:mt-0 mr-10 md:order-first shrink-0 {{ data.block.is_preview ? 'pointer-events-none' }}">
+        <span class="sr-only">{{ item.title }}</span>
+        <div class="w-full relative overflow-hidden {{ data.thumbnailClasses }}">
+            {% if item.thumbnail is not empty %}
+                {{ pegasus_picture(item.thumbnail, 'thumbnail', {
+                    img_atts: {
+                        class: 'h-[120px] w-[120px] object-cover object-center rounded-full'
+                    }
+                }) }}
+            {% endif %}
+        </div>
+    </a>
+</div>

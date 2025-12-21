@@ -1,0 +1,163 @@
+.wp-block-pegasus-container{
+    padding: 0 !important; // Prevent doubling up of padding in editor
+
+    // The acf block wrapper struggles to display at the correct height without this workaround
+
+    &:has(.has-full-height-sm) {
+        @include xs {
+            height: 100%;
+        }
+    }
+
+    &:has(.has-full-height-md) {
+        @media screen and (max-width: 1199px) {
+            height: 100%;
+        }
+    }
+
+    &:has(.has-full-height-lg) {
+        @include lg {
+            height: 100%;
+        }
+    }
+}
+
+.Pegasus__Container {
+
+    &.h-screen {
+        height: 100vh;
+    }
+
+    &.h-fit {
+        height: fit-content;
+    }
+
+    &.h-fixed {
+        height: var(--height-fixed);
+    } 
+
+    &.h-relative {
+        height: var(--height-relative);
+    }
+
+    &.md\:h-screen {
+        @include sm {
+            height: 100vh;
+        }
+    }
+
+    &.md\:h-fit {
+        @include sm {
+            height: fit-content;
+        }
+    }
+
+    &.md\:h-fixed {
+        @include sm {
+            height: var(--height-md-fixed);
+        }
+    }
+
+    &.md\:h-relative {
+        @include sm {
+            height: var(--height-md-relative);
+        }
+    }
+
+    &.lg\:h-screen {
+        @include lg {
+            height: 100vh;
+        }
+    }
+
+    &.lg\:h-fit {
+        @include lg {
+            height: fit-content;
+        }
+    }
+
+    &.lg\:h-fixed {
+        @include lg {
+            height: var(--height-lg-fixed);
+        }
+    }
+
+    &.lg\:h-relative {
+        @include lg {
+            height: var(--height-lg-relative);
+        }
+    }
+
+    /* Formatting for columns inside this container */
+    &.mobile-stacking-reverse {
+        .wp-block-columns {
+            &:not(.is-not-stacked-on-mobile) {
+                /* On mobile we only change the stacking order */
+                flex-direction: column-reverse;
+
+                @include sm {
+                    flex-direction: row;
+                }
+            }
+            
+        }
+    }
+
+    &.has-border-bottom {
+        &:has(+ .Pegasus__Container .wp-block-columns:not(.is-not-stacked-on-mobile) .Accordion) {
+            @media (max-width: breakpoint('sm')) { 
+                border-bottom: none !important;
+            }
+        }
+    }
+
+    &.columns-grid {
+        .wp-block-columns {
+            &:not(.is-not-stacked-on-mobile) {
+                /* On tablet we convert to grid and define the columns and rows */
+                @include sm {
+                    display:grid;
+                    grid-template-columns: repeat(var(--column-tablet-columns), 1fr);
+                    grid-template-rows: repeat(var(--column-tablet-rows), 1fr, min-content);
+                }
+        
+                /* On desktop we should always reset to flexbox */
+                @include lg {
+                    display:flex;
+                }
+            }
+        }
+
+        &.mobile-stacking-reverse {
+            .wp-block-columns {
+                &:not(.is-not-stacked-on-mobile) {
+                    @include sm {
+                        @for $i from 1 through 10 {
+                            > *:nth-child(#{$i}) {
+                                order: 11 - $i;
+                            }
+                        }
+                    }
+
+                     @include lg {
+                        @for $i from 1 through 10 {
+                            > *:nth-child(#{$i}) {
+                                order: 0;
+                            }
+                        }
+                     }
+                }
+                
+            }
+
+        }
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .Pegasus__Container > div > .Pegasus__Container.is-position-sticky {
+        position: relative !important;
+        top: auto !important;
+    }
+}

@@ -1,0 +1,39 @@
+<?php
+namespace Gutenberg\AccordionPanel;
+
+use Plugandplay\Pegasus\AccordionPanel\BaseAccordionPanel;
+use Timber\Timber;
+
+if (!class_exists(AccordionPanel::class)) {
+    /**
+     * Class AccordionPanel
+     * @author <Pegasus>
+     * @package Gutenberg\AccordionPanel
+     */
+    class AccordionPanel extends BaseAccordionPanel
+    {
+        /**
+        * @param array $block
+        * @param array $fields
+        * @param string $viewTemplate
+        * @author <Pegasus>
+        */
+        public function __construct(array $block, array $fields = [])
+        {
+            // Custom dependency injection here
+            parent::__construct($block, $fields);
+        }
+
+        /**
+         * @return void
+         * @author <Pegasus>
+         */
+        public function inflate(): void
+        {
+            // Put you custom application logic here, and load the data into $this->data.
+            // You will reach the data in the template: {{ my_field }} or {{ this.getData().my_field }}
+            // $this->addData(Timber::context());
+            parent::inflate();
+        }
+    }
+}

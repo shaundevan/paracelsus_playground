@@ -1,0 +1,86 @@
+<div class="Team__Grid-post h-full px-2 sm:px-[5px] relative" data-pegasus-single-card>
+    <div class="relative group text-white">
+        {% if data.show_arrows %}
+            <a href="{{ item.link }}" class="absolute inset-0 z-10"><span class="sr-only">{{ item.title }}</span></a>
+        {% endif %}
+
+        {% block postThumbnail %}
+        {% if 'thumbnail' in data.card_content %}
+        <a href="{{ item.link }}" class="block {{ data.block.is_preview ? 'pointer-events-none' }}">
+            <span class="sr-only">{{ item.title }}</span>
+            <div class="w-full relative overflow-hidden {{ data.thumbnailClasses }}">
+                {% if item.thumbnail is not empty %}
+                    {{ pegasus_picture(item.thumbnail, 'thumb-16x9', {
+                        img_atts: {
+                            class: 'w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] ' ~ (data.thumbnail_size != 'original' ? 'absolute-center !h-full' : 'h-auto' )
+                        }
+                    }) }}
+                {% endif %}
+            </div>
+        </a>
+        {% endif %}
+        {% endblock %}
+
+        {% block postContent %}
+        <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+            {% if 'tags' in data.card_content or 'post_type' in data.card_content %}
+                {% block cardTags %}
+                <div class="flex flex-wrap -mx-px has-x-small-font-size uppercase">
+                    {% if 'post_type' in data.card_content %}
+                        <span class="tag inline-block mx-px my-px py-1 text-xs font-normal">{{ item.type.labels.name }}</span>
+                    {% endif %}
+                    {% set i = 1 %}
+                    {% set break = false %}
+                    {% for tag in data.taxonomies_to_show %}
+                        {% for category in item.terms(tag) %}
+                            {% if not break %}
+                                {% if i > 4 %}
+                                    <span class="tag inline-block mx-px my-px  py-1 text-xs font-normal">...</span>
+                                    {% set break = true %}
+                                {% else %}
+                                    <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">{{ category }}</span>
+                                {% endif %}
+                                {% set i = i + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endblock %}
+            {% endif %}
+
+            {% set media_type, video = item.meta('team_member_media_media_type'), item.meta('team_member_media_video') %}
+
+            {% if 'title' in data.card_content %}
+                {% block cardTitle %}
+                <div class="subtitle-sm capitalize">
+                    {{item.meta('title')}}
+                    {% if media_type == 'video' and video is not empty %}
+                    <span class="block heading-three pt-px">{{ item.title }}</span>
+                    {% else %}
+                    <a href="{{ item.link }}" class="block heading-three pt-px">{{ item.title }}</a>
+                    {% endif %}
+                </div>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'excerpt' in data.card_content %}
+            {% block cardExcerpt %}
+            <div class="body-extra-small">
+                {{ item.excerpt({words: 15, read_more: false, strip: false}) }}
+            </div>
+            {% endblock %}
+            {% endif %}
+
+            {% if 'date' in data.card_content %}
+                {% block cardDate %}
+                <p class="body-tiny mt-2">{{ item.post_date|date("F j, Y") }}</p>
+                {% endblock %}
+            {% endif %}
+
+            {% if not data.show_arrows %}
+            <a href="{{ item.link }}" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">{{ __('Read', 'pegasus') }}</a>
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+</div>

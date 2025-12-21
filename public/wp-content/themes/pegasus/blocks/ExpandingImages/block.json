@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/expandingimages",
+    "title": "Expanding Images",
+    "description": "",
+    "style": [ "" ],
+    "category": "media",
+    "icon": "images-alt2",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

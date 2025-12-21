@@ -1,0 +1,268 @@
+{
+    "key": "group_673f0e683ef8a",
+    "title": "Block: Quote Slider",
+    "fields": [
+        {
+            "key": "field_673f22d9a3b21",
+            "label": "Query",
+            "name": "",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "accordion",
+            "value": false,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_673f21fad55ed",
+            "label": "How to Populate",
+            "name": "how_to_populate",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 1,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "automatically": "Dynamically",
+                "pick_posts": "Pick Specific Posts"
+            },
+            "default_value": "automatically",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_673f219dd55ec",
+            "label": "Posts",
+            "name": "posts",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_object",
+            "value": null,
+            "menu_order": 2,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_673f21fad55ed",
+                        "operator": "==",
+                        "value": "pick_posts"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "quote"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 1,
+            "allow_null": 1,
+            "allow_in_bindings": 1,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_673f2236d55ee",
+            "label": "Category",
+            "name": "category",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_terms",
+            "value": null,
+            "menu_order": 3,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_673f21fad55ed",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "save_format": "object",
+            "allow_null": 1,
+            "multiple": 1,
+            "allow_in_bindings": 1,
+            "affected_by": null,
+            "container": "div"
+        },
+        {
+            "key": "field_673f2163d55eb",
+            "label": "Post Grid Slider",
+            "name": "post_grid_slider",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "clone",
+            "value": null,
+            "menu_order": 4,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_663dd53c7e715",
+                "field_663dd55f7e716",
+                "field_663dd5667e717",
+                "field_663dd58a7e718",
+                "field_663dd5bd7e719",
+                "field_663dd5e17e71a",
+                "field_668d395692802",
+                "field_668d396492803",
+                "field_663dd6137e71c"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
+            "key": "field_673f2a6928e2e",
+            "label": "Card Content",
+            "name": "card_content",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "checkbox",
+            "value": null,
+            "menu_order": 5,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "quote": "Quote",
+                "title": "Title",
+                "source_logo": "Source Logo",
+                "source": "Source Title",
+                "date": "Year"
+            },
+            "default_value": [
+                "quote",
+                "title",
+                "source_logo",
+                "source",
+                "date"
+            ],
+            "return_format": "value",
+            "allow_custom": 0,
+            "allow_in_bindings": 1,
+            "layout": "vertical",
+            "toggle": 0,
+            "save_custom": 0,
+            "custom_choice_button_text": "Add new choice"
+        },
+        {
+            "key": "field_673f2a4428e2d",
+            "label": "Post Grid Slider (copy)",
+            "name": "post_grid_slider_copy",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "clone",
+            "value": null,
+            "menu_order": 6,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 0,
+            "clone": [
+                "field_663dd799c78b7",
+                "field_663df9508320f",
+                "field_663dd6eec78b6",
+                "field_663dd7afc78b8",
+                "field_663df9ac83210",
+                "field_663dd823c78ba",
+                "field_6725f4bd57fbf",
+                "field_6725f50457fbg"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/quoteslider"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfml_field_group_mode": "advanced",
+    "modified": 1741092083
+}

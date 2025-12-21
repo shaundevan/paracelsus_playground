@@ -1,0 +1,12 @@
+<?php
+
+namespace Pegasus\Components;
+
+use Timber\Timber;
+use Pegasus\PartManager;
+
+$manager = PartManager::getInstance();
+
+$data = [];
+
+$manager->setPartData($key, $data);

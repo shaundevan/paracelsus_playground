@@ -1,0 +1,42 @@
+<section class="Share flex md:items-center eyebrow {{block.textColor ? 'text-' ~ block.textColor }}">
+    <div class="md:mr-14 shrink-0 basis-1/2 md:basis-[auto] body-sm">
+        {{title}}
+    </div>
+    <ul class="flex flex-wrap flex-col md:flex-row gap-[33px] basis-1/2 md:basis-[auto]">
+    {% if copy is not empty %}
+        <li class="">
+            <a class="flex items-center" rel="noopener noreferrer" target="_blank"  href="{{ copy.url }}" @click.prevent="let copyText = $el.querySelector('.sr-only'); copyText.select(); document.execCommand('copy')">
+                <span class="inline-block h-[13px] w-[13px] rounded-full bg-[#363836] mr-[5px]"></span>{{ copy.name }}<input class="sr-only" value="{{ copy.url }}" />
+            </a>
+        </li>
+    {% endif %}
+    {% if x is not empty %}
+        <li class="">
+            <a class="flex items-center" rel="noopener noreferrer" target="_blank"  href="{{ x.url }}">
+                <span class="inline-block h-[13px] w-[13px] rounded-full bg-[#363836] mr-[5px]"></span>{{ x.name }}
+            </a>
+        </li>
+    {% endif %}
+    {% if facebook is not empty %}
+        <li class="">
+            <a class="flex items-center" rel="noopener noreferrer" target="_blank"  href="{{ facebook.url }}">
+                <span class="inline-block h-[13px] w-[13px] rounded-full bg-[#363836] mr-[5px]"></span>{{ facebook.name }}
+            </a>
+        </li>
+    {% endif %}
+    {% if linkedin is not empty %}
+        <li class="">
+            <a class="flex items-center" rel="noopener noreferrer" target="_blank"  href="{{ linkedin.url }}">
+                <span class="inline-block h-[13px] w-[13px] rounded-full bg-[#363836] mr-[5px]"></span>{{ linkedin.name }}
+            </a>
+        </li>
+    {% endif %}
+    {% if whatsapp is not empty %}
+        <li class="">
+            <a class="flex items-center" rel="noopener noreferrer" target="_blank"  href="{{ whatsapp.url }}">
+                <span class="inline-block h-[13px] w-[13px] rounded-full bg-[#363836] mr-[5px]"></span>{{ whatsapp.name }}
+            </a>
+        </li>
+    {% endif %}
+    </ul>
+</section>

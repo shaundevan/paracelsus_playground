@@ -1,0 +1,79 @@
+<div class="Post__Grid-post overflow-hidden h-full px-6 border-r border-mid relative" data-pegasus-single-card>
+    <div class="relative flex flex-col h-full group">
+        {% if data.show_arrows %}
+            <a href="{{ item.link }}" class="absolute inset-0 z-10"><span class="sr-only">{{ item.title }}</span></a>
+        {% endif %}
+
+        {% block postThumbnail %}
+        {% if 'thumbnail' in data.card_content %}
+        <div>
+            <div class="post_image w-full relative overflow-hidden {{ data.thumbnailClasses }}">
+                {% if item.thumbnail is not empty %}
+                    {{ pegasus_picture(item.thumbnail, 'thumb-16x9', {
+                        img_atts: {
+                            alt: item.title,
+                            class: 'w-full object-cover group-hover:scale-105 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 transition-transform duration-500 ease-in-out ' ~ (data.thumbnail_size != 'original' ? 'absolute-center !h-full' : 'h-auto' )
+                        }
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endblock %}
+
+        {% block postContent %}
+        <div class="flex flex-wrap pt-4 pb-4 h-full">
+            {% if 'tags' in data.card_content or 'post_type' in data.card_content %}
+                {% block cardTags %}
+                <div class="flex flex-wrap -mx-px mt-3 has-x-small-font-size text-dark-02 uppercase w-full">
+                    {% if 'post_type' in data.card_content %}
+                        <span class="tag inline-block leading-none mx-px my-px py-1 text-xs font-normal">{{ item.type.labels.name }}</span>
+                    {% endif %}
+                    {% set i = 1 %}
+                    {% set break = false %}
+                    {% for tag in data.taxonomies_to_show %}
+                        {% for category in item.terms(tag) %}
+                            {% if not break %}
+                                {% if i > 4 %}
+                                    <span class="tag inline-block leading-none mx-px my-px py-1 text-xs font-normal">...</span>
+                                    {% set break = true %}
+                                {% else %}
+                                    <a href="{{ category.link }}" class="tag inline-block leading-none mx-px my-px py-1 text-xs font-normal">{{ category }}</a>
+                                {% endif %}
+                                {% set i = i + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'title' in data.card_content %}
+                {% block cardTitle %}
+                <a href="{{ item.link }}" class="block font-light has-medium-font-size pt-2 w-full">{{ item.title }}</a>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'excerpt' in data.card_content %}
+            {% block cardExcerpt %}
+            <div class="body-extra-small text-greyscale-grey-02 w-full">
+                {{ item.excerpt({words: 15, read_more: false, strip: false}) }}
+            </div>
+            {% endblock %}
+            {% endif %}
+
+            {% if 'date' in data.card_content %}
+                {% block cardDate %}
+                <p class="body-tiny leading-none text-greyscale-grey-02 mt-2 w-full">{{ item.post_date|date("F j, Y") }}</p>
+                {% endblock %}
+            {% endif %}
+
+            {% if not data.show_arrows %}
+                <a href="{{ item.link }}" class="read-button block leading-none pt-6 has-x-small-font-size text-dark-01 uppercase self-end w-full">{{ __('Read', 'pegasus') }}</a>
+            {% else %}
+                <span class="read-button block leading-none pt-6 has-x-small-font-size text-dark-01 uppercase self-end w-full">{{ __('Read', 'pegasus') }}</span>
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+</div>

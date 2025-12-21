@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/carouselimage",
+    "title": "Carousel Image",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "pegasus/blurrevealslide",
+    "title": "Blur Reveal Slide",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "columns",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "color": {
+            "text": false
+        },
+        "__experimentalBorder": {
+            "color": true,
+            "width": true,
+            "style": true,
+            "__experimentalDefaultControls": {
+                "width": true,
+                "color": true
+            }
+        }
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

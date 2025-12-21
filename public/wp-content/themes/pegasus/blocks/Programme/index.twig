@@ -1,0 +1,36 @@
+<article 
+    x-data='programme({{price}}, {{to_json(exchange_rates)}}, "{{base_currency}}")' 
+    @currency-changed.window="selectedCurrency = $event.detail"
+    class="Programme sm:grid sm:grid-cols-2 border border-gray-02 mb-10">
+    <header class="p-5 pr-2 sm:p-10 border-r border-gray-02">
+        <div class="heading-two">{{name}}</div>
+        {% if price is not empty %}
+        <div class="grid mt-3">
+            <div class="col-start-1 row-start-1">
+                <span class="text-xl font-[450] font-headings tracking-tighter" x-text="price">{{price}}</span>
+                <span class="text-xs font-[450] tracking-widest"><span x-text="currency">{{base_currency}}</span>/{{frequency}}</span>
+            </div>
+        </div>
+        {% endif %}
+    </header>
+    <div class="p-5 sm:p-10">
+        {{ description }}
+    </div>
+    <div class="flex justify-between col-span-2 sm:grid sm:grid-cols-2">
+    {% if call_to_action is not empty %}
+    <div class="sm:w-full flex items-end p-5 sm:p-10 sm:border-r sm:border-gray-02">
+        <a href="{{ call_to_action.url }}" {{ open_in_modal ? 'data-pegasus-modal="Modal--Full"' }} class="{{(is_preview ? 'pointer-events-none')}} btn btn__rounded">
+            <span>{{ call_to_action.title }}</span>
+        </a>
+    </div>
+    {% endif %}
+    {% if link is not empty %}
+    <div class="sm:w-full flex items-end pt-16">
+        <a href="{{ link.url }}" target="{{link.target}}" class="{{(is_preview ? 'pointer-events-none')}} w-full btn col-start-2 px-5 sm:px-10 py-8 sm:border-t sm:border-gray-02 flex items-center justify-between">
+            <span class="pr-2.5">{{ link.title }}</span>
+            {% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}
+        </a>
+    </div>
+    {% endif %}
+    </div>
+</article>

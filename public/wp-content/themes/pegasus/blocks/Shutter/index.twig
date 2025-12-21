@@ -1,0 +1,12 @@
+{% if end_shutter %}
+<div class="Shutter relative">
+    <InnerBlocks />
+</div>
+{% else %}
+<div x-data="shutter()" class="Shutter relative overflow-hidden">
+    <div class="absolute h-full w-px opacity-0 pointer-events-none top-0" x-intersect:enter.margin.0.0.-99%.0="stuck()" x-intersect:leave.margin.0.0.-99%.0="unstuck()"></div>
+    <div :class="sticking ? 'sm:fixed top-0 left-0 right-0' : ''">
+        <InnerBlocks />
+    </div>
+</div>
+{% endif %}

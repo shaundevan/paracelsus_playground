@@ -1,0 +1,22 @@
+<div class="Time-to-read eyebrow flex sm:block items-center {{block.textColor ? 'text-' ~ block.textColor }}" style="{{block.fontSize ? 'font-size:var(--wp--preset--font-size--' ~ block.fontSize ~ ');' }}">
+    <div class="mr-auto">
+    {% if title is empty %}
+        {% for category in post.terms('category') %}
+            {% if not break %}
+                {% if i > 4 %}
+                    <span class="">...</span>
+                    {% set break = true %}
+                {% else %}
+                    <span class="">{{ category }}</span>
+                {% endif %}
+                {% set i = i + 1 %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {{title}}
+    {% endif %}
+    </div>
+    <div class="flex items-center sm:mt-[35px]">
+        <span class="flex min-w-[38px] sm:min-w-[46px] items-center justify-center aspect-square border rounded-full border-current py-2 sm:py-3.5 mr-3">{{minutes_to_read}}</span> {{label}}
+    </div>
+</div>

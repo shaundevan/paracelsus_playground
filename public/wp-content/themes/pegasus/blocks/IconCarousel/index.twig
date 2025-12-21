@@ -1,0 +1,21 @@
+<section x-data="IconCarousel({{ this.getData().block.is_preview ? '1' : '0' }})" class="Icon__Carousel relative" style="--item-count: {{ icons|length }};">
+
+    {% block start %}
+    {% endblock %}
+
+    {% block carousel %}
+    <div x-ref="iconCarousel" class="icon__slider" style="width: fit-content">
+        {# First set of icons #}
+        {% for icon in icons %}
+            {{ this.getPartial('/_slide.twig', {icon: icon, data: this.getData()}) }}
+        {% endfor %}
+        {# Duplicate set for seamless loop #}
+        {% for icon in icons %}
+            {{ this.getPartial('/_slide.twig', {icon: icon, data: this.getData()}) }}
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+    {% block end %}
+    {% endblock %}
+</section>

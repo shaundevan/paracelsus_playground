@@ -1,0 +1,22 @@
+<section x-data="imageChangeTextSlider('{{slider}}')" class="ImageChangeTextSlider relative">
+    <div class="aspect-[353/380] xs:aspect-[1360/616] xs:text-white flex flex-col items-center justify-center relative mb-10 xs:mb-20 xs:bg-black">
+        <div x-ref="image" class="xs:absolute inset-0 opacity-90 order-last grid grid-cols-1" id="image{{slider}}">
+        {% if image is not empty %}
+            <div class="xs:absolute inset-0" x-transition.opacity>
+            {{ pegasus_picture(image, '1536x1536', {
+                picture_atts: {
+                    class: 'xs:absolute inset-0'
+                },
+                img_atts: {
+                    class: 'h-full w-full object-cover object-center aspect-[353/380] xs:aspect-[1360/616]'
+                }
+            }) }}
+            </div>
+        {% endif %}
+        </div>
+        <div class="relative mb-10 xs:mb-0">
+            {{content}}
+        </div>
+    </div>
+    <InnerBlocks class="ImageChangeTextSlider__slider" />
+</section>

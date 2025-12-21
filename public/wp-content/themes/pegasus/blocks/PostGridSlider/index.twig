@@ -1,0 +1,31 @@
+{% extends '@PegasusCore/pegasus-one-post-grid-slider/src/index.twig' %}
+
+{% block start %}
+	<div class="w-full h-px opacity-0" x-intersect.once="inView = true"></div>
+{% endblock %}
+
+{% block posts %}
+	{% if items is not empty %}
+		{% for key,item in items %}
+			<div class="slide" style="--slide-width: {{ posts_to_show ? (100 / posts_to_show) ~ '%' : '100%' }}">
+                {% if item.post_type == 'team-member' %}
+                    {{ this.getPartial( '/_team-member.twig', { item: item, data: this.getData() } ) }}
+                {% elseif item.post_type == 'quote' %}
+                    {{ this.getPartial( '/_quote.twig', { item: item, data: this.getData() } ) }}
+                {% else %}
+				    {{ this.getPartial( '/_single_post.twig', { item: item, data: this.getData() } ) }}
+                {% endif %}
+			</div>
+		{% endfor %}
+	{% else %}
+		{% block noPosts %}
+			<div class="py-10" data-pegasus-filterable="{{ block_id }}">
+				{% if no_posts_message is not empty %}
+					{{ no_posts_message }}
+				{% else %}
+					<p class="text-center">{{ 'No posts found.' }}</p>
+				{% endif %}
+			</div>
+		{% endblock %}
+	{% endif %}
+{% endblock %}

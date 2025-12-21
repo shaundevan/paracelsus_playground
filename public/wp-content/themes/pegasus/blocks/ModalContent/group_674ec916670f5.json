@@ -1,0 +1,74 @@
+{
+    "key": "group_674ec916670f5",
+    "title": "Block: Modal Content",
+    "fields": [
+        {
+            "key": "field_674f05a3fc7cc",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "message",
+            "value": false,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "When one or more instances of the Modal Content block are on a page, only the blocks inside a Modal Content block will display in modal windows linking to this page. \r\n\r\n\r\nSetting the background colour on Modal Content blocks will only effect modal windows.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_674f0580fc7cb",
+            "label": "Only display contents in a modal",
+            "name": "only_display_contents_in_a_modal",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "true_false",
+            "value": null,
+            "menu_order": 1,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/modalcontent"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1733232365
+}

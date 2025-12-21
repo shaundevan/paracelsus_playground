@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import HeadLinks from "./head-links";
+import InlineStylesServer from "./inline-styles-server";
+import BodyAlpine from "./body-alpine";
 import "./globals.css";
 import "../styles/wp/block-library.css";
 import "../styles/wp/theme-base.css";
-import "../styles/pegasus.css";
+// Note: CSS files are loaded via <link> tags in HeadLinks component
+// Using original WordPress paths to preserve relative url() resolution:
+// - /wp-includes/css/dist/block-library/style.min.css
+// - /wp-content/themes/pegasus/dist/assets/styles/DwoS2IZP.css
+// This ensures fonts/images referenced with url(../fonts/...) resolve correctly
 
 export const metadata: Metadata = {
   title: "Paracelsus Recovery",
@@ -19,6 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className="html home wp-singular page-template-default page page-id-62825 wp-theme-pegasus"
     >
       <body className="body-main at-top modal-form">
+        <BodyAlpine />
+        <InlineStylesServer />
         <HeadLinks />
         {children}
         <Script
@@ -30,7 +38,68 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
+              // Initialize pegasus global object
+              window.pegasus = window.pegasus || {};
+              
+              // Parallax scroll function
+              window.pegasus.parallaxScroll = (elem, speed = 0.1) => {
+                if (!elem) return;
+                if (window.innerWidth < 992) return;
+                
+                window.addEventListener('scroll', () => {
+                  const rect = elem.getBoundingClientRect();
+                  const windowHeight = window.innerHeight;
+                  const elementCenter = rect.top + rect.height / 2;
+                  const distanceFromCenter = elementCenter - (windowHeight / 2);
+                  const translateY = (distanceFromCenter * speed);
+                  
+                  if (rect.top < windowHeight && rect.bottom > 0) {
+                    elem.style.transform = \`translateY(\${translateY}px)\`;
+                  }
+                }, { passive: true });
+              };
+              
               document.addEventListener('alpine:init', () => {
+                // ParacelsusApp - manages global app state (atTop, goingUp, etc.)
+                Alpine.data('paracelsusApp', () => ({
+                  atTop: true,
+                  nearTop: true,
+                  goingUp: false,
+                  activeMenuItem: false,
+                  langSwitcherOpen: false,
+                  stationaryTimeout: null,
+                  pageSwitcherName: false,
+                  pageSwitcherLabel: false,
+                  init() {
+                    let prevScrollTop = 0;
+                    let scrollFrame;
+                    const scrollThrottleDelay = 100;
+                    
+                    const handleScroll = () => {
+                      if (scrollFrame) {
+                        cancelAnimationFrame(scrollFrame);
+                      }
+                      
+                      scrollFrame = requestAnimationFrame(() => {
+                        const now = Date.now();
+                        if (now - lastScrollTime < scrollThrottleDelay) return;
+                        lastScrollTime = now;
+                        
+                        const scrollTop = Math.max(0, window.pageYOffset || document.documentElement.scrollTop);
+                        const threshold = 20;
+                        
+                        if (Math.abs(scrollTop - prevScrollTop) > threshold) {
+                          this.goingUp = scrollTop < prevScrollTop;
+                          prevScrollTop = scrollTop;
+                        }
+                      });
+                    };
+                    
+                    let lastScrollTime = Date.now();
+                    window.addEventListener('scroll', handleScroll, { passive: true });
+                  }
+                }));
+                
                 Alpine.data('navigation', () => ({
                   activeMenuItem: false,
                   open: false,
@@ -54,7 +123,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 
                 Alpine.data('videoBanner', () => ({
                   init() {
-                    // Video banner initialization if needed
+                    // Ensure video autoplays with muted attribute
+                    this.$nextTick(() => {
+                      const videoContainer = this.$refs.videoContainer;
+                      if (videoContainer) {
+                        const video = videoContainer.querySelector('video');
+                        if (video) {
+                          // Ensure video is muted for autoplay
+                          video.muted = true;
+                          // Try to play the video
+                          video.play().catch(err => {
+                            console.warn('Video autoplay failed:', err);
+                          });
+                        }
+                      }
+                    });
                   }
                 }));
               });

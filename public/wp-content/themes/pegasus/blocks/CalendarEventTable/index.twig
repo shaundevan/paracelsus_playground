@@ -1,0 +1,55 @@
+{% if schedule is not empty %}
+    <div class="block_calendar_event">
+        <div class="container">
+            <div class="swiper therapy-swiper">
+                <div class="swiper-wrapper">
+
+                    {% for dayKey, day in schedule %}
+                        <div class="swiper-slide day-schedule">
+                            <div class="day-header">
+                                <h2>{{ day.name }}</h2>
+                                <div class="day-subheader">
+                                    <span class="date">{{ dayKey|date("d F") }}</span>
+
+                                </div>
+                            </div>
+
+                            {% if day.events is not empty %}
+                                <ul class="activity-list">
+                                    {% for event in day.events %}
+                                        <li class="activity-item">
+                                            <div class="activity-info">
+                                                <div class="activity-title">
+                                                    <strong>{{ event.title }}</strong>
+                                                </div>
+                                                <div class="activity-time">
+                                                    {{ event.start }}{% if event.end %} - {{ event.end }}{% endif %}
+                                                </div>
+                                                {% if event.location %}
+                                                    <div class="small_desc">
+                                                        <small>{{ event.location }}</small>
+                                                    </div>
+
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No events available</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="buttons-swipers">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>No schedule available.</p>
+{% endif %}

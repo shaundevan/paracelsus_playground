@@ -1,0 +1,72 @@
+<div class="Post__Grid-post overflow-hidden" data-pegasus-single-card>
+    <div class="group">
+        {% block postThumbnail %}
+        {% if 'thumbnail' in data.card_content %}
+        <a href="{{ item.link }}" class="block {{ is_preview ? 'pointer-events-none' }}">
+            <span class="sr-only">{{ item.title }}</span>
+            <div class="w-full relative overflow-hidden {{ data.thumbnailClasses }}">
+                {% if item.thumbnail is not empty %}
+                    {{ pegasus_picture(item.thumbnail, 'thumb-16x9', {
+                        img_atts: {
+                            class: 'w-full object-cover group-hover:scale-105 group-hover:-translate-x-1/2 group-hover:-translate-y-1/2 transition-transform duration-500 ease-in-out ' ~ (data.thumbnail_size != 'original' ? 'absolute-center !h-full' : 'h-auto' )
+                        }
+                    }) }}
+                {% endif %}
+            </div>
+        </a>
+        {% endif %}
+        {% endblock %}
+
+        {% block postContent %}
+        <div class="pt-4 pb-4">
+
+            {% if 'tags' in data.card_content or 'post_type' in data.card_content %}
+                {% block cardTags %}
+                <div class="flex flex-wrap -mx-px mt-3 has-x-small-font-size text-dark-02 uppercase">
+                    {% if 'post_type' in data.card_content %}
+                        <span class="tag inline-block mx-px my-px py-1 text-xs font-normal">{{ item.type.labels.name }}</span>
+                    {% endif %}
+                    {% set i = 1 %}
+                    {% set break = false %}
+                    {% for tag in data.taxonomies_to_show %}
+                        {% for category in item.terms(tag) %}
+                            {% if not break %}
+                                {% if i > 4 %}
+                                    <span class="tag inline-block mx-px my-px  py-1 text-xs font-normal">...</span>
+                                    {% set break = true %}
+                                {% else %}
+                                    <a href="{{ category.link }}" class="tag inline-block mx-px  my-px py-1 text-xs font-normal">{{ category }}</a>
+                                {% endif %}
+                                {% set i = i + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'title' in data.card_content %}
+                {% block cardTitle %}
+                <a href="{{ item.link }}" class="block font-light has-medium-font-size pt-2">{{ item.title }}</a>
+                {% endblock %}
+            {% endif %}
+
+            {% if 'excerpt' in data.card_content %}
+            {% block cardExcerpt %}
+            <div class="body-extra-small text-greyscale-grey-02">
+                {{ item.excerpt({words: 15, read_more: false, strip: false}) }}
+            </div>
+            {% endblock %}
+            {% endif %}
+
+            {% if 'date' in data.card_content %}
+                {% block cardDate %}
+                <p class="body-tiny text-greyscale-grey-02 mt-2">{{ item.post_date|date("F j, Y") }}</p>
+                {% endblock %}
+            {% endif %}
+
+            <a href="{{ item.link }}" class="read-button block w-full pt-6 has-x-small-font-size text-dark-01 uppercase">{{ __('Read', 'pegasus') }}</a>
+        </div>
+        {% endblock %}
+    </div>
+</div>

@@ -1,0 +1,145 @@
+{
+    "key": "group_68da693651041",
+    "title": "07 Schema field",
+    "fields": [
+        {
+            "key": "field_68da69362ca74",
+            "label": "Service Schema",
+            "name": "service_schema",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "textarea",
+            "value": null,
+            "menu_order": 0,
+            "instructions": "Place here your schema",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 2,
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 12,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_68da784716a38",
+            "label": "Faq Schema",
+            "name": "faq_schema",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "textarea",
+            "value": null,
+            "menu_order": 1,
+            "instructions": "Place here your schema",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 2,
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 12,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_68da785416a39",
+            "label": "Organization Schema",
+            "name": "organization_schema",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "textarea",
+            "value": null,
+            "menu_order": 2,
+            "instructions": "Place here your schema",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 2,
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 12,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_68da785f16a3a",
+            "label": "Medical Clinic Schema",
+            "name": "medical_schema",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "textarea",
+            "value": null,
+            "menu_order": 3,
+            "instructions": "Place here your schema",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 2,
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 12,
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfml_field_group_mode": "localization",
+    "modified": 1759148147
+}

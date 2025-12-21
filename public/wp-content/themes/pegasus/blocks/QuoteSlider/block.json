@@ -1,0 +1,23 @@
+{
+    "name": "pegasus/quoteslider",
+    "title": "Quote Slider",
+    "description": "",
+    "style": [
+        "file:.\/styles.scss"
+    ],
+    "category": "posts",
+    "icon": "image-flip-horizontal",
+    "keywords": [
+        "content",
+        "block"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "jsx": true,
+        "color": true
+    }
+}

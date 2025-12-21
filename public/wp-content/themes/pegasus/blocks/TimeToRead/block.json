@@ -1,0 +1,20 @@
+{
+    "name": "pegasus/timetoread",
+    "title": "Time to Read",
+    "description": "",
+    "style": [ "" ],
+    "category": "posts",
+    "icon": "clock",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "color": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

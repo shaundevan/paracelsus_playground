@@ -1,0 +1,191 @@
+.site-logo {
+    overflow: hidden;
+
+    svg {
+        transform: translateX(0);
+
+        @include md {
+            animation: logo-animation 300ms  ease-out 5s both;
+        }
+    }
+
+    g {
+        opacity: 0;
+
+        @include md {
+            animation: fade-out 300ms ease-out 5s both;
+        }
+    }
+}
+
+.nav-draw {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+
+    &[x-cloak] {
+        display: none !important;
+    }
+
+    &.translate-x-0 {
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    // Prevent iOS navigation bar interference
+    @supports (-webkit-touch-callout: none) {
+        top: env(safe-area-inset-top, 0);
+        height: calc(100% - env(safe-area-inset-top, 0));
+
+        &:not([x-cloak]) {
+            opacity: 1;
+        }
+    }
+}
+
+
+
+// Prevent flash on iOS
+@supports (-webkit-touch-callout: none) {
+    .nav-draw {
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+
+        &:not([x-cloak]) {
+            opacity: 1;
+        }
+    }
+}
+
+.wpml-ls-current-language {
+    @apply text-dark-02;
+
+    .text-pale-01 & {
+        color: white;
+    }
+
+    .sm\:text-dark-01 & {
+        @include sm {
+            color: var(--wp--preset--color--dark-01);
+        }
+    }
+
+    span {
+        white-space: nowrap;
+
+        &::before {
+            content: '• ';
+        }
+    }
+}
+
+.wpml-ls-legacy-list-vertical {
+    border: 0;
+    display: block;
+    min-width: 100px;
+
+    .wpml-ls-item {
+        margin: 10px 0;
+
+        @include xl {
+            margin: 0 0 2px;
+        }
+    }
+
+    a {
+        border: 0;
+        padding: 0;
+        line-height: 1.2;
+    }
+}
+
+.nav-main-link {
+    @include xs {
+        font-size: 23px;
+    }
+}
+
+@keyframes logo-animation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(119px);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+html[dir="rtl"] {
+    .menu-item-has-children {
+        .nav-main-link {
+            svg {
+                margin-right: 1rem;
+                margin-left: 0;
+            }
+        }
+
+        .nav-drop {
+            right: 0;
+            left: auto;
+        }
+    }
+
+    // Style dla podmenu nav-drop
+    .nav-drop {
+        text-align: right;
+
+
+        &.absolute {
+            right: 0;
+            left: auto;
+        }
+
+        li {
+            text-align: right;
+
+            a {
+                text-align: right;
+                padding-right: 0;
+                padding-left: 1rem;
+            }
+        }
+
+        svg {
+            margin-right: 0.5rem;
+            margin-left: 0;
+        }
+    }
+
+    @keyframes logo-animation-rtl {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-119px);
+        }
+    }
+
+    .site-logo svg {
+        @include md {
+            animation: logo-animation-rtl 300ms ease-out 5s both;
+        }
+    }
+}
+
+
+header#page-header {
+    direction: ltr;
+}

@@ -1,0 +1,24 @@
+<div class="block_carouselimage">
+{% if image_gallery_pb is not empty %}
+    <div class="swiper carosuelimage-swiper">
+        <div class="swiper-wrapper">
+            {% for item in image_gallery_pb %}
+                <div class="swiper-slide">
+                    {% if item.image_gallery_pb_url %}
+                        <a href="{{ item.image_gallery_pb_url }}">
+                            <img src="{{ item.image_gallery_pb_image|resize(800) }}" alt="">
+                        </a>
+                    {% else %}
+                        <img src="{{ item.image_gallery_pb_image|resize(800) }}" alt="">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="buttons-swipers">
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+    </div>
+{% endif %}
+</div>

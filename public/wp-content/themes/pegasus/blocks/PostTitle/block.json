@@ -1,0 +1,24 @@
+{
+    "name": "pegasus/posttitle",
+    "title": "Post Title",
+    "description": "",
+    "style": [ "" ],
+    "category": "posts",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php",
+        "postTypes": ["post"]
+    },
+    "supports": {
+        "anchor": true,
+        "color": true,
+        "typography": {
+            "fontSize": true
+        }
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

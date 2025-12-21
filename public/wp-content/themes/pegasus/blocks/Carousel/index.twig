@@ -1,0 +1,59 @@
+<section x-data="carousel({{ fade_transition ? '1' : '0' }}, {{ show_overflow ? '1' : '0' }}, '{{ autoplay_speed > 0 ? autoplay_speed }}', {{ infinite_scroll ? '1' : '0' }}, '{{ this.getData().block.align }}', '{{ slides_to_show }}', {{ this.getData().block.is_preview ? '1' : '0' }}, {{ smooth_autoplay ? '1' : '0' }}, '{{ scroll_direction }}')" class="Content__Carousel {{ slides_to_show <= 1 ? '-single-slide overflow-hidden' }} relative h-full {{ this.getData().block.is_preview ? 'preview' }} {{ slides_to_show > 4 ? 'small-slides' }} arrow-vertical-{{ arrow_position.vertical }}" style="--carousel-arrow-spacing: {{ arrow_position.spacing }}%; --carousel-arrow-inset: {{ arrow_position.inset }}rem">
+	{% block start %}
+		{{ block.align is empty ? '<div class="max-w-[1392px] mx-auto">' }}
+	{% endblock %}
+
+	{% block sliderContainer %}
+		<div x-ref="sliderContainer" class="Carousel__Container h-full relative" style="--slide-width: {{ slideWidth }}; {{ this.getData().block.styleStrings.spacing }}">
+			<div class="Carousel__Wrapper {{ not show_overflow ? 'overflow-hidden' }}">
+				<InnerBlocks class="Carousel"/>
+			</div>
+
+		{% block navigationArrows %}
+			{% if show_arrows %}
+				<div class="Navigation__Arrows absolute alignment vertical-{{ arrow_position.vertical }} horizontal-{{ arrow_position.horizontal }} ">
+					{% block navigationPreviousButton %}
+						<button x-on:click="previousSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500 {{ arrow_style.has_background ? 'has-background' }} icon-{{ arrow_style.icon_color }}" style="{{ this.getData().block.styleStrings.button }}">
+							<span class="sr-only">{{ __('Previous Slide', 'pegasus') }}</span>
+							<svg width="29" height="29" viewbox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M22.8047 14.6992L6.60438 14.6992" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M14.7031 22.8008L6.60297 14.7006L14.7031 6.60048" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					{% endblock %}
+					{% block navigationNextButton %}
+						<button x-on:click="nextSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500 {{ arrow_style.has_background ? 'has-background' }} icon-{{ arrow_style.icon_color }}" style="{{ this.getData().block.styleStrings.button }}">
+							<span class="sr-only">{{ __('Next Slide', 'pegasus') }}</span>
+							<svg width="28" height="28" viewbox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.92188 14.0264H22.1222" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M14.0234 5.92871L22.1236 14.0289L14.0234 22.129" stroke="currentColor" stroke-width="1.73575" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					{% endblock %}
+				</div>
+			{% endif %}
+		{% endblock %}
+
+		</div>
+	{% endblock %}
+
+	{% block navigationDots %}
+		{% if show_dots and not this.getData().block.is_preview %}
+			<div class="Navigation__Dots absolute container alignment vertical-{{ dots_position.vertical }} horizontal-{{ dots_position.horizontal }} space-x-1">
+				<template x-for="(slide, index) in getSlideCount()" :key="index">
+					{% block navigationDot %}
+						<button x-on:click="goToSlide(index {{ infinite_scroll ? '+ ' ~ slides_to_show }})" :class="index == getCurrentSlide() ? 'opacity-100' : 'opacity-50'" class="w-3 h-3 rounded-full" style="{{ this.getData().block.styleStrings.button }}">
+							<span class="sr-only">{{ __('Go to slide', 'pegasus') }}
+								<span x-text="index"></span>
+							</span>
+						</button>
+					{% endblock %}
+				</template>
+			</div>
+		{% endif %}
+	{% endblock %}
+
+	{% block end %}
+		{{ block.align is empty ? '</div>' }}
+	{% endblock %}
+</section>

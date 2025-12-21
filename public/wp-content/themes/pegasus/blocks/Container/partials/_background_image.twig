@@ -1,0 +1,13 @@
+
+{% if data.parallax_background == true %}
+<div class="w-full h-full relative overflow-hidden">
+{% endif %}
+    {{ pegasus_picture( data.block.style.background.backgroundImage.id, "banner", {
+        img_atts: {
+            class: "row-background w-full " ~ (data.parallax_background ? 'h-[200%] -top-[25%]' : 'h-full top-0') ~ " absolute object-cover left-0 overflow-hidden",
+            "x-ref": (data.parallax_background ? "parallaxBackground" : ""),
+        }
+    }) }}
+{% if data.parallax_background == true %}
+</div>
+{% endif %}

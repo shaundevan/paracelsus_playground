@@ -1,0 +1,24 @@
+<section x-data='programmeGrid({{currencies|json_encode()}})' class="ProgrammeGrid relative p-5 md:p-10">
+    <header class="flex justify-between mb-6">
+        {{title}}
+        {% if currencies is not empty %}
+            <div class="relative eyebrow">
+                <button @click="open = !open" @keydown.escape="open = false" class="flex items-center pr-1 ">
+                    <span class="mr-2.5 text-base" x-text="currency"></span>
+                    {% include '@PegasusTheme/assets/imgs/icons/dropdown.svg' %}
+                </button>
+                <ul x-show="open" @click.away="open = false" class="absolute right-0 text-right bg-pale-02 rounded-[10px] p-[7px_5px] min-w-full mt-2" x-transition.scale.origin.top x-cloak>
+                {% for currency in currencies %}
+                    <li class="text-nowrap mb-0.5">
+                        <button @click="toggleCurrency('{{currency}}'); setTimeout(function(){ open = false }, 200)" :class="currency == '{{currency}}' ? 'text-dark-02' : ''">
+                            <span x-show="currency == '{{currency}}'">&bull;</span>
+                            {{ currency }}
+                        </button>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </header>
+    <InnerBlocks />
+</section>

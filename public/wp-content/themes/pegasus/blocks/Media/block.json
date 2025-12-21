@@ -1,0 +1,42 @@
+{
+    "name": "pegasus\/media",
+    "title": "Media",
+    "description": "",
+    "style": [
+        "file:.\/styles.scss"
+    ],
+    "category": "media",
+    "icon": "cover-image",
+    "keywords": [
+        "content",
+        "block"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "align": true,
+        "dimensions": {
+            "aspectRatio": true,
+            "minHeight": true
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true
+        },
+        "position": {
+            "sticky": true
+        }
+    },
+    "example": {
+        "attributes": {
+            "data": {
+                "thumbnail": true
+            }
+        }
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-media"
+    }
+}

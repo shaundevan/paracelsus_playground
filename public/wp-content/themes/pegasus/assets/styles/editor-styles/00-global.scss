@@ -1,0 +1,63 @@
+.editor-styles-wrapper {
+    // Make sure the page title looks good
+    .edit-post-visual-editor__post-title-wrapper {
+        margin: 0 !important;
+
+        h1 {
+            &.wp-block-post-title {
+                padding: 20px 40px;
+                background: #ededed;
+                font-size: 2.5rem;
+            }
+        }
+    }
+
+    .wp-block-pegasus-media {
+        width: 100%;
+    }
+
+    a,
+    a * {
+        text-decoration: none !important;
+
+        &:hover {
+            color: unset !important;
+        }
+    }
+
+
+    .wp-block-pegasus-modalcontent {
+        &.has-background {
+            background-color: transparent !important;
+        }
+    }
+
+    .wp-block-pegasus-calltoaction {
+        background-image: none !important;
+    }
+
+    .acf-block-preview {
+        a[href^="http"] {
+            pointer-events: none;
+        }
+    }
+}
+
+// ACF wraps blocks in a div that can interfere with the spacing of the block.
+// We remove the spacing styles here.
+.acf-block-component {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+.ImageChangeTextSlider {
+    .wp-block-pegasus-imagechangetextslide {
+        width: 30%;
+        margin-right: 3% !important;
+
+        .slide {
+            width: 100%;
+        }
+    }
+}

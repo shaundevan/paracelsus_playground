@@ -1,0 +1,13 @@
+<div class="Categories eyebrow flex md:block items-center {{block.textColor ? 'text-' ~ block.textColor }}" style="{{block.fontSize ? 'font-size:var(--wp--preset--font-size--' ~ block.fontSize ~ ');' }}">
+    {% for category in post.terms('category') %}
+        {% if not break %}
+            {% if i > 4 %}
+                <span class="">...</span>
+                {% set break = true %}
+            {% else %}
+                <span class="">{{ category }}</span>
+            {% endif %}
+            {% set i = i + 1 %}
+        {% endif %}
+    {% endfor %}
+</div>

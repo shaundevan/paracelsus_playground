@@ -1,0 +1,65 @@
+{
+    "key": "group_673f3c50055a1",
+    "title": "Block: Quote List",
+    "fields": [
+        {
+            "key": "field_673f3c4f8ab2b",
+            "label": "Quotes",
+            "name": "quotes",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "clone",
+            "value": null,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_673f22d9a3b21",
+                "field_673f21fad55ed",
+                "field_673f219dd55ec",
+                "field_673f2236d55ee",
+                "field_663dd53c7e715",
+                "field_663dd55f7e716",
+                "field_663dd5667e717",
+                "field_663dd58a7e718",
+                "field_663dd5bd7e719",
+                "field_663dd5e17e71a",
+                "field_66ded3780240a",
+                "field_673f2a6928e2e",
+                "field_663dd799c78b7",
+                "field_663dd6eec78b6"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/quotelist"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1732198337
+}

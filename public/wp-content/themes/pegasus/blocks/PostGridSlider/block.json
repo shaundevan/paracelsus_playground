@@ -1,0 +1,35 @@
+{
+    "name": "pegasus\/postgridslider",
+    "title": "Post Grid Slider",
+    "description": "",
+    "style": [
+        "file:.\/styles.scss"
+    ],
+    "category": "posts",
+    "icon": "image-flip-horizontal",
+    "keywords": [
+        "content",
+        "block"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "jsx": true,
+        "color": {
+            "text": false,
+            "gradients": false,
+            "button": true,
+            "background": false
+        },
+        "spacing": {
+            "padding": true,
+            "margin": false
+        }
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-post-grid-slider"
+    }
+}

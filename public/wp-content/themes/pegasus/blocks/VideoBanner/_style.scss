@@ -1,0 +1,5 @@
+.Video__Banner {
+    height: 100vh; /* Fallback */
+    height: 100dvh; /* Dynamic viewport height */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}

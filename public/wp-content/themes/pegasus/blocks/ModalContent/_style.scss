@@ -1,0 +1,8 @@
+.Modal_Content {
+    &.has-padding {
+        @include xs {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}

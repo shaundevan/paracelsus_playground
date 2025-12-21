@@ -1,0 +1,127 @@
+.Team__Grid-slider {
+    --carousel-arrow-inset: -5rem;
+
+    &.arrow-vertical-bottom {
+        padding-bottom: calc(var(--carousel-arrow-inset) * -1);
+    }
+
+    &.arrow-vertical-top {
+        padding-top: calc(var(--carousel-arrow-inset) * -1);
+    }
+
+    .slider-container {
+        transform: translateX(10vw);
+        transition: transform 0.5s ease-in-out;
+        will-change: transform; // Optimize for animations
+        backface-visibility: hidden; // Reduce mobile flickering
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        transform-style: preserve-3d;
+    }
+
+    .flickity-viewport{
+        @apply overflow-visible cursor-grab mx-auto;
+        touch-action: pan-y pinch-zoom;
+    }
+
+    .slide {
+        @apply w-4/5 sm:w-1/3;
+        height: auto !important;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+
+        @include lg{
+            width: var(--slide-width);
+        }
+    }
+
+    .Navigation__Arrows {
+        // If the arrows are inside a container cancel out the padding and width
+        &.container {
+            .container & {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        column-gap: var(--carousel-arrow-spacing);
+    }
+
+    // Align the arrows based on the options picked in the editor
+    .alignment {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+
+        @include md {
+            display: flex;
+        }
+
+        &.vertical {
+            &-top {
+                top: 0;
+                margin-top: var(--carousel-arrow-inset);
+            }
+            &-center {
+                top: 50%;
+                transform: translate3d(-50%, -50%, 0);
+                column-gap: 100%;
+
+                @include lg {
+                    column-gap: var(--carousel-arrow-spacing);
+                }
+            }
+            &-bottom {
+                bottom: 0;
+                margin-bottom: var(--carousel-arrow-inset);
+            }
+        }
+
+        &.horizontal {
+            &-left {
+                justify-content: flex-start;
+            }
+            &-center {
+                justify-content: center;
+            }
+            &-right {
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+
+// Prevent body scroll when dragging
+html.flickity-dragging {
+    overflow: hidden;
+    touch-action: none;
+    
+    * {
+        cursor: grabbing !important;
+    }
+}
+
+// Fix iOS momentum scrolling issues
+@supports (-webkit-touch-callout: none) {
+    .Team__Grid-slider {
+        .flickity-viewport {
+            overflow: visible !important;
+        }
+    }
+}
+
+:dir(rtl) .Team__Grid-slider .alignment.horizontal-center {
+    flex-direction: row-reverse;
+}
+
+
+:dir(rtl) .div_for_arabic .absolute.top-0.left-0.transform {
+    right: 10px;
+}

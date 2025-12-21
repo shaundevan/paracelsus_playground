@@ -1,0 +1,145 @@
+// Make sure the editor container is styled correctly
+.wp-block-pegasus-postgridslider {
+    width: 100%;
+    display:block !important;
+}
+
+.Post__Grid-slider {
+
+    .Navigation__Arrows {        
+        // If the arrows are inside a container cancel out the padding and width
+        &.container {
+            .container & {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        column-gap: var(--carousel-arrow-spacing);
+    }
+
+    // Align the arrows based on the options picked in the editor
+    .alignment {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+
+        @include md {
+            display: flex;
+        }
+
+        &.vertical {
+            &-top {
+                top: 0;
+                margin-top: var(--carousel-arrow-inset);
+            }
+            &-center {
+                top: 50%;
+                transform: translate3d(-50%, -50%, 0);
+                column-gap: 100%;
+
+                @include lg {
+                    column-gap: var(--carousel-arrow-spacing);
+                }
+            }
+            &-bottom {
+                bottom: 0;
+                margin-bottom: var(--carousel-arrow-inset);
+            }
+        }
+
+        &.horizontal {
+            &-left {
+                justify-content: flex-start;
+            }
+            &-center {
+                justify-content: center;
+            }
+            &-right {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    .Carousel__Container {
+        padding-left: 20px;
+        @include sm {
+            padding-left: calc((100% - 94%) / 2);
+        }
+        
+        .Carousel__Wrapper {
+            transform: translateX(10vw);
+            transition: transform 0.5s ease-in-out;
+            .Carousel {
+                & {
+                    margin: 0 -1.5rem;
+                    display: flex;
+                    will-change: transform;
+                    &:not(.dragging) {
+                        &:not(.scrolling) {
+                            &:not(.no-transition) {
+                                transition: transform 0.3s ease-in-out;
+                            }
+                        }
+                    }
+                }
+        
+                .slide {
+                    min-width: 80%;
+
+                    * {
+                        user-select: none;
+                    }
+
+                    img {
+                        pointer-events: none;
+                    }
+                    
+                    @include md {
+                        min-width: 50%;
+                    }
+            
+                    @include lg{
+                        min-width: var(--slide-width);
+                        width: var(--slide-width);
+                        max-width: var(--slide-width);
+                    }
+                }
+
+                &.dragging {
+                    cursor: grabbing;
+
+                    .slide {
+                        pointer-events: none;
+                    }
+                }
+
+                &.scrolling {
+                    cursor: ew-resize;
+                    .slide {
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+
+        &.-single-post {
+            .Carousel__Wrapper {
+                .Carousel {
+                    .slide {
+                        min-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .scroll-progress {
+        transition: width 0.3s ease-in-out;
+    }
+
+}

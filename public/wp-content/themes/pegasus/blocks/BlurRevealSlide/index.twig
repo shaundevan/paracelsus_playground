@@ -1,0 +1,25 @@
+<div x-data="blurRevealSlide" class="Blur_Reveal_Slide relative {{ this.getData().block.backgroundColor ? 'bg-' ~ this.getData().block.backgroundColor }} {{ this.getData().block.backgroundColor ? 'border-' ~ this.getData().block.borderColor }}" style="{{ this.getData().block.styleStrings.border }}">
+    <a href="{{link.url}}" class="flex flex-col md:grid md:grid-cols-2 {{ block.is_preview is not empty ? 'pointer-events-none' }}">
+        <div>
+            <div class="px-5 md:px-10 flex flex-col py-10 h-full max-h-screen max-w-[572px]">
+                {{ content }}
+                <div class="mt-auto eyebrow underline">
+                    {{ link.title }}
+                </div>
+            </div>
+        </div>
+        <div class="overflow-hidden order-first md:order-last relative">
+            <div class="absolute top-0 pointer-events-none h-1/2 w-px left-0" x-intersect:enter.margin.0.0.-50%.0="blur = false" x-intersect:leave.margin.0.0.-50%.0="blur = true"></div>
+            <div class="transition-all duration-500 h-full origin-center" :class="blur ? 'blur-3xl scale-125' : ''">
+                {{ pegasus_picture(image, 'full', {
+                    picture_atts: {
+                        class: "h-full"
+                    },
+                    img_atts: {
+                        class: 'object-cover object-center w-full h-full'
+                    }
+                }) }}
+            </div>
+        </div>
+    </a>
+</div>

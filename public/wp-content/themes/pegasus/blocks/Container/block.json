@@ -1,0 +1,63 @@
+{
+    "name": "pegasus\/container",
+    "title": "Container",
+    "description": "",
+    "style": [
+        "file:.\/styles.scss"
+    ],
+    "category": "design",
+    "icon": "align-wide",
+    "keywords": [
+        "content",
+        "block"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "mode": false,
+        "anchor": true,
+        "ariaLabel": true,
+        "jsx": true,
+        "align": false,
+        "align_content": true,
+        "alignWide": false,
+        "__experimentalSettings": true,
+        "layout": {
+            "allowCustomContentAndWideSize": true,
+            "allowEditing": false
+        },
+        "spacing": {
+            "padding": true
+        },
+        "background": {
+            "backgroundImage": true,
+            "backgroundSize": true,
+            "__experimentalDefaultControls": {
+                "backgroundImage": true,
+                "backgroundSize": true
+            }
+        },
+        "position": {
+            "sticky": true
+        },
+        "color": {
+            "text": false,
+            "gradients": true
+        },
+        "__experimentalBorder": {
+            "radius": true,
+            "color": true,
+            "width": true,
+            "style": true,
+            "__experimentalDefaultControls": {
+                "width": true,
+                "color": true
+            }
+        }
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-container"
+    }
+}

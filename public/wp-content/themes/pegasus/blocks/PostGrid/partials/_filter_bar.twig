@@ -1,0 +1,15 @@
+<div class="Post__Grid-filters relative flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-5 py-5 md:py-10 border-mid mb-10 md:mb-0">
+	<span class="uppercase has-x-small-font-size text-dark-02">{{ __('filters', 'pegasus') }}</span>
+	<ul class="!list-none !m-0 flex items-center justify-center gap-10 overflow-auto no-scrollbar w-full sm:w-auto relative uppercase">
+		<li>
+			<button type="button" @click="isLoading = true; clearFilters();" class="has-x-small-font-size uppercase py-2 rounded-full text-[#666]" :class="!Object.entries(currentFilters).length ? '!text-dark-01' : ''">{{ __('All', 'pegasus') }}</button>
+		</li>
+		{% for filter in filters %}
+			<li>
+				<button type="button" @click="toggleFilters('{{ filter.slug }}', '{{ filter.taxonomy }}', 'taxonomy')" class="whitespace-nowrap has-x-small-font-size uppercase py-2 rounded-full text-[#666]" :class="if(filterIsActive('{{ filter.slug }}', '{{ filter.taxonomy }}', 'taxonomy')){ return  '!text-dark-01' }">{{ filter.name }}</button>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<div class="sm:hidden absolute bottom-0 -left-[20px] w-screen h-px bg-mid"></div>
+</div>

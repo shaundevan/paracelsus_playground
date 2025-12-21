@@ -1,0 +1,46 @@
+.Icon__Carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    touch-action: none; // Prevent default touch handling
+    -webkit-overflow-scrolling: auto; // Remove momentum scrolling
+    
+    .icon__slider {
+        display: inline-flex;
+        animation: scroll calc(var(--item-count, 1) * 10s) linear infinite;
+        gap: 1rem;
+        will-change: transform; // Optimize for animations
+        -webkit-transform: translateZ(0); // Force GPU acceleration
+        -webkit-backface-visibility: hidden; // Prevent flickering
+    }
+
+    @supports (-webkit-touch-callout: none) {
+        .icon__slider {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+        }
+    }
+
+    .Icon {
+        flex: 0 0 auto;
+        
+        img {
+            height: 100% !important;
+            max-width: 125px;
+            pointer-events: none;
+        }
+    }
+}
+
+@keyframes scroll {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+    }
+}

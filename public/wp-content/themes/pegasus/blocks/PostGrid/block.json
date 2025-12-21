@@ -1,0 +1,25 @@
+{
+    "name": "pegasus\/post-grid",
+    "title": "Post Grid",
+    "description": "",
+    "style": [
+        "file:.\/styles.scss"
+    ],
+    "category": "posts",
+    "icon": "layout",
+    "keywords": [
+        "content",
+        "block"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "jsx": true
+    },
+    "pegasus": {
+        "vendor": "plug-and-play-design\/pegasus-one-post-grid"
+    }
+}

@@ -1,0 +1,37 @@
+<div class="Hubspot_Form Form {{ light_text ? 'light-text' }}">
+  <div class="Hubspot_Form--innerblocks">
+    <InnerBlocks />
+  </div>
+  <script>
+    // Use intersection observer to load HubSpot forms only when visible
+    (function() {
+      const hubspotContainer = document.currentScript.parentElement;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Load HubSpot script and create form when container becomes visible
+            window.hubSpotLoader.load()
+              .then(hbspt => {
+                hbspt.forms.create({
+                  portalId: "{{ portal_id|replace({'"':''}) }}",
+                  formId: "{{ form_id|replace({'"':''}) }}",
+                  target: "{{ target|replace({'"':''}) }}",
+                  onFormSubmitted: function ($form) {
+                    $form.closest('.Hubspot_Form').querySelector('.Hubspot_Form--innerblocks').classList.add('hidden');
+                  }
+                });
+              })
+              .catch(error => {
+                console.error('Failed to load HubSpot form:', error);
+              });
+            
+            observer.disconnect();
+          }
+        });
+      });
+      
+      observer.observe(hubspotContainer);
+    })();
+  </script>
+</div>

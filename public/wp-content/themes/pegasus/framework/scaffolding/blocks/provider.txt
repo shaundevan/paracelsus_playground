@@ -1,0 +1,24 @@
+<?php
+namespace Gutenberg\{{ title }};
+
+use Gutenberg\{{ title }}\{{ title }};
+use Plugandplay\Pegasus\{{ title }}\Provider as {{ title }}Provider;
+
+/**
+ * Class Provider
+ * @author <Pegasus>
+ * @package Gutenberg\{{ title }};
+ */
+class Provider extends {{ title }}Provider
+{
+    /**
+     * @return string[]
+     * @author <Pegasus>
+     */
+    protected function registeredBlocks(): array
+    {
+        return [
+            '{{ title }}' => {{ title }}::class,
+        ];
+    }
+}

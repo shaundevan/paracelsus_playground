@@ -1,0 +1,12 @@
+<section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden {{ image_position }}" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+    {% if image_2.media_type is not empty %}
+        {{ this.getPartial('/_'~image_2.media_type~'.twig', {data: image_2})  }}
+    {% endif %}
+    </div>
+    <div class="OverlappingImages__image-1 absolute">
+    {% if image_1.media_type is not empty %}
+        {{ this.getPartial('/_'~image_1.media_type~'.twig', {data: image_1})  }}
+    {% endif %}
+    </div>
+</section>

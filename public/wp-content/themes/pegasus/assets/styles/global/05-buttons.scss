@@ -1,0 +1,278 @@
+.btn {
+    &__rounded {
+        @apply py-2.5 px-4 bg-dark-01 rounded-full text-pale-01 leading-normal whitespace-nowrap hover:bg-pale-01 hover:text-dark-01 duration-300;
+
+        &--pale {
+            @apply bg-pale-01 text-dark-01 hover:bg-dark-01 hover:text-pale-01;
+        }
+
+        &--pale-xs {
+            @apply bg-pale-01 text-dark-01 hover:bg-dark-01 hover:text-pale-01 sm:bg-dark-01 sm:text-pale-01 sm:hover:bg-pale-01 sm:hover:text-dark-01;
+        }
+
+        &--pale-sm {
+            @apply sm:bg-pale-01 sm:text-dark-01 sm:hover:bg-dark-01 sm:hover:text-pale-01;
+        }
+
+        &--outlined {
+            @apply border border-pale-01;
+        }
+
+        &--dark-outline {
+            @apply border border-[#2C2D2C] text-dark-01 bg-transparent;
+        }
+    }
+
+    &--large {
+        @apply normal-case px-5 py-4 md:p-5 w-[calc(100vw_-_20px)] sm:w-max sm:min-w-[458px];
+    }
+}
+
+// These styles target the core/button block only
+.wp-block-button {
+    .wp-element-button {
+        transition: all 0.3s ease-in-out;
+        display: inline-flex;
+    }
+
+    &.is-style-arrow,
+    &.is-style-arrow-outline {
+        .wp-element-button {
+            position: relative;
+            padding-right: 2.7rem;
+            transition: padding 0.5s ease-in-out;
+
+            &:after {
+                content: "";
+                background: currentColor;
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                mask: url("@PegasusTheme/assets/imgs/icons/arrow.svg") no-repeat
+                    center / contain;
+                -webkit-mask: url("@PegasusTheme/assets/imgs/icons/arrow.svg")
+                    no-repeat center / contain;
+            }
+        }
+    }
+
+    &.is-style-outline,
+    &.is-style-arrow {
+        .wp-element-button {
+            @apply bg-transparent text-dark-01 hover:!bg-dark-01 hover:!text-pale-01 border border-dark-01;
+
+            img {
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover {
+                img {
+                    filter: invert(1);
+                }
+            }
+
+            //Override for manually added plus buttons, should have used the plus style. Painful I know. OD
+            img.wp-image-3006 {
+                display: none;
+            }
+            &:has(img.wp-image-3006) {
+                position: relative;
+                padding-right: 2.7rem;
+                transition: padding 0.5s ease-in-out;
+    
+                &:after {
+                    content: "";
+                    background: currentColor;
+                    width: 17px;
+                    height: 17px;
+                    position: absolute;
+                    right: 1rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    mask: url("@PegasusTheme/assets/imgs/icons/plus.svg") no-repeat
+                        center / contain;
+                    -webkit-mask: url("@PegasusTheme/assets/imgs/icons/plus.svg")
+                        no-repeat center / contain;
+                }
+            }
+        }
+    }
+
+    &.is-style-arrow-outline {
+        .wp-element-button {
+            background: transparent;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid currentColor;
+
+            &:hover {
+                background: var(--wp--preset--color--pale-01);
+                color: var(--wp--preset--color--dark-01) !important;
+            }
+
+            &.has-dark-01-border-color,
+            &.has-dark-02-border-color,
+            &.has-dark-01-color,
+            &.has-black-color {
+                &:hover {
+                    background: var(--wp--preset--color--dark-01);
+                    color: var(--wp--preset--color--yellow-01) !important;
+                }
+            }
+        }
+    }
+
+    &.is-style-download-outline {
+        .wp-element-button {
+            background: transparent;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            padding-right: 2.7rem;
+            border: 1px solid currentColor;
+            transition: all 0.3s ease-in-out;
+
+            &:after {
+                content: "";
+                background: currentColor;
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                mask: url("@PegasusTheme/assets/imgs/icons/download.svg")
+                    no-repeat center / contain;
+                -webkit-mask: url("@PegasusTheme/assets/imgs/icons/download.svg")
+                    no-repeat center / contain;
+            }
+
+            &:hover {
+                background: var(--wp--preset--color--pale-01);
+                color: var(--wp--preset--color--dark-01) !important;
+            }
+
+            &.has-dark-01-border-color,
+            &.has-dark-02-border-color,
+            &.has-dark-01-color,
+            &.has-black-color {
+                &:hover {
+                    background: var(--wp--preset--color--dark-01);
+                    color: var(--wp--preset--color--yellow-01) !important;
+                }
+            }
+        }
+    }
+
+    &.is-style-plus,
+    &.is-style-plus-outline {
+        .wp-element-button {
+            position: relative;
+            padding-right: 2.7rem;
+            transition: padding 0.5s ease-in-out;
+
+            &:after {
+                content: "";
+                background: currentColor;
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                mask: url("@PegasusTheme/assets/imgs/icons/plus.svg") no-repeat
+                    center / contain;
+                -webkit-mask: url("@PegasusTheme/assets/imgs/icons/plus.svg")
+                    no-repeat center / contain;
+            }
+        }
+    }
+
+    &.is-style-plus {
+        .wp-element-button {
+            @apply bg-transparent text-dark-01 hover:!bg-dark-01 hover:!text-pale-01 border border-dark-01;
+
+            img {
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover {
+                img {
+                    filter: invert(1);
+                }
+            }
+        }
+    }
+
+    &.is-style-plus-outline {
+        .wp-element-button {
+            background: transparent;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid currentColor;
+
+            &:hover {
+                background: var(--wp--preset--color--pale-01);
+                color: var(--wp--preset--color--dark-01) !important;
+            }
+
+            &.has-dark-01-border-color,
+            &.has-dark-02-border-color,
+            &.has-dark-01-color,
+            &.has-black-color {
+                &:hover {
+                    background: var(--wp--preset--color--dark-01);
+                    color: var(--wp--preset--color--yellow-01) !important;
+                }
+            }
+        }
+    }
+
+    &.is-style-text-button {
+        .wp-element-button {
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            text-decoration: none !important;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+            font-weight: 450;
+            position: relative;
+
+            &:after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: #000;
+                transform: scaleX(1);
+                transform-origin: left;
+                transition: transform 0.3s ease-out;
+            }
+
+            &:hover {
+                &:after {
+                    transform-origin: right;
+                    transform: scaleX(0);
+                }
+            }
+
+            &:not(:hover) {
+                &:after {
+                    transform-origin: left;
+                    transform: scaleX(1);
+                    transition: transform 0.3s ease-in;
+                }
+            }
+        }
+
+        .has-text-align-left {
+            text-align: left !important;
+            justify-content: start !important;
+        }
+    }
+}
+
+

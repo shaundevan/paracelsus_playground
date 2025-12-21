@@ -1,0 +1,34 @@
+{
+    "name": "pegasus/cardwithtextonhover",
+    "title": "Card with text on hover",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true,
+        "background": {
+			"backgroundImage": true,
+			"backgroundSize": true,
+			"__experimentalDefaultControls": {
+				"backgroundImage": true,
+                "backgroundSize": true
+			}
+		},
+        "position": {
+            "sticky": true
+        },
+        "color": {
+            "text": false,
+            "gradients": true
+		}
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}

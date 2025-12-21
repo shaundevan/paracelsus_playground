@@ -1,0 +1,97 @@
+.Quote__slider {
+    --carousel-arrow-inset: -5rem;
+
+    &.arrow-vertical-bottom {
+        padding-bottom: calc(var(--carousel-arrow-inset) * -1);
+    }
+
+    &.arrow-vertical-top {
+        padding-top: calc(var(--carousel-arrow-inset) * -1);
+    }
+    
+    .flickity-viewport{
+        @apply overflow-visible cursor-grab;
+    }
+
+    .slide {
+        @apply w-full md:w-1/2;
+
+        @media (min-width: 600px) {
+            width: var(--slide-width);
+        }
+    }
+
+    .slider-container{
+        margin: 0 auto;
+        width: 100%;
+        transform: translateX(10vw);
+        transition: all 0.5s ease-in-out;
+
+        .container & {
+            @include xs{
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+    }
+
+    .Navigation__Arrows {
+        // If the arrows are inside a container cancel out the padding and width
+        &.container {
+            .container & {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        column-gap: var(--carousel-arrow-spacing);
+    }
+
+    // Align the arrows based on the options picked in the editor
+    .alignment {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+
+        @include md {
+            display: flex;
+        }
+
+        &.vertical {
+            &-top {
+                top: 0;
+                margin-top: var(--carousel-arrow-inset);
+            }
+            &-center {
+                top: 50%;
+                transform: translate3d(-50%, -50%, 0);
+                column-gap: 100%;
+
+                @include lg {
+                    column-gap: var(--carousel-arrow-spacing);
+                }
+            }
+            &-bottom {
+                bottom: 0;
+                margin-bottom: var(--carousel-arrow-inset);
+            }
+        }
+
+        &.horizontal {
+            &-left {
+                justify-content: flex-start;
+            }
+            &-center {
+                justify-content: center;
+            }
+            &-right {
+                justify-content: flex-end;
+            }
+        }
+    }
+}

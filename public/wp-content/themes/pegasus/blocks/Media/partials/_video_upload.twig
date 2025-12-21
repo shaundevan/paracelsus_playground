@@ -1,0 +1,90 @@
+{% if data.video_upload is empty %}
+    <img src="https://placehold.co/1920x975?text=Awaiting+Video" width="100%" height="auto" class="w-full h-auto" />
+{% endif %}
+
+{% if data.open_in_modal is not empty %}
+<div x-show="modalOpen" class="sm:fixed sm:inset-0 bg-[#181918B2] backdrop-blur-xl grid place-items-center pt-20 p-10 sm:z-50" x-transition>
+    <div class="max-w-[1344px] sm:w-[90vmin] text-right">
+    <button @click="stopVideo()" class="inline-flex items-center text-white btn mb-3">
+        Close
+        <svg class="ml-3.5" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.2086 15.7211L6.78906 22.1406L7.85623 23.2078L14.2757 16.7883L13.2086 15.7211Z" fill="#FAF6EE"/>
+            <path d="M22.1435 6.79053L15.7271 13.207L16.7942 14.2742L23.2107 7.85771L22.1435 6.79053Z" fill="#FAF6EE"/>
+            <path d="M6.79053 7.85767L7.85523 6.79297L14.9991 13.9347L15.0859 14.0173L23.2119 22.1433L22.143 23.2122L6.79053 7.85767Z" fill="#FAF6EE"/>
+        </svg>
+    </button>
+{% endif %}
+{% if data.layout == 'original' %}
+    {{ pegasus_video(data.video_upload, {
+        "x-init": 'video = $el',
+        class: 'video-upload',
+        autoplay: 'autoplay' in data.video_options,
+        loop: 'loop' in data.video_options,
+        muted: 'autoplay' in data.video_options,
+        controls: 'controls' in data.video_options,
+        playsinline: data.open_in_modal is empty or 'autoplay' in data.video_options,
+    }) }}
+{% elseif data.layout == 'full-width' %}
+    {{ pegasus_video(data.video_upload, {
+        "x-init": 'video = $el',
+        class: 'video-upload w-full h-auto',
+        autoplay: 'autoplay' in data.video_options,
+        loop: 'loop' in data.video_options,
+        muted: 'autoplay' in data.video_options,
+        controls: 'controls' in data.video_options,
+        playsinline: data.open_in_modal is empty or 'autoplay' in data.video_options,
+    }) }}
+{% else %}
+    <div class="relative w-full {{ data.layout == 'object-contain' ? 'h-0 pb-[56.25%]' : 'h-full' }} overflow-hidden" style="min-height: {{ data.block.style.dimensions.minHeight }}">
+        {{ pegasus_video(data.video_upload, {
+            "x-init": 'video = $el',
+            class: 'absolute-center w-full !h-full video-upload ' ~ data.layout ,
+            autoplay: 'autoplay' in data.video_options,
+            loop: 'loop' in data.video_options,
+            muted: 'autoplay' in data.video_options,
+            controls: 'controls' in data.video_options,
+            playsinline: data.open_in_modal is empty or 'autoplay' in data.video_options,
+        }) }}
+    </div>
+{% endif %}
+
+{% if data.open_in_modal is not empty %}
+    </div>
+</div>
+{% endif %}
+
+{% if data.image is not empty or data.video_placeholder is not empty %}
+    <div x-ref="videoPlaceholder" class="absolute-center w-full !h-full" {{ data.video_upload is not empty ? '@click="playVideo()"' }}>
+        {% if data.image is empty %}
+            <img src="https://placehold.co/1920x975?text=Awaiting+Image" width="100%" height="auto" class="sm:absolute sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 w-full !h-full object-cover" />
+        {% endif %}
+        {{ pegasus_picture(data.image, 'full', {
+            img_atts: {
+                class: 'sm:absolute sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 w-full !h-full object-cover',
+            }
+        }) }}
+
+        {% if data.video_placeholder is not empty %}
+            {{ pegasus_video(data.video_placeholder, {
+                class: 'video-placeholder absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full !h-full object-cover',
+                autoplay: true,
+                loop: true,
+                muted: true,
+                controls: false,
+                playsinline: true,
+            }) }}
+        {% endif %}
+
+        {% if data.text is not empty %}
+        <div class="absolute inset-0 bg-black/50 p-3 sm:p-10 text-white">
+            {{ data.text }}
+        </div>
+        {% endif %}
+
+        {% if data.video_upload is not empty %}
+        <button type="btn" class="absolute flex justify-center gap-2 items-center bottom-0 left-5 right-5 sm:left-10 sm:right-10 pb-5 sm:pb-10 pt-2.5 text-left sm:text-center text-white eyebrow border-t border-white">
+            <span class="">Play</span>
+        </button>
+        {% endif %}
+    </div>
+{% endif %}

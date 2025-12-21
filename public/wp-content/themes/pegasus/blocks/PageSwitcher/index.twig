@@ -1,0 +1,21 @@
+<div x-data="pageSwitcher" class="Page-Switcher flex items-center justify-center">
+    {% if page_switcher_content is not empty %}
+    <div class="eyebrow">{{intro}}</div>
+    <div class="relative eyebrow ml-5">
+        <button @click="open = !open" @keydown.escape="open = false" class="flex btn btn__rounded btn__rounded--dark-outline items-center">
+            <span class="mr-2.5" {{ block.is_preview is empty ? 'x-text="pageSwitcherLabel">' : '>' ~ page_switcher_content|first.label }}</span>
+            {% include '@PegasusTheme/assets/imgs/icons/dropdown.svg' %}
+        </button>
+        <ul x-show="open" @click.away="open = false" class="z-10 absolute right-0 bg-pale-02 rounded-[10px] py-[7px] min-w-full mt-2 shadow-lg" x-transition.scale.origin.top x-cloak>
+        {% for page_switcher in page_switcher_content %}
+            <li class="text-nowrap mb-0.5 mt-2 px-4" {{ loop.first ? 'x-init="pageSwitcherName=\'' ~ page_switcher.switcher_name ~ '\'; pageSwitcherLabel = \'' ~ page_switcher.label ~ '\'"' }}>
+                <button class="btn" @click="pageSwitcherName = '{{page_switcher.switcher_name}}'; pageSwitcherLabel = '{{page_switcher.label}}'; setTimeout(function(){ open = false }, 200)" :class="pageSwitcherName == '{{page_switcher.switcher_name}}' ? 'text-dark-02' : ''">
+                    <span :class="pageSwitcherName == '{{page_switcher.switcher_name}}' ? '' : 'opacity-0'">&bull;</span>
+                    {{ page_switcher.label }}
+                </button>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>

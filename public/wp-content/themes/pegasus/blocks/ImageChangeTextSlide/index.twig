@@ -1,0 +1,25 @@
+<div
+    class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors"
+    {% if block.is_preview is empty %}
+    :class="image == '{{block.id}}' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'"
+    @mouseover="image = '{{block.id}}'"
+    @click="image = '{{block.id}}'"
+    x-init="image = '{{block.id}}'"
+    {% endif %}
+>
+    {% if block.is_preview is empty %}
+    <template x-teleport="#image{{slider}}">
+        <div x-show="image == '{{block.id}}'" class="xs:absolute inset-0 row-start-1 row-end-1" x-transition.opacity.duration.300ms>
+        {{ pegasus_picture(image, '1536x1536', {
+            picture_atts: {
+                class: 'xs:absolute inset-0'
+            },
+            img_atts: {
+                class: 'h-full w-full object-cover object-center aspect-[353/380] xs:aspect-[1360/616]'
+            }
+        }) }}
+        </div>
+    </template>
+    {% endif %}
+    {{text}}
+</div>

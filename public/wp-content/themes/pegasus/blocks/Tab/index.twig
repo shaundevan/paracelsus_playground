@@ -1,0 +1,26 @@
+{% if block.is_preview is empty %}
+<template x-teleport="#tabButtons{{tabs}}">
+{% else %}
+<div class="grid grid-cols-2 items-start">
+{% endif %}
+    <button
+        class="Tab_Title md:block transition-opacity heading-four {{ block.is_preview is not empty ? 'text-left' }}"
+        {{ block.is_preview is empty ? '@click="openTab = \'' ~ block.id ~ '\'" x-init="openTab = openTab === 1 ? \'' ~ block.id ~ '\' : openTab"' }}
+        {{ block.is_preview is empty ? ':class="openTab != \'' ~ block.id ~ '\' ? \'md:opacity-50\' : \'\'"' }}
+    >
+        {{ tab_title }}
+    </button>
+{% if block.is_preview is empty %}
+</template>
+
+<template x-teleport="#tabs{{tabs}}">
+{% endif %}
+    <div class="Tab_content" {{ block.is_preview is empty ? 'x-show="window.screen.width < 960 || openTab == \'' ~ block.id ~ '\'" x-collapse' }}>
+        <div class="heading-four pt-8 pb-10 md:hidden">{{ tab_title }}</div>
+        <InnerBlocks />
+    </div>
+{% if block.is_preview is empty %}
+</template>
+{% else %}
+</div>
+{% endif %}

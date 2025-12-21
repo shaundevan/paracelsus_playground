@@ -1,0 +1,15 @@
+
+
+{% if icon.link.url is not empty %}
+    <a href="{{ icon.link.url }}" {{ icon.link.target ? 'target="_blank"' }}  style="{{ data.block.styleStrings.spacing }}" class="Icon flex items-center justify-center px-8"  data-pegasus-slide>
+{% else %}
+    <div class="Icon flex items-center justify-center px-8"  style="{{ data.block.styleStrings.spacing }}" data-pegasus-slide>
+{% endif %}
+
+		{{ pegasus_picture(icon.icon, 'thumb-square') }}
+
+{% if icon.link.url is not empty %}
+    </a>
+{% else %}
+	</div>
+{% endif %}

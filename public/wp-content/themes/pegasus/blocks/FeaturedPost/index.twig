@@ -1,0 +1,47 @@
+<div class="grid grid-cols-2 md:grid-cols-4 gap-y-[36px] gap-x-[11px] md:gap-x-[36px]">
+    {% for post in posts %}
+        <a href="{{post.link}}" class="block group relative text-white">
+            <div class="block relative rounded-[5px]">
+                <span class="sr-only">{{ post.title }}</span>
+                <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                    {{ pegasus_picture(
+                        post.thumbnail_id(),
+                        'large',
+                        {
+                            img_atts: {
+                                class: 'w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] absolute-center !h-full'
+                            }
+                        }
+                    ) }}
+                </div>
+                <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+            </div>
+            
+            <div class="absolute inset-0 px-6 py-3 sm:py-8 flex flex-col {{ post_type != 'team-member' ? 'justify-between' : 'justify-center' }}">
+                {% if post_type == 'post' %}
+                    <div class="subtitle-sm">
+                        <span class="block heading-four pt-px">{{ post.title }}</span>
+                    </div>
+                    <div class="flex flex-wrap -mx-px has-x-small-font-size gap-2">
+                        <span class="font-body has-x-small-font-size py-1.5 px-2 border rounded-full border-white text-white opacity-80">{{ post.category }}</span>
+                    </div>
+                {% else %}
+                    <div class="subtitle-sm {{ post_type == 'team-member' ? 'pb-3 sm:pb-0'}}">
+                        {% if post.meta('title') %}
+                            <span class="ml-[2px]">{{ post.meta('title') }}</span>
+                        {% endif %}
+                        <span class="block heading-four pt-px ">{{ post.title }}</span>
+                        {% if post.meta('team_member_card_excerpt') %}
+                            <div class="mt-2 ml-[2px]">{{ post.meta('team_member_card_excerpt') }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-wrap -mx-px has-x-small-font-size gap-2 {{ post_type == 'team-member' ? 'absolute bottom-0 left-0 pb-3 sm:pb-8 px-6' }}">
+                        {% for term in post.terms|filter(t => t.taxonomy == 'team-category') %}
+                            <span class="font-body has-x-small-font-size py-1.5 px-2 border rounded-full border-white text-white opacity-80 text-center">{{ term }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}                
+            </div>
+        </a>
+    {% endfor %}
+</div>

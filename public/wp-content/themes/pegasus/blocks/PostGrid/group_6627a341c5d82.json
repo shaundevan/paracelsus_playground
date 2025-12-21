@@ -1,0 +1,690 @@
+{
+    "key": "group_6627a341c5d82",
+    "title": "Block: Post Grid",
+    "fields": [
+        {
+            "key": "field_663c7ea145175",
+            "label": "Query",
+            "name": "",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "accordion",
+            "value": false,
+            "menu_order": 0,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_66420d0c1764d",
+            "label": "How to Populate",
+            "name": "how_to_populate",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 1,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "automatically": "Dynamically",
+                "pick_posts": "Pick Specific Posts"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_66420d2e1764e",
+            "label": "Posts",
+            "name": "posts",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_object",
+            "value": null,
+            "menu_order": 2,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "pick_posts"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 1,
+            "allow_null": 1,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_662a5b8a021be",
+            "label": "Post Type",
+            "name": "post_type",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_type",
+            "value": null,
+            "menu_order": 3,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "save_format": "name",
+            "allow_null": 1,
+            "multiple": 1,
+            "container": "div"
+        },
+        {
+            "key": "field_662a5c09021bf",
+            "label": "Category",
+            "name": "category",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_terms",
+            "value": null,
+            "menu_order": 4,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "save_format": "object",
+            "allow_null": 1,
+            "multiple": 1,
+            "affected_by": null,
+            "container": "div"
+        },
+        {
+            "key": "field_6627a34279f79",
+            "label": "Posts per page",
+            "name": "posts_per_page",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "number",
+            "value": null,
+            "menu_order": 5,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 10,
+            "min": 1,
+            "max": "",
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": "Post(s)"
+        },
+        {
+            "key": "field_662a5c4e021c0",
+            "label": "Posted Dates",
+            "name": "posted_dates",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "repeater",
+            "value": null,
+            "menu_order": 6,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_662a5de3021c1",
+                    "label": "Qualifier",
+                    "name": "qualifier",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "select",
+                    "value": null,
+                    "menu_order": 0,
+                    "instructions": "",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "before": "Before",
+                        "after": "After"
+                    },
+                    "default_value": "after",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_662a5c4e021c0"
+                },
+                {
+                    "key": "field_662a5e04021c2",
+                    "label": "Date",
+                    "name": "date",
+                    "aria-label": "",
+                    "prefix": "acf",
+                    "type": "date_time_picker",
+                    "value": null,
+                    "menu_order": 1,
+                    "instructions": "",
+                    "required": 0,
+                    "id": "",
+                    "class": "",
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "d\/m\/Y g:i a",
+                    "return_format": "Y-m-d H:i:s",
+                    "first_day": 1,
+                    "parent_repeater": "field_662a5c4e021c0"
+                }
+            ]
+        },
+        {
+            "key": "field_662a5e33b2620",
+            "label": "Order By",
+            "name": "order_by",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 7,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "title": "Title",
+                "date": "Date posted"
+            },
+            "default_value": "date",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_662a5e62b2621",
+            "label": "Order",
+            "name": "order",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 8,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "ASC": "Ascending",
+                "DESC": "Descending"
+            },
+            "default_value": "ASC",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_default_order_2024",
+            "label": "Default Order",
+            "name": "default_order",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 8.5,
+            "instructions": "Default order when 'Order' field is not explicitly set",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66420d0c1764d",
+                        "operator": "==",
+                        "value": "automatically"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "ASC": "Ascending (Oldest First)",
+                "DESC": "Descending (Newest First)"
+            },
+            "default_value": "DESC",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_668d395691791",
+            "label": "Filtering",
+            "name": "",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "accordion",
+            "value": false,
+            "menu_order": 9,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_668d396491792",
+            "label": "Filter By",
+            "name": "filter_by",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_terms",
+            "value": null,
+            "menu_order": 10,
+            "instructions": "Select the terms to include in the filters.",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "save_format": "object",
+            "allow_null": 1,
+            "multiple": 1,
+            "affected_by": null,
+            "container": "div"
+        },
+        {
+            "key": "field_663c7eaa45176",
+            "label": "Settings",
+            "name": "",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "accordion",
+            "value": false,
+            "menu_order": 11,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_663c7e3945174",
+            "label": "Card Content",
+            "name": "card_content",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "checkbox",
+            "value": null,
+            "menu_order": 12,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "thumbnail": "Thumbnail",
+                "title": "Title",
+                "excerpt": "Excerpt",
+                "date": "Posted Date",
+                "tags": "Tags",
+                "post_type": "Post Type"
+            },
+            "default_value": [
+                "thumbnail",
+                "title",
+                "excerpt",
+                "date",
+                "tags",
+                "post_type"
+            ],
+            "return_format": "value",
+            "allow_custom": 0,
+            "layout": "vertical",
+            "toggle": 1,
+            "save_custom": 0,
+            "custom_choice_button_text": "Add new choice"
+        },
+        {
+            "key": "field_663ca58b57bad",
+            "label": "Taxonomies To Show",
+            "name": "taxonomies_to_show",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "post_taxonomies",
+            "value": null,
+            "menu_order": 13,
+            "instructions": "Which taxonomies do you want to show terms from in the tags section of each post card.",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_663c7e3945174",
+                        "operator": "==",
+                        "value": "tags"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "save_format": "name",
+            "allow_null": 1,
+            "multiple": 1,
+            "affected_by": null,
+            "container": "div"
+        },
+        {
+            "key": "field_663ccc71b7206",
+            "label": "Thumbnail Size",
+            "name": "thumbnail_size",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 14,
+            "instructions": "Original size will allow the uploaded image to dictate the height of each image.",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_663c7e3945174",
+                        "operator": "==",
+                        "value": "thumbnail"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "original": "Original",
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_663c8123cb631",
+            "label": "Number of Columns",
+            "name": "number_of_columns",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "number",
+            "value": null,
+            "menu_order": 15,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 4,
+            "min": 1,
+            "max": 6,
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": "Columns"
+        },
+        {
+            "key": "field_662a5f94b2622",
+            "label": "Pagination",
+            "name": "pagination",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "select",
+            "value": null,
+            "menu_order": 16,
+            "instructions": "",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "numbered_pagination": "Numbered",
+                "load_more": "Load More"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_663c9c198ee38",
+            "label": "No Posts Message",
+            "name": "no_posts_message",
+            "aria-label": "",
+            "prefix": "acf",
+            "type": "wysiwyg",
+            "value": null,
+            "menu_order": 17,
+            "instructions": "Include some content to display if no posts are found.",
+            "required": 0,
+            "id": "",
+            "class": "",
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "pegasus\/post-grid"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1731932996
+}

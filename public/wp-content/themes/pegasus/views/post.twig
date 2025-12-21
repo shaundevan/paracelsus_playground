@@ -1,0 +1,479 @@
+{% extends 'views/_document.twig' %}
+
+{% block content %}
+
+    {% if postModel.meta('simple_template') %}
+        {# Hero Section #}
+        <section class="Pegasus__Container relative h-fit text-content-dark">
+            <div class="row-background absolute w-full h-full bottom-0 left-0 z-0 has-pale-02-background-color"></div>
+
+            <div class="relative h-full container">
+                <div style="height:80px"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+
+                <div class="wp-block-group has-global-padding is-layout-constrained"
+                     style="border-top-color:var(--wp--preset--color--mid);
+                           border-top-width:1px;
+                           padding-top:var(--wp--preset--spacing--10);
+                           padding-bottom:var(--wp--preset--spacing--10)">
+                </div>
+
+
+                <div class="metadatas">
+                    {#                <p class="is-style-eyebrow has-dark-02-color has-text-color has-link-color has-x-small-font-size is-style-eyebrow--1"> #}
+                    {#                    <a href="/insight/" data-type="page" data-id="641"> #}
+                    {#                        {{ __('Back to blog', 'pegasus') }} #}
+                    {#                    </a> #}
+                    {#                </p> #}
+
+                    {% if function('yoast_breadcrumb', '<p id="breadcrumbs" class="is-style-eyebrow has-dark-02-color has-text-color has-link-color has-x-small-font-size is-style-eyebrow--1">', '</p>') %}
+                        {{ function('yoast_breadcrumb', '<p id="breadcrumbs" class="is-style-eyebrow has-dark-02-color has-text-color has-link-color has-x-small-font-size is-style-eyebrow--1">', '</p>')|raw }}
+                    {% endif %}
+                </div>
+
+
+                {#                <div style="height:246px" #}
+                {#                     aria-hidden="true" #}
+                {#                     class="wp-block-spacer"> #}
+                {#                </div> #}
+
+                {# Post Title Section #}
+                <div id="post_title_section_pb" class="Post__Title md:text-center">
+
+                    {% set categories = postModel.terms('category') %}
+                    {% if categories %}
+                        <div class="category_pb">
+                            {% for cat in categories %}
+                                <a href="{{ cat.link }}" class="category_pb">{{ cat.name }}</a>
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <h1 class="heading-one" style="font-size:var(--wp--preset--font-size--xxxx-large);">
+                        {{ postModel.title }}
+                    </h1>
+                    {% if postModel.post_excerpt %}
+                        <p class="mt-4 text-md text-dark-03 leading-relaxed max-w-3xl mx-auto">
+                            {{ postModel.post_excerpt }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <div style="height:80px"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+
+                {# Featured Image #}
+                <div class="hidden sm:block">
+                    {% if postModel.thumbnail %}
+                        {{ pegasus_picture(postModel.thumbnail, 'banner', {
+                            img_atts: {
+                                class: 'w-full h-auto object-cover mx-auto',
+                            }
+                        }) }}
+                    {% endif %}
+
+
+                    <div class="meta_post_pb">
+                        <div class="meta_times_read">
+                        <span class="post-date">{{ __('Published on', 'pegasus') }} {{ post_date|date("d.m.Y") }}</span>
+                        {% if read_time %}
+                            <span class="read-time">• {{ read_time }} min read</span>
+                        {% endif %}
+                        </div>
+
+                        {% if authors_box %}
+
+                        {% for box in authors_box %}
+                        <div class="meta-byline-wrapper">
+                            {% if box.choose_item_author_pb %}
+
+                                <div class="byline-authors">
+
+                                    {% if box.heading_authors_h3 %}
+                                        <span class="byline-heading">{{ box.heading_authors_h3 }}</span>
+                                    {% endif %}
+
+                                    {% for author_post in box.choose_item_author_pb %}
+                                        {% set author = TimberPost(author_post) %}
+
+                                        <a href="{{ author.link }}" class="text-lg hover:underline">
+                                            <span>{{ author.title }}</span>
+                                        </a>
+
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div><div class="meta-spacer"> • </div>
+                            {% endif %}
+
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="height:var(--wp--preset--spacing--20)"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+            </div>
+        </section>
+
+        {# Spacer Section #}
+        <section
+                class="Pegasus__Container w-full hidden sm:block relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow"
+                style="border-bottom-color:var(--wp--preset--color--mid);
+                        border-bottom-width:1px;">
+            <div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color"></div>
+
+            <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                <div style="margin-top:0;margin-bottom:0;height:0px"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+            </div>
+        </section>
+
+        {# Main Content Section #}
+        <section
+                class="Pegasus__Container w-full relative h-fit text-content-dark mobile-stacking-standard is-layout-flow">
+            <div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color"></div>
+
+            <div class="relative h-full is-flex-layout flex flex-col justify-start container">
+                <div style="height:45px" aria-hidden="true" class="wp-block-spacer"></div>
+
+                <div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-2 wp-block-columns-is-layout-flex">
+                    {#                    <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" #}
+                    {#                         style="flex-basis:40px"></div> #}
+
+                    <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                         style="padding-top:10px;flex-basis:33.33%">
+                        <div class="Time-to-read eyebrow flex sm:block items-center text-dark-02 wp-elements-0cc96c806d4134a0dbda0e0532637c9b">
+
+                            {% if toc %}
+                                <nav class="TableOfContents mb-8" aria-labelledby="toc-heading">
+                                    <h2 id="toc-heading" class="font-semibold mb-3 uppercase text-sm tracking-wide">
+                                        Table of contents</h2>
+                                    <ol class="space-y-2">
+                                        {% set currentH2 = null %}
+                                        {% set hasOpenSublist = false %}
+
+                                        {% for item in toc %}
+                                        {% if item.level == 2 %}
+                                        {# Zamknij poprzednią podlistę H3 jeśli istnieje #}
+                                        {% if hasOpenSublist %}
+                                    </ol>
+                                    </li>
+                                    {% set hasOpenSublist = false %}
+                                    {% elseif currentH2 is not null %}
+                                        </li>
+                                    {% endif %}
+
+                                    <li>
+                                        <a href="#{{ item.id }}" class="hover:underline text-dark-02">
+                                            {{ item.title }}
+                                        </a>
+                                        {% set currentH2 = item %}
+
+                                        {% elseif item.level == 3 %}
+                                        {# Otwórz podlistę jeśli to pierwszy H3 pod H2 #}
+                                        {% if not hasOpenSublist %}
+                                        <ol class="mt-1 space-y-1 ml-4">
+                                            {% set hasOpenSublist = true %}
+                                            {% endif %}
+
+                                            <li class="text-sm">
+                                                <a href="#{{ item.id }}" class="hover:underline text-dark-02">
+                                                    {{ item.title }}
+                                                </a>
+                                            </li>
+                                            {% endif %}
+                                            {% endfor %}
+
+                                            {# Zamknij ostatnią podlistę jeśli istnieje #}
+                                            {% if hasOpenSublist %}
+                                        </ol>
+                                    </li>
+                                {% elseif currentH2 is not null %}
+                                    </li>
+                                    {% endif %}
+                                    </ol>
+                                </nav>
+                            {% endif %}
+
+
+                            {% if authors_box %}
+                                {% for box in authors_box %}
+                                    <div class="AuthorsBox">
+                                        {% if box.heading_authors_h3 %}
+                                            <h3 class="AuthorsBox__Heading">{{ box.heading_authors_h3 }}</h3>
+                                        {% endif %}
+
+                                        {% if box.choose_item_author_pb %}
+                                            <ul class="AuthorsBox__List">
+                                                {% for author_post in box.choose_item_author_pb %}
+                                                    {% set author = TimberPost(author_post) %}
+                                                    <li class="AuthorsBox__Item flex items-center gap-4">
+                                                        <div class="author_wrapper">
+                                                            <div>
+                                                                {% if author.thumbnail %}
+                                                                    <a href="{{ author.link }}"
+                                                                       class="block w-[80px] h-[80px] flex-shrink-0 overflow-hidden">
+                                                                        {{ pegasus_picture(author.thumbnail, 'thumbnail', {
+                                                                            img_atts: {
+                                                                                class: 'w-full h-full object-cover',
+                                                                                alt: author.title
+                                                                            }
+                                                                        }) }}
+                                                                    </a>
+                                                                {% endif %}
+                                                            </div>
+
+                                                            <div>
+                                                                <a href="{{ author.link }}"
+                                                                   class="font-semibold text-lg">
+                                                                    <h3>{{ author.title }}</h3>
+                                                                </a>
+                                                                {% if author.academic_title %}
+                                                                    <p class="text-sm text-gray-600">{{ author.academic_title }}</p>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="authorsbox_desc">
+                                                            {% if author.description_about_author %}
+                                                                <p class="text-description-author">{{ author.description_about_author }}</p>
+                                                            {% endif %}
+
+                                                            {% if box.view_all_articles_text_buttons %}
+                                                                <a href="{{ author.link }}" class="view_all_link_pb">
+                                                                    {{ box.view_all_articles_text_buttons }}
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+
+                        </div>
+
+                        <div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--20)"
+                             aria-hidden="true"
+                             class="wp-block-spacer">
+                        </div>
+                    </div>
+
+                    <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                         style="flex-basis:66.66%">
+                        <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
+                            <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+                                {{ postModel.content }}
+                            </div>
+
+                            <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                                 style="flex-basis:116px"></div>
+                        </div>
+                    </div>
+
+                    {#                    <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" #}
+                    {#                         style="flex-basis:40px"></div> #}
+                </div>
+
+                <div style="height:80px"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+            </div>
+        </section>
+
+
+
+        {% if postModel.meta('post_author') is not empty %}
+            {# Credits Section #}
+            <section
+                    class="Pegasus__Container w-full relative h-fit text-content-dark mobile-stacking-standard is-layout-flow"
+                    style="padding-top:var(--wp--preset--spacing--20);
+                            padding-bottom:var(--wp--preset--spacing--20);
+                            border-top-color:var(--wp--preset--color--mid);
+                            border-top-width:1px;">
+                <div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color"></div>
+                <div class="relative h-full is-flex-layout flex flex-col justify-start container">
+                    <section
+                            class="Pegasus__Container w-full hidden sm:block relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow">
+                        <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                            <div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--20)"
+                                 aria-hidden="true" class="wp-block-spacer"></div>
+                        </div>
+                    </section>
+
+                    <div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-10 wp-block-columns-is-layout-flex">
+                        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                             style="flex-basis:40px"></div>
+
+                        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                             style="flex-basis:33.33%">
+                            <p class="has-dark-02-color has-text-color has-link-color has-x-small-font-size wp-elements-272566ddc6ee74c44ac139d0153c07a4 wp-block-paragraph"
+                               style="letter-spacing:1.3px;text-transform:uppercase">{{ __('Credits', 'pegasus') }}</p>
+                            <div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--20)"
+                                 aria-hidden="true" class="wp-block-spacer"></div>
+                        </div>
+
+                        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                             style="flex-basis:66.66%">
+                            <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9 wp-block-columns-is-layout-flex">
+                                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+                                    {{ the_block('TeamMemberCard', {
+                                        team_member: postModel.meta('post_author')
+                                    }) }}
+                                </div>
+
+                                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                                     style="flex-basis:116px"></div>
+                            </div>
+                        </div>
+
+                        <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                             style="flex-basis:40px"></div>
+                    </div>
+
+                    <section
+                            class="Pegasus__Container w-full hidden sm:block relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow">
+                        <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                            <div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--20)"
+                                 aria-hidden="true" class="wp-block-spacer"></div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        {% endif %}
+
+
+        {# Related Posts Section #}
+        <section
+                class="Pegasus__Container w-full relative h-fit overflow-hidden text-content-dark mobile-stacking-standard is-layout-flow"
+                style="padding-top:0;
+                        padding-bottom:var(--wp--preset--spacing--40);
+                        border-top-color:var(--wp--preset--color--mid);
+                        border-top-width:1px;">
+            <div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color"></div>
+            <div class="relative h-full is-flex-layout flex flex-col justify-start container">
+                <div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-2 wp-block-group-is-layout-constrained">
+                    <section
+                            class="Pegasus__Container w-full relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow"
+                            style="padding-top:var(--wp--preset--spacing--30);
+                                    padding-bottom:40px;">
+                        <div class="relative h-full is-flex-layout flex flex-col justify-start container">
+                            <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-11 wp-block-columns-is-layout-flex">
+                                <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"
+                                     style="flex-basis:66.66%">
+                                    <section
+                                            class="Pegasus__Container w-full hidden sm:block relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow"
+                                            style="padding-top:20px;">
+                                        <div class="relative h-full is-flex-layout flex flex-col justify-start w-full"></div>
+                                    </section>
+
+                                    <p class="is-style-eyebrow has-dark-01-color has-text-color has-link-color has-x-small-font-size wp-elements-d845140f5565d5efbedab84f167f555c is-style-eyebrow--2 wp-block-paragraph"
+                                       style="text-transform:uppercase">{{ __('Continue the journey', 'pegasus') }}</p>
+                                    <h3 class="wp-block-heading has-xxx-large-font-size">{{ __('Related insight', 'pegasus') }}</h3>
+                                </div>
+
+                                <div class="wp-block-column is-vertically-aligned-bottom is-layout-flow wp-block-column-is-layout-flow"
+                                     style="flex-basis:33.33%">
+                                    <section
+                                            class="Pegasus__Container w-full hidden sm:block relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow"
+                                            style="padding-top:0;">
+                                        <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                                            <div class="wp-block-buttons is-content-justification-right is-layout-flex wp-container-core-buttons-is-layout-1 wp-block-buttons-is-layout-flex">
+                                                <div class="wp-block-button is-style-arrow-outline" openinmodal=""
+                                                     smoothscroll="">
+                                                    <a class="wp-block-button__link has-dark-01-color has-text-color has-link-color has-border-color has-dark-01-border-color wp-element-button"
+                                                       href="/insight/"
+                                                       style="border-width:1px">{{ __('read more', 'pegasus') }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {{ the_block('PostGridSlider', {
+                        section_title: '',
+                        how_to_populate: 'pick_posts',
+                        post_type: 'post',
+                        posts: relatedPosts,
+                        thumbnail_size: 'medium',
+                        posts_per_page: 8,
+                        posts_to_show: 3.2,
+                        show_navigation_arrows: false,
+                        show_progress: false,
+                        show_overflow: true,
+                        card_content: 'thumbnail title tags',
+                        taxonomies_to_show: [
+                            'category'
+                        ]
+                    }) }}
+
+                    <section
+                            class="Pegasus__Container w-full block sm:hidden md:hidden relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow"
+                            style="padding-top:40px;">
+                        <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                            <div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-2 wp-block-buttons-is-layout-flex">
+                                <div class="wp-block-button is-style-arrow-outline" openinmodal="" smoothscroll="">
+                                    <a class="wp-block-button__link has-dark-01-color has-text-color has-link-color has-border-color has-dark-01-border-color wp-element-button"
+                                       href="/insight/" style="border-width:1px">{{ __('read more', 'pegasus') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <section
+                class="Pegasus__Container w-full relative h-fit text-content-dark mobile-stacking-standard is-layout-flow wp-block-container-is-layout-flow">
+            <div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color"></div>
+
+            <div class="relative h-full is-flex-layout flex flex-col justify-start w-full">
+                <div style="height:80px"
+                     aria-hidden="true"
+                     class="wp-block-spacer">
+                </div>
+
+                <section
+                        class="CallToAction relative w-full mx-auto px-5 py-[120px] md:py-24 sm:px-20 max-w-[1360px] rounded-t md:rounded z-10 text-center sm:text-left bg-dark-01 has-background">
+                    <div class="acf-innerblocks-container">
+                        <h3 class="wp-block-heading has-text-align-left has-white-color has-text-color has-link-color has-xxxx-large-font-size wp-elements-d9778858696d3162c469e514b6c4ead4">
+                            {{ __('The journey begins with a conversation', 'pegasus') }}
+                        </h3>
+
+                        <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
+                            <div class="wp-block-button is-style-arrow" openinmodal="" smoothscroll="">
+                                <a href="/contact/"
+                                   class="wp-block-button__link has-dark-01-color has-white-background-color has-text-color has-background has-link-color wp-element-button">
+                                    {{ __('Talk to us', 'pegasus') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="hidden sm:block bg-dark-01 w-full h-[230px] mt-[-138px]"></div>
+            </div>
+        </section>
+    {% else %}
+        {{ postModel.content }}
+    {% endif %}
+{% endblock %}

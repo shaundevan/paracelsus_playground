@@ -1,0 +1,30 @@
+<nav class="hidden md:block">
+    {% if layout is empty %}
+    <ul class="flex items-center justify-stretch body-xs uppercase border-l border-y {{ border_colour is not defined or border_colour is empty ? 'border-gray-02' }}" {{ border_colour is not empty ? 'style="border-color: '~border_colour~';"' }}>
+    {% for link in links %}
+        <li class="w-full">
+            <a @click.prevent="document.querySelector('#{{link.html_anchor}}').scrollIntoView({behavior:'smooth'})"
+                class="group relative block p-10 border-r {{ border_colour is not defined or border_colour is empty ? 'border-gray-02' }} text-center font-[450] before:content-['•'] before:block before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:transition-opacity before:opacity-0 hover:before:opacity-100 before:duration-300 after:absolute after:inset-0 after:bg-black/5 after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-500"
+                href="#{{link.html_anchor}}"
+                {{ border_colour is not empty ? 'style="border-color: '~border_colour~';"' }}>
+                <span class="block transition-transform duration-500 group-hover:-translate-y-2 relative z-10 tracking-widest">{{link.link_text}}</span>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <ul {{ block.is_preview is empty ? 'x-data="pageNavigation()"' }} class="">
+    {% for link in links %}
+        <li class="w-full mb-2.5">
+            <a @click.prevent="item = {{loop.index}}; document.querySelector('#{{link.html_anchor}}').scrollIntoView({behavior:'smooth'})"
+                class="heading-four"
+                :class="item !== {{loop.index}} ? 'opacity-50' : ''"
+                href="#{{link.html_anchor}}"
+                x-init="addIntersect('{{link.html_anchor}}', {{loop.index}})">
+                <span class="">{{link.link_text}}</span>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</nav>

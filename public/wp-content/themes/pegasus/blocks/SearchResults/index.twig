@@ -1,0 +1,49 @@
+
+<div class="Search__Results container grid md:grid-cols-2 border-y border-mid px-0 mb-20">
+    <div>
+        <div class="sticky top-0 pt-16 pb-48 px-10">
+            <form role="search" method="get" class="searchform max-w-[347px]" action="{{ site.link }}">
+                <div class="pb-[60px]">
+                    <div class="border-b border-dark flex justify-between">
+                        <input type="text" value="{{ fn('get_search_query') }}" placeholder="{{ __('Enter search term...', 'pegasus') }}" name="s" class="placeholder:text-dark-02 bg-transparent" />
+                        <button type="submit" value="Search">
+                            {% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% if post_type_count.page is not empty %}
+            <div class="mb-2.5">
+                <a href="#pages" class="heading-four">{{ __('Pages', 'pegasus') }}</a>
+            </div>
+            {% endif %}
+            {% if post_type_count.post is not empty %}
+            <div>
+                <a href="#posts" class="heading-four">{{ __('Posts', 'pegasus') }}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="md:border-l border-mid subtitle-xl md:px-[30px]">
+        {% if post_type_count.page is not empty %}
+        <div id="pages" class="py-[60px] border-b border-mid md:pr-[30px]">
+            <div class="pb-10">{{ post_type_count.page }} {{ post_type_count.page == 1 ? __('Page', 'pegasus') : __('Pages', 'pegasus') }}</div>
+            {% for post in posts %}
+                {% if post.type == 'page' %}
+                <a href="{{post.url}}" class="flex items-center justify-between subtitle-md py-8 border-b border-mid last:border-b-0">{{post.title}}{% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}</a>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div id="posts" class="py-[60px] md:pr-[30px]">
+        {% if post_type_count.post is not empty %}
+        <div class="pb-10">{{ post_type_count.post }} {{ post_type_count.post == 1 ? __('Journal post', 'pegasus') : __('Journal posts', 'pegasus') }}</div>
+        {% endif %}
+        {% for post in posts %}
+            {% if post.type == 'post' %}
+            <a href="{{post.url}}" class="flex items-center justify-between subtitle-md py-8 border-b border-mid last:border-b-0">{{post.title}}{% include '@PegasusTheme/assets/imgs/icons/arrow.svg' %}</a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+</div>

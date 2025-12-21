@@ -1,0 +1,19 @@
+{
+    "name": "pegasus/videobanner",
+    "title": "Video Banner",
+    "description": "",
+    "style": [ "" ],
+    "category": "formatting",
+    "icon": "format-video",
+    "keywords": [""],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "preview.php"
+    },
+    "supports": {
+        "anchor": true
+    },
+    "pegasus": {
+        "vendor": ""
+    }
+}
