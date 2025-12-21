@@ -15,7 +15,9 @@ export default function BodyAlpine() {
 
     // Initialize pegasus global object if it doesn't exist
     if (typeof window !== "undefined") {
-      window.pegasus = window.pegasus || {};
+      if (!window.pegasus) {
+        window.pegasus = {};
+      }
 
       // Parallax scroll function
       if (!window.pegasus.parallaxScroll) {
