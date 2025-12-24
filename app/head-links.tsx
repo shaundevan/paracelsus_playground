@@ -9,6 +9,7 @@ import { useEffect } from "react";
  * Files are in their original locations:
  * - /wp-includes/css/dist/block-library/style.min.css
  * - /wp-content/themes/pegasus/dist/assets/styles/DwoS2IZP.css
+ * - /wp-content/siteground-optimizer-assets/siteground-optimizer-combined-css-c91c1f475ab21e8486c7ae5c09e7b9.css
  * 
  * This preserves relative paths like url(../fonts/...) and url(../images/...)
  * that reference sibling directories in the WordPress structure.
@@ -19,6 +20,7 @@ export default function HeadLinks() {
     const cssFiles = [
       "/wp-includes/css/dist/block-library/style.min.css",
       "/wp-content/themes/pegasus/dist/assets/styles/DwoS2IZP.css",
+      "/wp-content/siteground-optimizer-assets/siteground-optimizer-combined-css-c91c1f475ab21e8486c7ae5c09e7b9.css",
     ];
 
     const links: HTMLLinkElement[] = [];

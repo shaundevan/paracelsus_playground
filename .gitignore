@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+public/wp-content/themes/pegasus/vendor/
+
+public/wp-content/themes/pegasus/composer.json
+
+public/wp-content/themes/pegasus/composer.lock

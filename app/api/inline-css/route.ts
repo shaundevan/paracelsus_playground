@@ -15,7 +15,7 @@ export async function GET() {
     if (!match) return "";
     return match[1]
       .trim()
-      .replace(/https:\/\/paracelsus-recovery\.care\//g, "/")
+      .replace(/https:\/\/paracelsus-recovery\.com\//g, "/")
       .replace(/\r\n/g, "\n");
   };
 

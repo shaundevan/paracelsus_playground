@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Script from "next/script";
 import HeadLinks from "./head-links";
 import InlineStylesServer from "./inline-styles-server";
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       dir="ltr"
       className="html home wp-singular page-template-default page page-id-62825 wp-theme-pegasus"
     >
-      <body className="body-main at-top modal-form">
+      <body className="body-main at-top modal-form" x-data="paracelsusApp">
         <BodyAlpine />
         <InlineStylesServer />
         <HeadLinks />
@@ -32,6 +32,43 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
           strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="pegasus-components"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Load the compiled JS file that contains all component definitions
+              // This must load before Alpine starts processing the DOM
+              (function() {
+                const script = document.createElement('script');
+                script.src = '/wp-content/themes/pegasus/dist/CGBqs_Rr.js';
+                script.async = false;
+                script.defer = false;
+                // Override Alpine.start() to prevent double initialization
+                const originalStart = window.Alpine?.start;
+                script.onload = function() {
+                  // The compiled file will register components and start Alpine
+                  // But we need to ensure it doesn't conflict with our setup
+                  if (window.Alpine && typeof window.Alpine.start === 'function') {
+                    // Only start if not already started
+                    if (!document.body.hasAttribute('x-data')) {
+                      window.Alpine.start();
+                    }
+                  }
+                };
+                document.head.appendChild(script);
+              })();
+            `,
+          }}
         />
         <Script
           id="alpine-init"
@@ -59,7 +96,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 }, { passive: true });
               };
               
-              document.addEventListener('alpine:init', () => {
+              // Install Alpine.js plugins
+              const installPlugins = () => {
+                if (typeof Alpine === 'undefined' || !Alpine.plugin) return;
+                
+                // CDN versions expose plugins as window.AlpineIntersect and window.AlpineCollapse
+                if (typeof window.AlpineIntersect !== 'undefined') {
+                  Alpine.plugin(window.AlpineIntersect);
+                }
+                if (typeof window.AlpineCollapse !== 'undefined') {
+                  Alpine.plugin(window.AlpineCollapse);
+                }
+              };
+              
+              // Register components immediately if Alpine is already loaded, otherwise wait for alpine:init
+              const registerComponents = () => {
+                // Install plugins first
+                installPlugins();
+                
                 // ParacelsusApp - manages global app state (atTop, goingUp, etc.)
                 Alpine.data('paracelsusApp', () => ({
                   atTop: true,
@@ -140,7 +194,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     });
                   }
                 }));
-              });
+              };
+              
+              // Register components immediately if Alpine is available, otherwise wait for alpine:init
+              if (typeof Alpine !== 'undefined' && Alpine.data) {
+                registerComponents();
+              } else {
+                document.addEventListener('alpine:init', registerComponents);
+              }
             `,
           }}
         />
