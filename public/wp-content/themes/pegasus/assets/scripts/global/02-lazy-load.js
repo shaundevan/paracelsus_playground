@@ -90,36 +90,42 @@ class PegasusImmediateLoader {
 }
 
 // Initialize immediately after DOM loads
-document.addEventListener('DOMContentLoaded', () => {
+const initLazyLoader = () => {
     new PegasusImmediateLoader();
-});
-
-// Additional initialization for dynamically added images
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            mutation.addedNodes.forEach(node => {
-                if (node.nodeType === 1) { // Element node
-                    // Check if it's an image with data-src
-                    if (node.matches && node.matches('img[data-src]')) {
-                        if (window.pegasusLazyLoader) {
-                            window.pegasusLazyLoader.loadImage(node);
+    
+    // Additional initialization for dynamically added images
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) { // Element node
+                        // Check if it's an image with data-src
+                        if (node.matches && node.matches('img[data-src]')) {
+                            if (window.pegasusLazyLoader) {
+                                window.pegasusLazyLoader.loadImage(node);
+                            }
+                        }
+                        // Check if it contains images with data-src
+                        const images = node.querySelectorAll && node.querySelectorAll('img[data-src]');
+                        if (images && images.length > 0 && window.pegasusLazyLoader) {
+                            images.forEach(img => window.pegasusLazyLoader.loadImage(img));
                         }
                     }
-                    // Check if it contains images with data-src
-                    const images = node.querySelectorAll && node.querySelectorAll('img[data-src]');
-                    if (images && images.length > 0 && window.pegasusLazyLoader) {
-                        images.forEach(img => window.pegasusLazyLoader.loadImage(img));
-                    }
-                }
+                });
             });
         });
-    });
 
-    document.addEventListener('DOMContentLoaded', () => {
         observer.observe(document.body, {
             childList: true,
             subtree: true
         });
-    });
+    }
+};
+
+// Check if DOM is already loaded, otherwise wait for DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLazyLoader);
+} else {
+    // DOM is already loaded, initialize immediately
+    initLazyLoader();
 }

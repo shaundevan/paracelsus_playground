@@ -24,54 +24,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       dir="ltr"
       className="html home wp-singular page-template-default page page-id-62825 wp-theme-pegasus"
     >
-      <body className="body-main at-top modal-form" x-data="paracelsusApp">
-        <BodyAlpine />
-        <InlineStylesServer />
-        <HeadLinks />
-        {children}
+      <body className="body-main modal-form scrolled" x-data="paracelsusApp">
+        {/* Step 1: Initialize pegasus global object FIRST */}
         <Script
-          src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="pegasus-components"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Load the compiled JS file that contains all component definitions
-              // This must load before Alpine starts processing the DOM
-              (function() {
-                const script = document.createElement('script');
-                script.src = '/wp-content/themes/pegasus/dist/CGBqs_Rr.js';
-                script.async = false;
-                script.defer = false;
-                // Override Alpine.start() to prevent double initialization
-                const originalStart = window.Alpine?.start;
-                script.onload = function() {
-                  // The compiled file will register components and start Alpine
-                  // But we need to ensure it doesn't conflict with our setup
-                  if (window.Alpine && typeof window.Alpine.start === 'function') {
-                    // Only start if not already started
-                    if (!document.body.hasAttribute('x-data')) {
-                      window.Alpine.start();
-                    }
-                  }
-                };
-                document.head.appendChild(script);
-              })();
-            `,
-          }}
-        />
-        <Script
-          id="alpine-init"
+          id="pegasus-global-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
@@ -95,115 +51,75 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   }
                 }, { passive: true });
               };
-              
-              // Install Alpine.js plugins
-              const installPlugins = () => {
-                if (typeof Alpine === 'undefined' || !Alpine.plugin) return;
-                
-                // CDN versions expose plugins as window.AlpineIntersect and window.AlpineCollapse
-                if (typeof window.AlpineIntersect !== 'undefined') {
-                  Alpine.plugin(window.AlpineIntersect);
-                }
-                if (typeof window.AlpineCollapse !== 'undefined') {
-                  Alpine.plugin(window.AlpineCollapse);
-                }
-              };
-              
-              // Register components immediately if Alpine is already loaded, otherwise wait for alpine:init
-              const registerComponents = () => {
-                // Install plugins first
-                installPlugins();
-                
-                // ParacelsusApp - manages global app state (atTop, goingUp, etc.)
-                Alpine.data('paracelsusApp', () => ({
-                  atTop: true,
-                  nearTop: true,
-                  goingUp: false,
-                  activeMenuItem: false,
-                  langSwitcherOpen: false,
-                  stationaryTimeout: null,
-                  pageSwitcherName: false,
-                  pageSwitcherLabel: false,
-                  init() {
-                    let prevScrollTop = 0;
-                    let scrollFrame;
-                    const scrollThrottleDelay = 100;
-                    
-                    const handleScroll = () => {
-                      if (scrollFrame) {
-                        cancelAnimationFrame(scrollFrame);
-                      }
-                      
-                      scrollFrame = requestAnimationFrame(() => {
-                        const now = Date.now();
-                        if (now - lastScrollTime < scrollThrottleDelay) return;
-                        lastScrollTime = now;
-                        
-                        const scrollTop = Math.max(0, window.pageYOffset || document.documentElement.scrollTop);
-                        const threshold = 20;
-                        
-                        if (Math.abs(scrollTop - prevScrollTop) > threshold) {
-                          this.goingUp = scrollTop < prevScrollTop;
-                          prevScrollTop = scrollTop;
-                        }
-                      });
-                    };
-                    
-                    let lastScrollTime = Date.now();
-                    window.addEventListener('scroll', handleScroll, { passive: true });
-                  }
-                }));
-                
-                Alpine.data('navigation', () => ({
-                  activeMenuItem: false,
-                  open: false,
-                  openSearchForm: false,
-                  activeSubMenuItem: false,
-                  navigationIn: true,
-                  atTop: true,
-                  nearTop: true,
-                  goingUp: false,
-                  languagePromptOpen: false,
-                  lastScrollY: 0,
-                  init() {
-                    this.lastScrollY = window.scrollY;
-                    window.addEventListener('scroll', () => {
-                      const currentScrollY = window.scrollY;
-                      this.goingUp = currentScrollY < this.lastScrollY;
-                      this.lastScrollY = currentScrollY;
-                    });
-                  }
-                }));
-                
-                Alpine.data('videoBanner', () => ({
-                  init() {
-                    // Ensure video autoplays with muted attribute
-                    this.$nextTick(() => {
-                      const videoContainer = this.$refs.videoContainer;
-                      if (videoContainer) {
-                        const video = videoContainer.querySelector('video');
-                        if (video) {
-                          // Ensure video is muted for autoplay
-                          video.muted = true;
-                          // Try to play the video
-                          video.play().catch(err => {
-                            console.warn('Video autoplay failed:', err);
-                          });
-                        }
-                      }
-                    });
-                  }
-                }));
-              };
-              
-              // Register components immediately if Alpine is available, otherwise wait for alpine:init
-              if (typeof Alpine !== 'undefined' && Alpine.data) {
-                registerComponents();
-              } else {
-                document.addEventListener('alpine:init', registerComponents);
-              }
             `,
           }}
+        />
+        {/* Step 2: Load Alpine.js core - must load before plugins and components */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+          strategy="beforeInteractive"
+        />
+        {/* Step 3: Load Alpine.js plugins */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
+          strategy="beforeInteractive"
+        />
+        {/* Step 4: Install plugins IMMEDIATELY after they load */}
+        <Script
+          id="alpine-plugins-install"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Install Alpine.js plugins synchronously
+              // This runs immediately after the plugin scripts load
+              (function installPlugins() {
+                // Wait for Alpine and plugins to be available
+                const checkAndInstall = () => {
+                  if (typeof Alpine !== 'undefined' && Alpine.plugin) {
+                    // CDN versions expose plugins as window.AlpineIntersect and window.AlpineCollapse
+                    if (typeof window.AlpineIntersect !== 'undefined') {
+                      Alpine.plugin(window.AlpineIntersect);
+                    }
+                    if (typeof window.AlpineCollapse !== 'undefined') {
+                      Alpine.plugin(window.AlpineCollapse);
+                    }
+                    return true;
+                  }
+                  return false;
+                };
+                
+                // Try immediately
+                if (!checkAndInstall()) {
+                  // If not ready, wait a tick and try again
+                  setTimeout(() => {
+                    if (!checkAndInstall()) {
+                      // Fallback: wait for alpine:init
+                      document.addEventListener('alpine:init', checkAndInstall, { once: true });
+                    }
+                  }, 0);
+                }
+              })();
+            `,
+          }}
+        />
+        {/* Step 5: Load component definitions SYNCHRONOUSLY */}
+        {/* This must load after Alpine and plugins are installed */}
+        {/* Using beforeInteractive ensures it's injected into <head> and loads before page is interactive */}
+        <Script
+          src="/wp-content/themes/pegasus/dist/CGBqs_Rr.js"
+          strategy="beforeInteractive"
+        />
+        <BodyAlpine />
+        <InlineStylesServer />
+        <HeadLinks />
+        {children}
+        <Script
+          src="/wp-content/themes/pegasus/assets/scripts/global/02-lazy-load.js"
+          strategy="afterInteractive"
         />
       </body>
     </html>

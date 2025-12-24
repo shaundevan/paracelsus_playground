@@ -8,7 +8,7 @@ import { useEffect } from "react";
  */
 export default function BodyAlpine() {
   useEffect(() => {
-    // Add x-data to body for Alpine.js
+    // Add x-data to body for Alpine.js (if not already set)
     if (document.body && !document.body.getAttribute("x-data")) {
       document.body.setAttribute("x-data", "paracelsusApp");
     }

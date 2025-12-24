@@ -24,11 +24,11 @@ export default function Page() {
   }
 
   return (
-    <div id="page" className="site">
+    <>
       <DebugHeader />
       <div dangerouslySetInnerHTML={{ __html: head }} />
       <div dangerouslySetInnerHTML={{ __html: main }} />
       <div dangerouslySetInnerHTML={{ __html: footer }} />
-    </div>
+    </>
   );
 }
