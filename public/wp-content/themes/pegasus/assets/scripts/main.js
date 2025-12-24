@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs';
 import intersect from '@alpinejs/intersect';
 import collapse from '@alpinejs/collapse';
+import Flickity from 'flickity';
 import { PegasusModule, FrameworkAdaptor } from './PegasusModule';
 import { AlpineAdaptor } from './PegasusModule/adaptors/AlpineAdaptor';
 
@@ -27,4 +28,10 @@ window.customElements.define('pegasus-module', PegasusModule);
 Alpine.plugin(intersect)
 Alpine.plugin(collapse)
 window.Alpine = Alpine
+
+/**
+ * Expose Flickity globally so components can access it
+ */
+window.Flickity = Flickity
+
 Alpine.start();

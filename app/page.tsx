@@ -5,7 +5,10 @@ import DebugHeader from "./debug-header";
 function readHtml(relPath: string) {
   const content = fs.readFileSync(path.join(process.cwd(), relPath), "utf8");
   // Normalize line endings to prevent hydration mismatches
-  return content.replace(/\r\n/g, "\n");
+  // This ensures consistent HTML between server and client rendering
+  return content
+    .replace(/\r\n/g, "\n")  // Normalize Windows line endings
+    .replace(/\r/g, "\n");   // Normalize Mac line endings
 }
 
 export default function Page() {
@@ -26,9 +29,18 @@ export default function Page() {
   return (
     <>
       <DebugHeader />
-      <div dangerouslySetInnerHTML={{ __html: head }} />
-      <div dangerouslySetInnerHTML={{ __html: main }} />
-      <div dangerouslySetInnerHTML={{ __html: footer }} />
+      <div 
+        suppressHydrationWarning 
+        dangerouslySetInnerHTML={{ __html: head }} 
+      />
+      <div 
+        suppressHydrationWarning 
+        dangerouslySetInnerHTML={{ __html: main }} 
+      />
+      <div 
+        suppressHydrationWarning 
+        dangerouslySetInnerHTML={{ __html: footer }} 
+      />
     </>
   );
 }
