@@ -1,4 +1,4 @@
-export default class BlurRevealSlide
+class BlurRevealSlide
 {
     blur = true;
 }

@@ -1,6 +1,8 @@
 import Flickity from "flickity";
-import Media from "@PegasusTheme/blocks/Media/script";
-import pegasus from "../../assets/scripts/global/01-pegasus";
+
+// Use window globals instead of imports to avoid Vite tree-shaking issues
+const pegasus = window.pegasus;
+const Media = window.Media;
 
 class TeamGridSlider
 {
@@ -33,6 +35,35 @@ class TeamGridSlider
         this.media.$nextTick = this.$nextTick;
         this.media.$refs = this.$refs;
         this.sliderContainer = this.$refs.slider;
+        if (!this.sliderContainer) return;
+        
+        // Check if Flickity is already initialized to prevent double-init
+        const existingFlickity = Flickity.data(this.sliderContainer);
+        if (existingFlickity) {
+            this.slider = existingFlickity;
+            return; // Already initialized, skip
+        }
+        
+        // Also check for pre-existing Flickity HTML markup (from cloned HTML)
+        // and clean it up before re-initializing
+        if (this.sliderContainer.classList.contains('flickity-enabled')) {
+            // Remove Flickity classes and reset structure
+            this.sliderContainer.classList.remove('flickity-enabled', 'is-draggable');
+            const viewport = this.sliderContainer.querySelector('.flickity-viewport');
+            const flickitySlider = this.sliderContainer.querySelector('.flickity-slider');
+            if (viewport && flickitySlider) {
+                // Move slides back to container and remove Flickity wrappers
+                const slides = flickitySlider.querySelectorAll('.slide');
+                slides.forEach(slide => {
+                    slide.style.position = '';
+                    slide.style.left = '';
+                    slide.style.transform = '';
+                    this.sliderContainer.appendChild(slide);
+                });
+                viewport.remove();
+            }
+        }
+        
         this.slides = this.sliderContainer.querySelectorAll(".slide");
         this.screenWidth = window.innerWidth; // Changed from outerWidth
 
@@ -59,6 +90,12 @@ class TeamGridSlider
 
         this.slider = new Flickity(this.sliderContainer, options);
         
+        // Set --slide-width CSS variable for proper slide sizing (approx 3 visible slides)
+        const slideWidth = 100 / 3; // ~33% for 3 visible slides
+        this.slides.forEach(slide => {
+            slide.style.setProperty('--slide-width', `${slideWidth}%`);
+        });
+        
         // Prevent scroll interference during drag
         this.slider.on('dragStart', () => {
             document.documentElement.classList.add('flickity-dragging');
@@ -71,6 +108,15 @@ class TeamGridSlider
         this.slider.on('scroll', () => this.updateProgressBar(), { passive: true });
 
         this.slider.on('ready', () => this.slider.resize());
+        
+        // Fix for layout issues on initial load - resize after fonts/images load
+        if (document.readyState === 'complete') {
+            this.slider.resize();
+        } else {
+            window.addEventListener('load', () => {
+                setTimeout(() => this.slider.resize(), 100);
+            }, { once: true });
+        }
 
         // Replace ResizeObserver setup with pegasus resize handler
         let resizeTimeout;
@@ -137,6 +183,16 @@ class TeamGridSlider
     }
 }
 
-document.addEventListener("alpine:init", () => {
-    Alpine.data("teamGridSlider", (autoplay, infinite) => new TeamGridSlider(autoplay, infinite));
-});
+// Register component - use window.Alpine to ensure we use the global instance
+const registerTeamGridSlider = () => {
+    if (window.Alpine) {
+        window.Alpine.data("teamGridSlider", (autoplay, infinite) => new TeamGridSlider(autoplay, infinite));
+    }
+};
+
+// Try immediate registration, also listen for alpine:init
+registerTeamGridSlider();
+document.addEventListener("alpine:init", registerTeamGridSlider);
+
+// Named export for Vite inclusion
+export { TeamGridSlider };

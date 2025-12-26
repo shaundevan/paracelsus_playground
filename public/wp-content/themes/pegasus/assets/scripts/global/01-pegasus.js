@@ -467,4 +467,4 @@ pegasus.parallaxScroll = (elem, speed = 0.1) => {
     }, { passive: true });
 };
 
-export default pegasus;
+export { pegasus };

@@ -1,7 +1,9 @@
 import Flickity from "flickity";
-import pegasus from "../../assets/scripts/global/01-pegasus";
 
-export default class ImageChangeTextSlider {
+// Use window.pegasus instead of import to avoid Vite tree-shaking issues
+const pegasus = window.pegasus;
+
+class ImageChangeTextSlider {
     image = "";
 
     /**
@@ -42,12 +44,31 @@ export default class ImageChangeTextSlider {
         this.sliderContainer = this.$root.querySelector(".ImageChangeTextSlider__slider");
         if (!this.sliderContainer) return;
         
-        // Check if Flickity is already initialized
-        const existingFlickity = this.sliderContainer._flickity || this.sliderContainer.flickity;
+        // Check if Flickity is already initialized to prevent double-init
+        const existingFlickity = Flickity.data(this.sliderContainer);
         if (existingFlickity) {
-            // Already initialized, just resize
-            existingFlickity.resize();
-            return;
+            this.slider = existingFlickity;
+            return; // Already initialized, skip
+        }
+        
+        // Also check for pre-existing Flickity HTML markup (from cloned HTML)
+        // and clean it up before re-initializing
+        if (this.sliderContainer.classList.contains('flickity-enabled')) {
+            // Remove Flickity classes and reset structure
+            this.sliderContainer.classList.remove('flickity-enabled', 'is-draggable');
+            const viewport = this.sliderContainer.querySelector('.flickity-viewport');
+            const flickitySlider = this.sliderContainer.querySelector('.flickity-slider');
+            if (viewport && flickitySlider) {
+                // Move slides back to container and remove Flickity wrappers
+                const slides = flickitySlider.querySelectorAll('.slide');
+                slides.forEach(slide => {
+                    slide.style.position = '';
+                    slide.style.left = '';
+                    slide.style.transform = '';
+                    this.sliderContainer.appendChild(slide);
+                });
+                viewport.remove();
+            }
         }
         
         this.slides = this.sliderContainer.querySelectorAll(".slide");
@@ -105,6 +126,15 @@ export default class ImageChangeTextSlider {
 
 
         this.slider.on('ready', () => this.slider.resize());
+        
+        // Fix for layout issues on initial load - resize after fonts/images load
+        if (document.readyState === 'complete') {
+            this.slider.resize();
+        } else {
+            window.addEventListener('load', () => {
+                setTimeout(() => this.slider.resize(), 100);
+            }, { once: true });
+        }
 
         let resizeTimeout;
         pegasus.onResizeFinished(() => {
@@ -136,9 +166,13 @@ export default class ImageChangeTextSlider {
     }
 }
 
-document.addEventListener("alpine:init", () => {
-    Alpine.data(
-        "imageChangeTextSlider",
-        (image) => new ImageChangeTextSlider(image)
-    );
-});
+// Register component - use window.Alpine to ensure we use the global instance
+const registerImageChangeTextSlider = () => {
+    if (window.Alpine) {
+        window.Alpine.data("imageChangeTextSlider", (image) => new ImageChangeTextSlider(image));
+    }
+};
+
+// Try immediate registration, also listen for alpine:init
+registerImageChangeTextSlider();
+document.addEventListener("alpine:init", registerImageChangeTextSlider);

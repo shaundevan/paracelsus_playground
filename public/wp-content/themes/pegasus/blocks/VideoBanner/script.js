@@ -46,6 +46,14 @@ class VideoBanner {
     
     loadVideo() {
         const container = this.$refs.videoContainer;
+        
+        // Check if a video already exists (from cloned HTML) - prevent duplicates
+        const existingVideo = container.querySelector('video');
+        if (existingVideo) {
+            this.videoLoaded = true;
+            return; // Video already exists, no need to create another
+        }
+        
         const isMobile = window.innerWidth < 768;
         
         const desktopVideo = container.dataset.desktopVideo;

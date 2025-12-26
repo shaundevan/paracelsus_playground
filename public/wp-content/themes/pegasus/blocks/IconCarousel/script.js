@@ -81,9 +81,13 @@ export default class IconCarousel {
     }
 }
 
-document.addEventListener("alpine:init", () => {
-    Alpine.data(
-        "IconCarousel",
-        (isPreview) => new IconCarousel(isPreview)
-    );
-});
+// Register component - use window.Alpine to ensure we use the global instance
+const registerIconCarousel = () => {
+    if (window.Alpine) {
+        window.Alpine.data("IconCarousel", (isPreview) => new IconCarousel(isPreview));
+    }
+};
+
+// Try immediate registration, also listen for alpine:init
+registerIconCarousel();
+document.addEventListener("alpine:init", registerIconCarousel);

@@ -1,4 +1,4 @@
-export default class PageSwitcher {
+class PageSwitcher {
     open = false;
 }
 

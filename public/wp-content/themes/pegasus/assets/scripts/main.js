@@ -34,4 +34,19 @@ window.Alpine = Alpine
  */
 window.Flickity = Flickity
 
-Alpine.start();
+// FORCE INCLUDE: Explicitly import components that Vite incorrectly tree-shakes
+import { QuoteSlider } from '../../blocks/QuoteSlider/script.js';
+import { TeamGridSlider } from '../../blocks/TeamMemberSlider/script.js';
+// Reference exports to force Vite inclusion
+window._forceInclude = { QuoteSlider, TeamGridSlider };
+
+// Signal that bundle components have been registered
+// NOTE: This MUST come AFTER window.Alpine and window.Flickity are set!
+window.__bundleComponentsLoaded = true;
+console.log('[Pegasus] Bundle components registered');
+
+// Dispatch custom event for more reliable detection
+window.dispatchEvent(new CustomEvent('pegasus:bundle-ready'));
+
+// DO NOT call Alpine.start() here - it's handled by layout.tsx timing system
+// Alpine.start() is called after all component registrations are complete

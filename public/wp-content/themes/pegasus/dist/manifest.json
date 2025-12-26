@@ -1,15 +1,31 @@
 {
+  "_CLAUbIk5.js": {
+    "file": "CLAUbIk5.js",
+    "name": "script"
+  },
   "assets/js/tracking/adform-tracking.js": {
     "file": "Cjm_Ele6.js",
     "name": "adform-tracking",
     "src": "assets/js/tracking/adform-tracking.js",
     "isEntry": true
   },
+  "assets/scripts/alpine-accordion-only.js": {
+    "file": "alpine-accordion-only.js",
+    "name": "alpine-accordion-only",
+    "src": "assets/scripts/alpine-accordion-only.js",
+    "isEntry": true,
+    "imports": [
+      "_CLAUbIk5.js"
+    ]
+  },
   "assets/scripts/main.js": {
-    "file": "DqtS7NQX.js",
+    "file": "BU6_YsVJ.js",
     "name": "main",
     "src": "assets/scripts/main.js",
     "isEntry": true,
+    "imports": [
+      "_CLAUbIk5.js"
+    ],
     "css": [
       "assets/styles/CJ-KzOvo.css"
     ]

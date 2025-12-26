@@ -1,4 +1,4 @@
-export default class Programme {
+class Programme {
     constructor(price, exchangeRates, baseCurrency) {
         this.basePrice = price;
         this.exchangeRates = typeof exchangeRates === 'string' ? JSON.parse(exchangeRates) : exchangeRates;

@@ -1,4 +1,4 @@
-export default class OverlappingImages {
+class OverlappingImages {
     init() {
         var targets = document.querySelectorAll('.OverlappingImages');
 

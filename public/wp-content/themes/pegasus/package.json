@@ -4,6 +4,7 @@
     "description": "Pegasus theme packages",
     "main": "main.js",
     "type": "module",
+    "sideEffects": true,
     "scripts": {
         "build": "vite build",
         "dev": "vite dev && vite --cors",

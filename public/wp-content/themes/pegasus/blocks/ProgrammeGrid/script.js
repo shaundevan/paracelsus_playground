@@ -1,4 +1,4 @@
-export default class ProgrammeGrid {
+class ProgrammeGrid {
     open = false;
 
     constructor(currencies) {

@@ -1,4 +1,4 @@
-export default class Shutter
+class Shutter
 {
     sticking = false;
 

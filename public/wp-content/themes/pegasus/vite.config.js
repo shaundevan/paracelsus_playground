@@ -24,31 +24,40 @@ export default defineConfig({
     rollupOptions: {
       input: [
         path.resolve(__dirname, 'assets/scripts/main.js'),
+        path.resolve(__dirname, 'assets/scripts/alpine-accordion-only.js'),
         path.resolve(__dirname, 'assets/styles/main.scss'),
         path.resolve(__dirname, 'assets/styles/editor.scss'),
         path.resolve(__dirname, 'assets/js/tracking/adform-tracking.js'),
       ],
+      // Preserve ALL side effects to ensure Alpine component registrations are included
+      treeshake: {
+        moduleSideEffects: (id, external) => {
+          // Force all modules to preserve side effects
+          return true;
+        }
+      },
       output: {
-        entryFileNames: '[hash].js',
+        entryFileNames: (chunkInfo) => {
+          // Use fixed name for alpine-accordion-only bundle
+          if (chunkInfo.name === 'alpine-accordion-only') {
+            return 'alpine-accordion-only.js';
+          }
+          return '[hash].js';
+        },
         chunkFileNames: '[hash].js',
         assetFileNames: ({name}) => {
-
           if(name === 'editor.css') {
             return 'assets/styles/editor.css';
           }
-
           if (/\.css$/.test(name ?? '')) {
-              return 'assets/styles/[hash].[ext]';   
+            return 'assets/styles/[hash].[ext]';   
           }
-
           if (/\.(gif|jpe?g|png|svg|webp)$/.test(name ?? '')){
             return 'assets/images/[name].[ext]';
           }
-
           if (/\.(woff2|woff|ttf|otf)$/.test(name ?? '')){
             return 'assets/fonts/[name].[ext]';
           }
- 
           return 'assets/[name].[ext]';
         },
       },

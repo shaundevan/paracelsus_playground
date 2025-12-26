@@ -1,5 +1,7 @@
 import Flickity from "flickity";
-import pegasus from "../../assets/scripts/global/01-pegasus";
+
+// Use window.pegasus instead of import to avoid Vite tree-shaking issues
+const pegasus = window.pegasus;
 
 class QuoteSlider
 {
@@ -53,6 +55,35 @@ class QuoteSlider
 
     initSlider() {
         this.sliderContainer = this.$refs.slider;
+        if (!this.sliderContainer) return;
+        
+        // Check if Flickity is already initialized to prevent double-init
+        const existingFlickity = Flickity.data(this.sliderContainer);
+        if (existingFlickity) {
+            this.slider = existingFlickity;
+            return; // Already initialized, skip
+        }
+        
+        // Also check for pre-existing Flickity HTML markup (from cloned HTML)
+        // and clean it up before re-initializing
+        if (this.sliderContainer.classList.contains('flickity-enabled')) {
+            // Remove Flickity classes and reset structure
+            this.sliderContainer.classList.remove('flickity-enabled', 'is-draggable');
+            const viewport = this.sliderContainer.querySelector('.flickity-viewport');
+            const flickitySlider = this.sliderContainer.querySelector('.flickity-slider');
+            if (viewport && flickitySlider) {
+                // Move slides back to container and remove Flickity wrappers
+                const slides = flickitySlider.querySelectorAll('.slide');
+                slides.forEach(slide => {
+                    slide.style.position = '';
+                    slide.style.left = '';
+                    slide.style.transform = '';
+                    this.sliderContainer.appendChild(slide);
+                });
+                viewport.remove();
+            }
+        }
+        
         this.slides = this.sliderContainer.querySelectorAll(".slide");
         this.screenWidth = window.innerWidth; // Changed from outerWidth
 
@@ -70,12 +101,27 @@ class QuoteSlider
             options.autoPlay = this.autoplay * 1000;
         }
         this.slider = new Flickity(this.sliderContainer, options);
+        
+        // Set --slide-width CSS variable for proper slide sizing (2 visible slides)
+        const slideWidth = 50; // 50% for 2 visible slides
+        this.slides.forEach(slide => {
+            slide.style.setProperty('--slide-width', `${slideWidth}%`);
+        });
 
         this.slider.on("scroll", (e) => {
             this.updateProgressBar();
         });
 
         this.slider.on('ready', () => this.slider.resize());
+        
+        // Fix for layout issues on initial load - resize after fonts/images load
+        if (document.readyState === 'complete') {
+            this.slider.resize();
+        } else {
+            window.addEventListener('load', () => {
+                setTimeout(() => this.slider.resize(), 100);
+            }, { once: true });
+        }
 
         let resizeTimeout;
         pegasus.onResizeFinished(() => {
@@ -125,6 +171,16 @@ class QuoteSlider
     }
 }
 
-document.addEventListener("alpine:init", () => {
-    Alpine.data("quoteSlider", (autoplay, infinite) => new QuoteSlider(autoplay, infinite));
-});
+// Register component - use window.Alpine to ensure we use the global instance
+const registerQuoteSlider = () => {
+    if (window.Alpine) {
+        window.Alpine.data("quoteSlider", (autoplay, infinite) => new QuoteSlider(autoplay, infinite));
+    }
+};
+
+// Try immediate registration, also listen for alpine:init
+registerQuoteSlider();
+document.addEventListener("alpine:init", registerQuoteSlider);
+
+// Named export for Vite inclusion
+export { QuoteSlider };

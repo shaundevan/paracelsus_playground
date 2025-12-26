@@ -1,4 +1,4 @@
-export default class Media {
+class Media {
     // Set class variables
     videoType = "upload";
     video = null;
@@ -106,3 +106,9 @@ export default class Media {
 document.addEventListener("alpine:init", () => {
     Alpine.data("PegasusMediaBlock", (openInModal, mediaType) => new Media(openInModal, mediaType));
 });
+
+
+// Make Media available globally for components that need it
+window.Media = Media;
+
+export { Media };

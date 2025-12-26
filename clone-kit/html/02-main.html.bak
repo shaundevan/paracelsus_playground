@@ -89,6 +89,7 @@
 
 <div style="margin-top:0;margin-bottom:0;height:20px" aria-hidden="true" class="wp-block-spacer"></div>
 </div>
+</div>
 
 </div>
 
@@ -128,6 +129,7 @@
 
 
 <div style="margin-top:0;margin-bottom:0;height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
 
 </div>
 
@@ -142,6 +144,7 @@
 
 <div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-d3fb2af9 wp-block-buttons-is-layout-flex" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:0">
 <div class="wp-block-button is-style-arrow-outline" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color has-border-color has-dark-01-border-color wp-element-button" href="https://paracelsus-recovery.com/about-us/" style="border-width:1px">About us</a></div>
+</div>
 </div>
 
 </div>
@@ -1562,8 +1565,10 @@
 </div>
 </div>
 </div>
+</div>
 
     </section></div>
+</div>
 </div>
 </div>
 
@@ -1679,6 +1684,7 @@
 </div>
 </div>
 </div>
+</div>
 
 </div>
 
@@ -1711,13 +1717,13 @@
 
 </div>
 </div>
-<div class="ImageChangeTextSlider__slider  " tabindex="0">
+<div class="ImageChangeTextSlider__slider flickity-enabled is-draggable" tabindex="0">
 
 
 
 
 
-<div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-02 border-dark-02 " :class="image == 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" @click="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" x-init="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'">
+<div class="flickity-viewport" style="height: 209.6px; touch-action: pan-y;"><div class="flickity-slider" style="left: 0px; transform: translateX(0px);"><div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-02 border-dark-02 is-selected" :class="image == 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" @click="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" x-init="image = 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" style="position: absolute; left: 0px; transform: translateX(0px);">
 <template x-teleport="#imageGlobalImageChangeTextSlide" data-teleport-template="true">
 <div x-show="image == 'block_78dcef74ee6d71d9b7d9bc8e6fb1e945'" class="xs:absolute inset-0 row-start-1 row-end-1" x-transition.opacity.duration.300ms="">
 <picture class="pegasus-lazy-wrapper xs:absolute inset-0"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp 1620w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-150x150.webp 150w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="1536" height="1024" class="h-full w-full object-cover object-center aspect-[353/380] xs:aspect-[1360/616]" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2067%22%20style%3D%22background-color%3A%20rgba%280%2C0%2C0%2C0.1%29%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22transparent%22%2F%3E%3C%2Fsvg%3E" data-src="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp" data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"></picture>
@@ -1726,7 +1732,7 @@
 <p>A sanctuary of safety and compassion</p>
 <p>Wherever you are on your journey, whatever challenges you face, and whoever you are, we are here for you. With absolute discretion, we provide the care you need in a secure, confidential, and nurturing environment.</p>
 
-</div><div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-01 border-dark-01" :class="image == 'block_fb295ef68d01190e22f95f05b1b1af50' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" @click="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" x-init="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" aria-hidden="true">
+</div><div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-01 border-dark-01" :class="image == 'block_fb295ef68d01190e22f95f05b1b1af50' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" @click="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" x-init="image = 'block_fb295ef68d01190e22f95f05b1b1af50'" style="position: absolute; left: 0px; transform: translateX(457px);" aria-hidden="true">
 <template x-teleport="#imageGlobalImageChangeTextSlide" data-teleport-template="true">
 <div x-show="image == 'block_fb295ef68d01190e22f95f05b1b1af50'" class="xs:absolute inset-0 row-start-1 row-end-1" x-transition.opacity.duration.300ms="">
 <picture class="pegasus-lazy-wrapper xs:absolute inset-0"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp 1620w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-150x150.webp 150w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="1536" height="1024" class="h-full w-full object-cover object-center aspect-[353/380] xs:aspect-[1360/616]" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2067%22%20style%3D%22background-color%3A%20rgba%280%2C0%2C0%2C0.1%29%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22transparent%22%2F%3E%3C%2Fsvg%3E" data-src="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp" data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"></picture>
@@ -1735,7 +1741,7 @@
 <p class="" data-start="257" data-end="275">A dedicated team</p>
 <p class="" data-start="277" data-end="496">A team of 15 leading experts is fully committed to your well-being. From your personal psychiatrist and attending physician to your live-in therapist and dedicated client coordination team, we stand by your side 24/7.</p>
 
-</div><div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-02 border-dark-02" :class="image == 'block_0c239b7fa25386ef46a2280167e2bdb3' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" @click="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" x-init="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" aria-hidden="true">
+</div><div class="ImageChangeTextSlide slide relative w-[87%] xs:w-[31.33%] mr-[30px] xs:mr-[3%] last:mr-0 py-8 border-t-2 transition-colors text-dark-02 border-dark-02" :class="image == 'block_0c239b7fa25386ef46a2280167e2bdb3' ? 'text-dark-01 border-dark-01' : 'text-dark-02 border-dark-02'" @mouseover="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" @click="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" x-init="image = 'block_0c239b7fa25386ef46a2280167e2bdb3'" style="position: absolute; left: 0px; transform: translateX(913px);" aria-hidden="true">
 <template x-teleport="#imageGlobalImageChangeTextSlide" data-teleport-template="true">
 <div x-show="image == 'block_0c239b7fa25386ef46a2280167e2bdb3'" class="xs:absolute inset-0 row-start-1 row-end-1" x-transition.opacity.duration.300ms="">
 <picture class="pegasus-lazy-wrapper xs:absolute inset-0"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp 1620w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-150x150.webp 150w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="1536" height="1024" class="h-full w-full object-cover object-center aspect-[353/380] xs:aspect-[1360/616]" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%2067%22%20style%3D%22background-color%3A%20rgba%280%2C0%2C0%2C0.1%29%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22transparent%22%2F%3E%3C%2Fsvg%3E" data-src="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1.webp" data-srcset="https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1536x1024.webp 1536w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-300x200.webp 300w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-1024x683.webp 1024w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-768x512.webp 768w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-540x360.webp 540w, https://paracelsus-recovery.com/wp-content/uploads/2025/04/Parac-Reco-4439-1620x1080-1-640x427.webp 640w" data-sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"></picture>
@@ -1744,11 +1750,17 @@
 <p class="" data-start="498" data-end="521">Private and exclusive</p>
 <p class="" data-start="523" data-end="617">A private, exclusive, and entirely discreet experience—designed to prioritize and protect you.</p>
 
-</div></div></div>
+</div></div></div></div>
+</section>
+
+
 <div style="margin-top:0;margin-bottom:0;height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
 
 <div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-c3d5205c wp-block-buttons-is-layout-flex" style="margin-top:0;margin-bottom:0">
 <div class="wp-block-button is-style-arrow-outline" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color has-border-color has-dark-01-border-color wp-element-button" href="https://www.paracelsus-recovery.com/programmes-and-therapies/" style="border-width:1px">see OUR PROGRAMMES</a></div>
+</div>
 </div>
 
 </div>
@@ -1801,6 +1813,7 @@
 
 
 <p class="has-dark-01-color has-text-color has-link-color has-x-small-font-size wp-elements-403c995afcea1e29708c7ed7117f0ec7 wp-block-paragraph" style="text-decoration:underline;text-transform:uppercase"></p>
+</div>
 </div>
 </div>
 
@@ -1886,6 +1899,7 @@
 
 
 <div style="margin-top:0;margin-bottom:0;height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
 
 </div>
 
@@ -1925,6 +1939,7 @@
 
 
 <div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
 
 </div>
 
@@ -1979,6 +1994,7 @@
 
 
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:20%"></div>
+</div>
 
 </div>
 
@@ -1999,7 +2015,7 @@
 
 
 <div class="relative slider-container ">
-        <div x-ref="slider" class="slider w-full  " tabindex="0">
+        <div x-ref="slider" class="slider w-full flickity-enabled is-draggable" tabindex="0">
                                                                 
                                     
                                     
@@ -2016,7 +2032,7 @@
                                     
                                     
                                     
-                                                <div class="slide ">
+                                                <div class="flickity-viewport" style="height: 672.463px; touch-action: pan-y;"><div class="flickity-slider" style="left: 0px; transform: translateX(10%);"><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(0%);">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/prof-dr-thomas-suedhof/" class="block relative rounded-[5px] ">
@@ -2048,7 +2064,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(100%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/jan-gerber/" class="block relative rounded-[5px] ">
@@ -2080,7 +2096,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(200%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/14057/" class="block relative rounded-[5px] ">
@@ -2112,7 +2128,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(300%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/thilo-beck/" class="block relative rounded-[5px] ">
@@ -2144,7 +2160,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(400%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/3244/" class="block relative rounded-[5px] ">
@@ -2176,7 +2192,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(500%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/foto-test-pablo-rowit-kumar/" class="block relative rounded-[5px] ">
@@ -2208,7 +2224,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(600%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/kjell-r-brolund-spaether/" class="block relative rounded-[5px] ">
@@ -2240,7 +2256,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(700%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/priscilla-sanchez/" class="block relative rounded-[5px] ">
@@ -2272,7 +2288,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(800%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/hassan-gencal/" class="block relative rounded-[5px] ">
@@ -2304,7 +2320,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(900%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/annette-ruesch-ilardo/" class="block relative rounded-[5px] ">
@@ -2336,7 +2352,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(1000%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/david-fenn/" class="block relative rounded-[5px] ">
@@ -2368,7 +2384,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(1100%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/maria-pena/" class="block relative rounded-[5px] ">
@@ -2400,7 +2416,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(1200%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/chanel-mc-cormick/" class="block relative rounded-[5px] ">
@@ -2432,7 +2448,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(1300%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/negar-marazzi/" class="block relative rounded-[5px] ">
@@ -2464,7 +2480,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(1400%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/evgenia-zraychikova/" class="block relative rounded-[5px] ">
@@ -2496,7 +2512,7 @@
             </div>
     </div>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(-100%);" aria-hidden="true">
                     <div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
 <div class="group relative text-white">
                 <a href="https://paracelsus-recovery.com/team-member/elizabeth-carter-msc-ncc-lpca/" class="block relative rounded-[5px] ">
@@ -2528,8 +2544,9 @@
             </div>
     </div>
 </div>
-                </div></div>
-<div class="Navigation__Arrows absolute alignment vertical-bottom horizontal-center ">
+                </div></div></div></div>
+
+                            <div class="Navigation__Arrows absolute alignment vertical-bottom horizontal-center ">
                                     <button x-on:click="previousSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500" style="">
                     <span class="sr-only">Previous Slide</span>
                     <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2609,6 +2626,7 @@
 
 <div class="wp-block-buttons is-content-justification-right is-layout-flex wp-container-core-buttons-is-layout-ca13948c wp-block-buttons-is-layout-flex">
 <div class="wp-block-button is-style-arrow-outline" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color has-border-color has-dark-01-border-color wp-element-button" href="https://www.paracelsus-recovery.com/press/" style="border-width:1px">In the press</a></div>
+</div>
 
 </div>
 
@@ -2624,11 +2642,11 @@
 <section x-data="quoteSlider('', 0)" class="Quote__slider relative sm:pr-[74px] arrow-vertical-bottom" x-intersect.once="inView = true" style="--carousel-arrow-spacing: 1%; --carousel-arrow-inset: -5rem">
 
 <div class="relative slider-container" :style="inView ? 'transform:translateX(0)' : ''" style="transform:translateX(0)">
-        <div x-ref="slider" class="slider w-full  " data-pegasus-filterable="block_f9e2b84432e00d3f7e5715baeb4e4823" tabindex="0">
+        <div x-ref="slider" class="slider w-full flickity-enabled is-draggable" data-pegasus-filterable="block_f9e2b84432e00d3f7e5715baeb4e4823" tabindex="0">
                                                                 
                                     
                                     
-                                                <div class="slide ">
+                                                <div class="flickity-viewport" style="height: 679.162px; touch-action: pan-y;"><div class="flickity-slider" style="left: 0px; transform: translateX(0%);"><div class="slide is-selected" style="--slide-width: 50%; position: absolute; left: 0px; transform: translateX(0%);">
                     <div class="Quote__Slider-post pr-2.5 xs:pr-5 pb-10 xs:pb-0" data-pegasus-single-card="">
 <a href="https://paracelsus-recovery.com/press-articles/financial-times-do-you-need-the-c-suite-check-up">
 <div class="bg-yellow-02 p-[31px] xs:p-[60px] rounded-[5px]">
@@ -2671,7 +2689,7 @@
     </div>
 </a>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 50%; position: absolute; left: 0px; transform: translateX(100%);" aria-hidden="true">
                     <div class="Quote__Slider-post pr-2.5 xs:pr-5 pb-10 xs:pb-0" data-pegasus-single-card="">
 <a href="https://www.thetimes.com/life-style/article/rehab-for-the-1-percent-where-the-ultra-rich-go-when-they-hit-rock-bottom-wr8nqfvw3">
 <div class="bg-yellow-02 p-[31px] xs:p-[60px] rounded-[5px]">
@@ -2870,7 +2888,7 @@
     </div>
 </a>
 </div>
-                </div><div class="slide" aria-hidden="true">
+                </div><div class="slide" style="--slide-width: 50%; position: absolute; left: 0px; transform: translateX(200%);" aria-hidden="true">
                     <div class="Quote__Slider-post pr-2.5 xs:pr-5 pb-10 xs:pb-0" data-pegasus-single-card="">
 <a href="https://paracelsus-recovery.com/press-articles/the-guardian-one-billionaire-at-a-time-inside-the-swiss-clinics-where-the-super-rich-go-for-rehab">
 <div class="bg-yellow-02 p-[31px] xs:p-[60px] rounded-[5px]">
@@ -2899,8 +2917,9 @@
     </div>
 </a>
 </div>
-                </div></div>
-<div class="Navigation__Arrows absolute alignment vertical-bottom horizontal-left ">
+                </div></div></div></div>
+
+                <div class="Navigation__Arrows absolute alignment vertical-bottom horizontal-left ">
                             <button x-on:click="previousSlide()" class="flex items-center justify-center w-10 h-10 rounded-full p-2 hover:opacity-50 transition-opacity duration-500" style="">
                 <span class="sr-only">Previous Slide</span>
                 <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2922,6 +2941,7 @@
         <div class="scroll-progress-bg absolute rounded left-0 right-0 h-[2px] bg-[#e1e1dd]"></div>
         <div x-ref="progressBar" class="scroll-progress rounded max-w-full h-[2px] bg-black relative transition-all" id="scroll-progress" style="width: 33.3333%;"></div>
     </div>
+</div>
 </div>
 
 </section>

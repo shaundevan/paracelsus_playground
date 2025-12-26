@@ -1,4 +1,4 @@
-import pegasus from "../../assets/scripts/global/01-pegasus";
+import { pegasus } from "../../assets/scripts/global/01-pegasus";
 
 /**
  * allModals

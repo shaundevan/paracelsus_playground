@@ -39,14 +39,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           id="alpine-interceptor"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(){window.__pegasusComponentsReady=false;window.__alpineStartQueue=[];Object.defineProperty(window,'Alpine',{get:function(){return window.__alpineInstance;},set:function(value){window.__alpineInstance=value;if(value&&typeof value.start==='function'&&!value.__startIntercepted){var originalStart=value.start.bind(value);value.__startIntercepted=true;value.start=function(){window.__alpineStartQueue.push(originalStart);var tryStart=function(){if(window.__pegasusComponentsReady&&window.__alpineStartQueue.length>0){var startFn=window.__alpineStartQueue.shift();startFn();if(document.body){document.body.setAttribute('data-alpine-started','true');}}else if(!window.__pegasusComponentsReady){setTimeout(tryStart,50);}};tryStart();};}},configurable:true});})();`,
+            __html: `(function(){window.__pegasusComponentsReady=false;window.__alpineStartQueue=[];window.__alpineHasStarted=false;Object.defineProperty(window,'Alpine',{get:function(){return window.__alpineInstance;},set:function(value){window.__alpineInstance=value;if(value&&typeof value.start==='function'&&!value.__startIntercepted){var originalStart=value.start.bind(value);value.__startIntercepted=true;value.start=function(){if(window.__alpineHasStarted){console.warn('[Alpine] Prevented duplicate Alpine.start() call');return;}window.__alpineStartQueue.push(originalStart);var tryStart=function(){if(window.__pegasusComponentsReady&&window.__alpineStartQueue.length>0&&!window.__alpineHasStarted){var startFn=window.__alpineStartQueue.shift();window.__alpineHasStarted=true;startFn();if(document.body){document.body.setAttribute('data-alpine-started','true');}}else if(!window.__pegasusComponentsReady&&!window.__alpineHasStarted){setTimeout(tryStart,50);}};tryStart();};}},configurable:true});})();`,
           }}
         />
-        {/* Load component bundle - includes Alpine, plugins, and all components */}
+        {/* Load NEW minimal bundle - Alpine + Accordion + Slider Components */}
+        {/* This replaces DqtS7NQX.js to fix accordion without breaking Flickity sliders */}
+        {/* Includes Flickity and slider components in the bundle */}
         <Script
           id="pegasus-components"
-          strategy="beforeInteractive"
-          src="/wp-content/themes/pegasus/dist/C-nlNhNL.js"
+          strategy="afterInteractive"
+          src="/wp-content/themes/pegasus/dist/alpine-accordion-only.js"
+          type="module"
+        />
+        {/* Main bundle with all Alpine components (IconCarousel, imageChangeTextSlider, etc.) */}
+        <Script
+          id="pegasus-main-bundle"
+          strategy="afterInteractive"
+          src="/wp-content/themes/pegasus/dist/BU6_YsVJ.js"
+          type="module"
         />
         {/* Handle bundle load completion */}
         <Script
@@ -54,41 +64,83 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              // Wait for bundle to load and mark components as ready
+              // Wait for bundle to load and verify components are ready
               (function() {
+                const MAX_WAIT_TIME = 5000; // Maximum 5 seconds wait (ES modules can take longer)
+                const CHECK_INTERVAL = 50; // Check every 50ms
+                let startTime = Date.now();
+                let bundleReadyReceived = false;
+                
+                // Listen for custom event from bundle
+                window.addEventListener('pegasus:bundle-ready', function() {
+                  bundleReadyReceived = true;
+                  // Immediately proceed when event received
+                  proceedWithAlpine();
+                });
+                
+                const verifyComponentsReady = () => {
+                  // Check if bundle components have loaded (signaled by main.js)
+                  // Also check for Alpine and Flickity availability
+                  return (window.__bundleComponentsLoaded || bundleReadyReceived) && 
+                         window.Alpine && 
+                         typeof window.Flickity === 'function';
+                };
+                
+                const proceedWithAlpine = () => {
+                  if (window.__pegasusComponentsReady) return; // Already processed
+                  if (!verifyComponentsReady()) return; // Not ready yet
+                  
+                  window.__pegasusComponentsReady = true;
+                  
+                  // Execute any queued Alpine.start() calls
+                  const queue = window.__alpineStartQueue;
+                  if (queue && queue.length > 0 && !window.__alpineHasStarted) {
+                    const startFn = queue.shift();
+                    try {
+                      window.__alpineHasStarted = true;
+                      startFn();
+                    } catch (e) {
+                      console.error('Error starting Alpine:', e);
+                    }
+                    if (document.body) {
+                      document.body.setAttribute('data-alpine-started', 'true');
+                    }
+                  }
+                  
+                  // Also try the registered start function
+                  if (typeof window.__startAlpine === 'function') {
+                    window.__startAlpine();
+                  }
+                };
+                
                 const checkBundleLoaded = () => {
-                  // Check if Alpine is available (means bundle loaded)
-                  if (window.Alpine && typeof window.Alpine.data === 'function') {
-                    // Mark components as ready after bundle loads
-                    // The bundle's eager imports should have registered all components
-                    // Give a small delay to ensure all alpine:init listeners fired
-                    setTimeout(() => {
-                      window.__pegasusComponentsReady = true;
-                      
-                      // Execute any queued Alpine.start() calls
-                      const queue = window.__alpineStartQueue;
-                      if (queue && queue.length > 0) {
-                        queue.forEach((startFn) => {
-                          try {
-                            startFn();
-                          } catch (e) {
-                            console.error('Error starting Alpine:', e);
-                          }
-                        });
-                        window.__alpineStartQueue = [];
-                        if (document.body) {
-                          document.body.setAttribute('data-alpine-started', 'true');
-                        }
-                      }
-                      
-                      // Ensure custom components are registered
-                      if (typeof window.__startAlpine === 'function') {
-                        window.__startAlpine();
-                      }
-                    }, 100);
+                  const elapsed = Date.now() - startTime;
+                  
+                  // Try to proceed with Alpine
+                  if (verifyComponentsReady()) {
+                    proceedWithAlpine();
+                  } else if (elapsed < MAX_WAIT_TIME) {
+                    // Not ready yet, keep polling
+                    setTimeout(checkBundleLoaded, CHECK_INTERVAL);
                   } else {
-                    // Bundle not loaded yet, check again
-                    setTimeout(checkBundleLoaded, 50);
+                    // Timeout reached - force proceed anyway
+                    console.warn('[Timing] Bundle timeout reached, forcing Alpine start');
+                    window.__pegasusComponentsReady = true;
+                    
+                    // Execute queued Alpine.start()
+                    const queue = window.__alpineStartQueue;
+                    if (queue && queue.length > 0 && !window.__alpineHasStarted) {
+                      const startFn = queue.shift();
+                      try {
+                        window.__alpineHasStarted = true;
+                        startFn();
+                      } catch (e) {
+                        console.error('Error starting Alpine:', e);
+                      }
+                      if (document.body) {
+                        document.body.setAttribute('data-alpine-started', 'true');
+                      }
+                    }
                   }
                 };
                 
@@ -132,98 +184,121 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 }, { passive: true });
               };
               
-              // Register Alpine components
+              // Register Alpine components (only fallbacks - bundle handles primary registration)
+              // Note: paracelsusApp and navigation are registered by bundle via alpine:init
+              // We only register fallbacks here if bundle registration fails
               const registerComponents = () => {
                 if (typeof Alpine === 'undefined' || !Alpine.data) {
                   console.warn('Alpine.js not available for component registration');
                   return;
                 }
                 
-                // ParacelsusApp - manages global app state (atTop, goingUp, etc.)
-                Alpine.data('paracelsusApp', () => ({
-                  atTop: true,
-                  nearTop: true,
-                  goingUp: false,
-                  activeMenuItem: false,
-                  langSwitcherOpen: false,
-                  stationaryTimeout: null,
-                  pageSwitcherName: false,
-                  pageSwitcherLabel: false,
-                  init() {
-                    let prevScrollTop = 0;
-                    let scrollFrame;
-                    const scrollThrottleDelay = 100;
-                    let lastScrollTime = Date.now();
-                    
-                    const handleScroll = () => {
-                      if (scrollFrame) {
-                        cancelAnimationFrame(scrollFrame);
-                      }
+                // FALLBACK: Only register if bundle didn't register it
+                // ParacelsusApp - bundle registers this, but we check as fallback
+                if (typeof Alpine.data('paracelsusApp') !== 'function') {
+                  console.warn('[Fallback] Registering paracelsusApp - bundle registration may have failed');
+                  Alpine.data('paracelsusApp', () => ({
+                    atTop: true,
+                    nearTop: true,
+                    goingUp: false,
+                    activeMenuItem: false,
+                    langSwitcherOpen: false,
+                    stationaryTimeout: null,
+                    pageSwitcherName: false,
+                    pageSwitcherLabel: false,
+                    init() {
+                      let prevScrollTop = 0;
+                      let scrollFrame;
+                      const scrollThrottleDelay = 100;
+                      let lastScrollTime = Date.now();
                       
-                      scrollFrame = requestAnimationFrame(() => {
-                        const now = Date.now();
-                        if (now - lastScrollTime < scrollThrottleDelay) return;
-                        lastScrollTime = now;
+                      const handleScroll = () => {
+                        if (scrollFrame) {
+                          cancelAnimationFrame(scrollFrame);
+                        }
                         
-                        const scrollTop = Math.max(0, window.pageYOffset || document.documentElement.scrollTop);
-                        const threshold = 20;
-                        
-                        if (Math.abs(scrollTop - prevScrollTop) > threshold) {
-                          this.goingUp = scrollTop < prevScrollTop;
-                          prevScrollTop = scrollTop;
+                        scrollFrame = requestAnimationFrame(() => {
+                          const now = Date.now();
+                          if (now - lastScrollTime < scrollThrottleDelay) return;
+                          lastScrollTime = now;
+                          
+                          const scrollTop = Math.max(0, window.pageYOffset || document.documentElement.scrollTop);
+                          const threshold = 20;
+                          
+                          if (Math.abs(scrollTop - prevScrollTop) > threshold) {
+                            this.goingUp = scrollTop < prevScrollTop;
+                            prevScrollTop = scrollTop;
+                          }
+                        });
+                      };
+                      
+                      window.addEventListener('scroll', handleScroll, { passive: true });
+                    }
+                  }));
+                }
+                
+                // FALLBACK: Only register if bundle didn't register it
+                // Navigation - bundle registers this, but we check as fallback
+                if (typeof Alpine.data('navigation') !== 'function') {
+                  console.warn('[Fallback] Registering navigation - bundle registration may have failed');
+                  Alpine.data('navigation', () => ({
+                    activeMenuItem: false,
+                    open: false,
+                    openSearchForm: false,
+                    activeSubMenuItem: false,
+                    navigationIn: true,
+                    atTop: true,
+                    nearTop: true,
+                    goingUp: false,
+                    languagePromptOpen: false,
+                    lastScrollY: 0,
+                    init() {
+                      this.lastScrollY = window.scrollY;
+                      window.addEventListener('scroll', () => {
+                        const currentScrollY = window.scrollY;
+                        this.goingUp = currentScrollY < this.lastScrollY;
+                        this.lastScrollY = currentScrollY;
+                      });
+                    }
+                  }));
+                }
+                
+                // CRITICAL FIX: Register accordionPanel as fallback
+                // The bundle should register this, but timing issues may prevent it
+                if (typeof Alpine.data('accordionPanel') !== 'function') {
+                  console.warn('[Fallback] Registering accordionPanel - bundle registration may have failed');
+                  Alpine.data('accordionPanel', () => ({
+                    panelOpen: false
+                  }));
+                }
+                
+                // VideoBanner - register if not in bundle
+                if (typeof Alpine.data('videoBanner') !== 'function') {
+                  Alpine.data('videoBanner', () => ({
+                    init() {
+                      // Ensure video autoplays with muted attribute
+                      this.$nextTick(() => {
+                        const videoContainer = this.$refs.videoContainer;
+                        if (videoContainer) {
+                          const video = videoContainer.querySelector('video');
+                          if (video) {
+                            // Ensure video is muted for autoplay
+                            video.muted = true;
+                            // Try to play the video
+                            video.play().catch(err => {
+                              console.warn('Video autoplay failed:', err);
+                            });
+                          }
                         }
                       });
-                    };
-                    
-                    window.addEventListener('scroll', handleScroll, { passive: true });
-                  }
-                }));
-                
-                Alpine.data('navigation', () => ({
-                  activeMenuItem: false,
-                  open: false,
-                  openSearchForm: false,
-                  activeSubMenuItem: false,
-                  navigationIn: true,
-                  atTop: true,
-                  nearTop: true,
-                  goingUp: false,
-                  languagePromptOpen: false,
-                  lastScrollY: 0,
-                  init() {
-                    this.lastScrollY = window.scrollY;
-                    window.addEventListener('scroll', () => {
-                      const currentScrollY = window.scrollY;
-                      this.goingUp = currentScrollY < this.lastScrollY;
-                      this.lastScrollY = currentScrollY;
-                    });
-                  }
-                }));
-                
-                Alpine.data('videoBanner', () => ({
-                  init() {
-                    // Ensure video autoplays with muted attribute
-                    this.$nextTick(() => {
-                      const videoContainer = this.$refs.videoContainer;
-                      if (videoContainer) {
-                        const video = videoContainer.querySelector('video');
-                        if (video) {
-                          // Ensure video is muted for autoplay
-                          video.muted = true;
-                          // Try to play the video
-                          video.play().catch(err => {
-                            console.warn('Video autoplay failed:', err);
-                          });
-                        }
-                      }
-                    });
-                  }
-                }));
+                    }
+                  }));
+                }
               };
               
               // Define the Alpine start function that will be called after bundle is ready
               window.__startAlpine = function() {
-                // Register custom components (paracelsusApp, navigation, videoBanner)
+                // Register fallback components (only if bundle didn't register them)
                 registerComponents();
                 
                 // Add :class binding to body for dynamic class management
@@ -245,18 +320,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 // Start Alpine if it hasn't started yet
                 // Note: The bundle may have already started Alpine, so check first
                 if (window.Alpine && typeof window.Alpine.start === 'function') {
-                  // Check if Alpine has already started
-                  if (!document.body.hasAttribute('data-alpine-started')) {
+                  // Check if Alpine has already started using global flag
+                  if (!window.__alpineHasStarted && !document.body.hasAttribute('data-alpine-started')) {
                     window.Alpine.start();
+                    // Flag is set by the interceptor, but set it here too as a safeguard
+                    window.__alpineHasStarted = true;
                     document.body.setAttribute('data-alpine-started', 'true');
                   }
                 }
               };
               
-              // Listen for alpine:init to register our custom components
+              // CRITICAL: Attach alpine:init listener EARLY (before bundle loads)
+              // This ensures we catch the alpine:init event when Alpine.start() is called
+              // The bundle's components also use alpine:init, so we need to be ready
               document.addEventListener('alpine:init', () => {
+                // Register fallback components when alpine:init fires
+                // This ensures components are registered even if bundle timing is off
                 registerComponents();
               }, { once: true });
+              
+              // Also register components immediately if Alpine is already available
+              // This handles cases where Alpine loads before this script runs
+              if (typeof window.Alpine !== 'undefined' && typeof window.Alpine.data === 'function') {
+                registerComponents();
+              }
             `,
           }}
         />
