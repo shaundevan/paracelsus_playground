@@ -3,6 +3,7 @@ import Script from "next/script";
 import HeadLinks from "./head-links";
 import InlineStylesServer from "./inline-styles-server";
 import BodyAlpine from "./body-alpine";
+import Header from "./components/Header";
 import "./globals.css";
 import "../styles/wp/block-library.css";
 import "../styles/wp/theme-base.css";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BodyAlpine />
         <InlineStylesServer />
         <HeadLinks />
+        <Header />
         {children}
         {/* CRITICAL: Intercept Alpine.start() BEFORE bundle loads */}
         {/* This ensures components register before Alpine evaluates x-data expressions */}

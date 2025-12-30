@@ -12,27 +12,21 @@ function readHtml(relPath: string) {
 }
 
 export default function Page() {
-  const head = readHtml("clone-kit/html/01-header.html");
+  // Header is now a React component in layout.tsx
   const main = readHtml("clone-kit/html/02-main.html");
   const footer = readHtml("clone-kit/html/03-footer.html");
 
   // Debug: Log file sizes to verify they're loading
   if (process.env.NODE_ENV === "development") {
     console.log("=== SERVER-SIDE DEBUG ===");
-    console.log("Header HTML length:", head.length);
     console.log("Main HTML length:", main.length);
     console.log("Footer HTML length:", footer.length);
-    console.log("Header starts with:", head.substring(0, 100));
-    console.log("Header contains '<header':", head.includes("<header"));
   }
 
   return (
     <>
       <DebugHeader />
-      <div 
-        suppressHydrationWarning 
-        dangerouslySetInnerHTML={{ __html: head }} 
-      />
+      {/* Header is now rendered by layout.tsx via Header component */}
       <div 
         suppressHydrationWarning 
         dangerouslySetInnerHTML={{ __html: main }} 
