@@ -101,3 +101,5 @@
   console.log('3. Check if panelOpen changed: document.querySelector(\'[x-data="accordionPanel"]\')._x_dataStack[0].panelOpen');
 })();
 
+
+

@@ -196,3 +196,5 @@ console.log('3. Check Console tab for Alpine/Flickity errors');
 console.log('4. Inspect accordion element in Elements tab');
 console.log('5. Check if x-data attribute is being processed by Alpine');
 
+
+

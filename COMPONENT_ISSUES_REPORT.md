@@ -40,3 +40,5 @@
 - `paracelsus-clone/app/layout.tsx` - Updated component registration logic
 - `paracelsus-clone/public/wp-content/themes/pegasus/dist/assets/styles/DwoS2IZP.css` - Copied CSS file
 
+
+

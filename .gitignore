@@ -45,3 +45,6 @@ public/wp-content/themes/pegasus/vendor/
 public/wp-content/themes/pegasus/composer.json
 
 public/wp-content/themes/pegasus/composer.lock
+
+# WordPress backup images
+clone-kit/wp_images/

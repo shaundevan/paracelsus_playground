@@ -93,3 +93,5 @@ Add a fallback registration in `layout.tsx` that runs after the bundle loads.
 3. Verify click handlers are attached
 4. Test accordion toggle functionality
 
+
+

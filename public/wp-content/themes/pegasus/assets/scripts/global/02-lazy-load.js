@@ -129,3 +129,96 @@ if (document.readyState === 'loading') {
     // DOM is already loaded, initialize immediately
     initLazyLoader();
 }
+
+/**
+ * Preload images in upcoming sections before user scrolls to them.
+ * Uses Intersection Observer with rootMargin to detect when user approaches a section.
+ */
+class SectionPreloader {
+    constructor() {
+        this.preloadedSections = new Set();
+        this.init();
+    }
+
+    init() {
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setupObservers());
+        } else {
+            this.setupObservers();
+        }
+    }
+
+    setupObservers() {
+        // Find sections that should trigger preloading of the next section
+        const teamGridSection = document.querySelector('.Team__Grid-slider');
+        if (teamGridSection) {
+            // Start loading 2000px before visible (about 2 viewport heights)
+            this.observeSection(teamGridSection, '2000px');
+            
+            // Also preload immediately after page becomes interactive
+            // Uses requestIdleCallback to avoid blocking critical rendering
+            const loadImages = () => {
+                if (!this.preloadedSections.has(teamGridSection)) {
+                    this.preloadSectionImages(teamGridSection);
+                    this.preloadedSections.add(teamGridSection);
+                }
+            };
+            
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadImages, { timeout: 500 });
+            } else {
+                setTimeout(loadImages, 100); // Fallback: load after 100ms
+            }
+        }
+    }
+
+    observeSection(section, margin = '200px') {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !this.preloadedSections.has(section)) {
+                        this.preloadedSections.add(section);
+                        this.preloadSectionImages(section);
+                        observer.disconnect();
+                    }
+                });
+            },
+            {
+                rootMargin: margin, // Trigger before section is visible
+                threshold: 0
+            }
+        );
+
+        observer.observe(section);
+    }
+
+    preloadSectionImages(section) {
+        // Find all lazy images in this section
+        const images = section.querySelectorAll('img[loading="lazy"]');
+        
+        images.forEach(img => {
+            // Change loading to eager to force immediate load
+            img.loading = 'eager';
+            
+            // If image hasn't loaded yet, trigger load by accessing src
+            if (!img.complete) {
+                const currentSrc = img.src;
+                img.src = '';
+                img.src = currentSrc;
+            }
+        });
+
+        // Also handle picture sources
+        const pictures = section.querySelectorAll('picture');
+        pictures.forEach(picture => {
+            const img = picture.querySelector('img');
+            if (img && img.loading === 'lazy') {
+                img.loading = 'eager';
+            }
+        });
+    }
+}
+
+// Initialize section preloader
+new SectionPreloader();

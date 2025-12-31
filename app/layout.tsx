@@ -1,17 +1,11 @@
 ﻿import type { Metadata } from "next";
 import Script from "next/script";
-import HeadLinks from "./head-links";
-import InlineStylesServer from "./inline-styles-server";
+import CriticalCSS from "./critical-css";
 import BodyAlpine from "./body-alpine";
 import Header from "./components/Header";
-import "./globals.css";
-import "../styles/wp/block-library.css";
-import "../styles/wp/theme-base.css";
-// Note: CSS files are loaded via <link> tags in HeadLinks component
-// Using original WordPress paths to preserve relative url() resolution:
-// - /wp-includes/css/dist/block-library/style.min.css
-// - /wp-content/themes/pegasus/dist/assets/styles/DwoS2IZP.css
-// This ensures fonts/images referenced with url(../fonts/...) resolve correctly
+// Note: All CSS is now inlined server-side via CriticalCSS component
+// This prevents FOUC and eliminates render-blocking CSS requests
+// globals.css content is inlined in critical-css.tsx
 
 export const metadata: Metadata = {
   title: "Paracelsus Recovery",
@@ -25,14 +19,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       dir="ltr"
       className="html home wp-singular page-template-default page page-id-62825 wp-theme-pegasus"
     >
+      {/* CRITICAL: Render CSS in head to prevent FOUC */}
+      <head>
+        <CriticalCSS />
+      </head>
       <body 
         className="body-main modal-form scrolled" 
         x-data="paracelsusApp"
         suppressHydrationWarning
       >
         <BodyAlpine />
-        <InlineStylesServer />
-        <HeadLinks />
         <Header />
         {children}
         {/* CRITICAL: Intercept Alpine.start() BEFORE bundle loads */}
@@ -44,21 +40,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `(function(){window.__pegasusComponentsReady=false;window.__alpineStartQueue=[];window.__alpineHasStarted=false;Object.defineProperty(window,'Alpine',{get:function(){return window.__alpineInstance;},set:function(value){window.__alpineInstance=value;if(value&&typeof value.start==='function'&&!value.__startIntercepted){var originalStart=value.start.bind(value);value.__startIntercepted=true;value.start=function(){if(window.__alpineHasStarted){console.warn('[Alpine] Prevented duplicate Alpine.start() call');return;}window.__alpineStartQueue.push(originalStart);var tryStart=function(){if(window.__pegasusComponentsReady&&window.__alpineStartQueue.length>0&&!window.__alpineHasStarted){var startFn=window.__alpineStartQueue.shift();window.__alpineHasStarted=true;startFn();if(document.body){document.body.setAttribute('data-alpine-started','true');}}else if(!window.__pegasusComponentsReady&&!window.__alpineHasStarted){setTimeout(tryStart,50);}};tryStart();};}},configurable:true});})();`,
           }}
         />
-        {/* Load NEW minimal bundle - Alpine + Accordion + Slider Components */}
-        {/* This replaces DqtS7NQX.js to fix accordion without breaking Flickity sliders */}
-        {/* Includes Flickity and slider components in the bundle */}
+        {/* Lazy-load bundles when interactive components are needed */}
+        {/* This reduces initial JS download by deferring until sliders/accordions are visible */}
         <Script
-          id="pegasus-components"
+          id="lazy-bundle-loader"
           strategy="afterInteractive"
-          src="/wp-content/themes/pegasus/dist/alpine-accordion-only.js"
-          type="module"
-        />
-        {/* Main bundle with all Alpine components (IconCarousel, imageChangeTextSlider, etc.) */}
-        <Script
-          id="pegasus-main-bundle"
-          strategy="afterInteractive"
-          src="/wp-content/themes/pegasus/dist/BU6_YsVJ.js"
-          type="module"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                let bundlesLoaded = false;
+                
+                const loadBundles = () => {
+                  if (bundlesLoaded) return;
+                  bundlesLoaded = true;
+                  
+                  // Load Alpine accordion bundle
+                  const accordionScript = document.createElement('script');
+                  accordionScript.src = '/wp-content/themes/pegasus/dist/alpine-accordion-only.js';
+                  accordionScript.type = 'module';
+                  document.body.appendChild(accordionScript);
+                  
+                  // Load main bundle after accordion
+                  accordionScript.onload = () => {
+                    const mainScript = document.createElement('script');
+                    mainScript.src = '/wp-content/themes/pegasus/dist/BU6_YsVJ.js';
+                    mainScript.type = 'module';
+                    document.body.appendChild(mainScript);
+                  };
+                };
+                
+                // Load immediately if user scrolls or interacts
+                const events = ['scroll', 'click', 'touchstart', 'mousemove'];
+                const loadOnce = () => {
+                  loadBundles();
+                  events.forEach(e => window.removeEventListener(e, loadOnce));
+                };
+                events.forEach(e => window.addEventListener(e, loadOnce, { once: true, passive: true }));
+                
+                // Also load after 3 seconds as fallback (for LCP scoring)
+                setTimeout(loadBundles, 3000);
+                
+                // Or load immediately if page is already scrolled
+                if (window.scrollY > 100) loadBundles();
+              })();
+            `,
+          }}
         />
         {/* Handle bundle load completion */}
         <Script
