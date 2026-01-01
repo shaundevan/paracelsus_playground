@@ -19,23 +19,41 @@ export default function BodyAlpine() {
         window.pegasus = {};
       }
 
-      // Parallax scroll function
+      // Parallax scroll function - optimized to avoid forced reflows
       if (!window.pegasus.parallaxScroll) {
         window.pegasus.parallaxScroll = (elem: HTMLElement, speed = 0.1) => {
           if (!elem) return;
           if (window.innerWidth < 992) return;
 
+          let ticking = false;
+          let cachedWindowHeight = window.innerHeight;
+
+          // Update cached window height on resize (debounced)
+          let resizeTimeout: ReturnType<typeof setTimeout>;
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+              cachedWindowHeight = window.innerHeight;
+            }, 100);
+          }, { passive: true });
+
           window.addEventListener(
             "scroll",
             () => {
-              const rect = elem.getBoundingClientRect();
-              const windowHeight = window.innerHeight;
-              const elementCenter = rect.top + rect.height / 2;
-              const distanceFromCenter = elementCenter - windowHeight / 2;
-              const translateY = distanceFromCenter * speed;
+              // Use requestAnimationFrame to batch DOM reads and avoid forced reflows
+              if (!ticking) {
+                requestAnimationFrame(() => {
+                  const rect = elem.getBoundingClientRect();
+                  const elementCenter = rect.top + rect.height / 2;
+                  const distanceFromCenter = elementCenter - cachedWindowHeight / 2;
+                  const translateY = distanceFromCenter * speed;
 
-              if (rect.top < windowHeight && rect.bottom > 0) {
-                elem.style.transform = `translateY(${translateY}px)`;
+                  if (rect.top < cachedWindowHeight && rect.bottom > 0) {
+                    elem.style.transform = `translateY(${translateY}px)`;
+                  }
+                  ticking = false;
+                });
+                ticking = true;
               }
             },
             { passive: true }

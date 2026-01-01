@@ -217,15 +217,12 @@ export default function CriticalCSS() {
       {/* Team Grid images are NOT above-fold, so don't preload them */}
       {/* They will be loaded by the lazy-load script when user scrolls near them */}
 
-      {/* Preload only the most critical font (heading font visible in hero) */}
-      {/* Too many preloads compete for bandwidth and slow down Speed Index */}
-      <link
-        rel="preload"
-        href="/wp-content/themes/pegasus/assets/fonts/reckless-neue/RecklessNeue-Regular.woff2"
-        as="font"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
+      {/* FONT PRELOADS - Updated for performance */}
+      <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/reckless-neue/RecklessNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-250.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-300.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-450.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <meta name="x-font-test" content="lausanne-preloads-added" />
 
       {/* Load external CSS files - render-blocking to prevent FOUC */}
       {/* No preload needed since they load immediately below */}
