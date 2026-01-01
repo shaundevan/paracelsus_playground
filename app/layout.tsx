@@ -3,13 +3,73 @@ import Script from "next/script";
 import CriticalCSS from "./critical-css";
 import BodyAlpine from "./body-alpine";
 import Header from "./components/Header";
+import StructuredData from "./components/StructuredData";
 // Note: All CSS is now inlined server-side via CriticalCSS component
 // This prevents FOUC and eliminates render-blocking CSS requests
 // globals.css content is inlined in critical-css.tsx
 
 export const metadata: Metadata = {
-  title: "Paracelsus Recovery",
-  description: "",
+  metadataBase: new URL('https://paracelsus-recovery.com'),
+  title: {
+    default: 'Paracelsus Recovery - Luxury Rehab Facilities',
+    template: '%s | Paracelsus Recovery'
+  },
+  description: 'Paracelsus Recovery runs luxury rehab facilities in Switzerland. Pain is universal, but recovery has to be personal.',
+  keywords: ['luxury rehab', 'addiction treatment', 'mental health treatment', 'eating disorder recovery', 'Switzerland rehabilitation', 'private rehab clinic'],
+  authors: [{ name: 'Paracelsus Recovery' }],
+  creator: 'Paracelsus Recovery',
+  publisher: 'Paracelsus Recovery',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://paracelsus-recovery.com',
+    languages: {
+      'en-US': 'https://paracelsus-recovery.com',
+      'de': 'https://paracelsus-recovery.com/de/',
+      'fr': 'https://paracelsus-recovery.com/fr/',
+      'es': 'https://paracelsus-recovery.com/es/',
+      'it': 'https://paracelsus-recovery.com/it/',
+      'ar': 'https://paracelsus-recovery.com/ar/',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://paracelsus-recovery.com',
+    siteName: 'Paracelsus Recovery',
+    title: 'Paracelsus Recovery - Luxury Rehab Facilities',
+    description: 'Paracelsus Recovery runs luxury rehab facilities in Switzerland. Pain is universal, but recovery has to be personal.',
+    images: [
+      {
+        url: '/wp-content/uploads/2025/01/Paracelsus.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Paracelsus Recovery - Luxury Rehabilitation in Switzerland',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Paracelsus Recovery - Luxury Rehab Facilities',
+    description: 'Paracelsus Recovery runs luxury rehab facilities in Switzerland. Pain is universal, but recovery has to be personal.',
+    images: ['/wp-content/uploads/2025/01/Paracelsus.webp'],
+  },
+  verification: {
+    google: 'lTAF7rbXgi8VUlXShPqhSGRt0gBSJ27XbEOgGRjQjhs',
+  },
+  other: {
+    'msapplication-TileColor': '#ffffff',
+    'theme-color': '#ffffff',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {/* CRITICAL: Render CSS in head to prevent FOUC */}
       <head>
         <CriticalCSS />
+        <StructuredData />
       </head>
       <body 
         className="body-main modal-form scrolled" 

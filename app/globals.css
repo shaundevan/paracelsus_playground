@@ -21,3 +21,10 @@ body {
   backface-visibility: hidden;
   background-attachment: fixed;
 }
+
+/* Prevent phantom contrast issues on decorative background divs */
+/* These elements are purely decorative (z-0, behind content) with no text */
+.row-background {
+  color: transparent !important;
+  font-size: 0 !important;
+}

@@ -150,26 +150,18 @@ class SectionPreloader {
     }
 
     setupObservers() {
-        // Find sections that should trigger preloading of the next section
+        // Team Grid images are below the fold - let browser handle lazy loading
+        // Do NOT preload them early as it wastes 9MB+ of bandwidth and hurts FCP
+        // Native loading="lazy" will load them when user scrolls near (~200px)
+        
         const teamGridSection = document.querySelector('.Team__Grid-slider');
         if (teamGridSection) {
-            // Start loading 2000px before visible (about 2 viewport heights)
-            this.observeSection(teamGridSection, '2000px');
+            // IMMEDIATELY fix sizes attribute to prevent oversized image downloads
+            // This must happen before browser starts loading lazy images
+            this.preloadSectionImages(teamGridSection);
             
-            // Also preload immediately after page becomes interactive
-            // Uses requestIdleCallback to avoid blocking critical rendering
-            const loadImages = () => {
-                if (!this.preloadedSections.has(teamGridSection)) {
-                    this.preloadSectionImages(teamGridSection);
-                    this.preloadedSections.add(teamGridSection);
-                }
-            };
-            
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(loadImages, { timeout: 500 });
-            } else {
-                setTimeout(loadImages, 100); // Fallback: load after 100ms
-            }
+            // Observe for when section comes into view (500px margin)
+            this.observeSection(teamGridSection, '500px');
         }
     }
 
@@ -194,27 +186,26 @@ class SectionPreloader {
     }
 
     preloadSectionImages(section) {
-        // Find all lazy images in this section
-        const images = section.querySelectorAll('img[loading="lazy"]');
+        // DO NOT change loading="lazy" to "eager" - this forces immediate download
+        // Instead, fix the sizes attribute so browser loads correctly sized images
         
+        // Team Grid images are displayed at ~468x702 (25vw on desktop, 50vw on tablet)
+        // Fix the sizes attribute to prevent loading oversized images
+        const correctSizes = '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw';
+        
+        const images = section.querySelectorAll('img');
         images.forEach(img => {
-            // Change loading to eager to force immediate load
-            img.loading = 'eager';
-            
-            // If image hasn't loaded yet, trigger load by accessing src
-            if (!img.complete) {
-                const currentSrc = img.src;
-                img.src = '';
-                img.src = currentSrc;
+            // Fix oversized images by setting correct sizes
+            if (img.sizes && img.sizes.includes('1536px')) {
+                img.sizes = correctSizes;
             }
         });
-
-        // Also handle picture sources
-        const pictures = section.querySelectorAll('picture');
-        pictures.forEach(picture => {
-            const img = picture.querySelector('img');
-            if (img && img.loading === 'lazy') {
-                img.loading = 'eager';
+        
+        // Also fix source elements in pictures
+        const sources = section.querySelectorAll('source');
+        sources.forEach(source => {
+            if (source.sizes && source.sizes.includes('1536px')) {
+                source.sizes = correctSizes;
             }
         });
     }

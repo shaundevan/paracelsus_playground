@@ -2,38 +2,38 @@ import fs from "fs";
 import path from "path";
 import DebugHeader from "./debug-header";
 
-function readHtml(relPath: string) {
-  const content = fs.readFileSync(path.join(process.cwd(), relPath), "utf8");
-  // Normalize line endings to prevent hydration mismatches
-  // This ensures consistent HTML between server and client rendering
-  return content
-    .replace(/\r\n/g, "\n")  // Normalize Windows line endings
-    .replace(/\r/g, "\n");   // Normalize Mac line endings
-}
+// Force static generation - page will be pre-rendered at build time
+// This eliminates the 3+ second TTFB from reading files on every request
+export const dynamic = 'force-static';
+
+// Normalize line endings to prevent hydration mismatches
+const normalizeLineEndings = (content: string) =>
+  content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+// Pre-read files at module initialization (build time only)
+// Using explicit paths to avoid Turbopack's broad file pattern warnings
+const mainHtml = normalizeLineEndings(
+  fs.readFileSync(path.join(process.cwd(), "clone-kit/html/02-main.html"), "utf8")
+);
+const footerHtml = normalizeLineEndings(
+  fs.readFileSync(path.join(process.cwd(), "clone-kit/html/03-footer.html"), "utf8")
+);
 
 export default function Page() {
-  // Header is now a React component in layout.tsx
-  const main = readHtml("clone-kit/html/02-main.html");
-  const footer = readHtml("clone-kit/html/03-footer.html");
-
-  // Debug: Log file sizes to verify they're loading
-  if (process.env.NODE_ENV === "development") {
-    console.log("=== SERVER-SIDE DEBUG ===");
-    console.log("Main HTML length:", main.length);
-    console.log("Footer HTML length:", footer.length);
-  }
-
+  // HTML is now pre-read at build time (see module-level constants above)
+  // This eliminates file I/O on every request
+  
   return (
     <>
       <DebugHeader />
       {/* Header is now rendered by layout.tsx via Header component */}
       <div 
         suppressHydrationWarning 
-        dangerouslySetInnerHTML={{ __html: main }} 
+        dangerouslySetInnerHTML={{ __html: mainHtml }} 
       />
       <div 
         suppressHydrationWarning 
-        dangerouslySetInnerHTML={{ __html: footer }} 
+        dangerouslySetInnerHTML={{ __html: footerHtml }} 
       />
     </>
   );

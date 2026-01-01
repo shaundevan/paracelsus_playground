@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://paracelsus-recovery.com/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://paracelsus-recovery.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://paracelsus-recovery.com/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://paracelsus-recovery.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://paracelsus-recovery.com/es/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://paracelsus-recovery.com/it/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://paracelsus-recovery.com/ar/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://paracelsus-recovery.com/" />
+  </url>
+  
+  <!-- Treatment Pages -->
+  <url>
+    <loc>https://paracelsus-recovery.com/treatment/mental-health-treatment-center/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Conditions We Treat -->
+  <url>
+    <loc>https://paracelsus-recovery.com/conditions-we-treat/dependencies-addictions/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://paracelsus-recovery.com/conditions-we-treat/eating-disorders/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://paracelsus-recovery.com/conditions-we-treat/chronic-conditions/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- About -->
+  <url>
+    <loc>https://paracelsus-recovery.com/about-us/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Contact -->
+  <url>
+    <loc>https://paracelsus-recovery.com/contact/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+</urlset>
+
