@@ -124,7 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   // Load main bundle after accordion
                   accordionScript.onload = () => {
                     const mainScript = document.createElement('script');
-                    mainScript.src = '/wp-content/themes/pegasus/dist/BU6_YsVJ.js';
+                    mainScript.src = '/wp-content/themes/pegasus/dist/BsXAdgxX.js';
                     mainScript.type = 'module';
                     document.body.appendChild(mainScript);
                   };
@@ -146,6 +146,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               })();
             `,
           }}
+        />
+        {/* HubSpot Forms SDK for contact modal */}
+        <Script
+          id="hubspot-forms-sdk"
+          src="//js-eu1.hsforms.net/forms/embed/v2.js"
+          strategy="lazyOnload"
         />
         {/* Handle bundle load completion */}
         <Script

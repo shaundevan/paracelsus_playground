@@ -37,8 +37,10 @@ window.Flickity = Flickity
 // FORCE INCLUDE: Explicitly import components that Vite incorrectly tree-shakes
 import { QuoteSlider } from '../../blocks/QuoteSlider/script.js';
 import { TeamGridSlider } from '../../blocks/TeamMemberSlider/script.js';
+// Import modal component for "Start your journey" / "Talk to us" buttons
+import { allModals, singleModal } from '../../parts/modal/script.js';
 // Reference exports to force Vite inclusion
-window._forceInclude = { QuoteSlider, TeamGridSlider };
+window._forceInclude = { QuoteSlider, TeamGridSlider, allModals, singleModal };
 
 // Signal that bundle components have been registered
 // NOTE: This MUST come AFTER window.Alpine and window.Flickity are set!

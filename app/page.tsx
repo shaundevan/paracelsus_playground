@@ -18,6 +18,9 @@ const mainHtml = normalizeLineEndings(
 const footerHtml = normalizeLineEndings(
   fs.readFileSync(path.join(process.cwd(), "clone-kit/html/03-footer.html"), "utf8")
 );
+const modalHtml = normalizeLineEndings(
+  fs.readFileSync(path.join(process.cwd(), "clone-kit/html/04-modal.html"), "utf8")
+);
 
 export default function Page() {
   // HTML is now pre-read at build time (see module-level constants above)
@@ -35,6 +38,12 @@ export default function Page() {
         suppressHydrationWarning 
         dangerouslySetInnerHTML={{ __html: footerHtml }} 
       />
+      {/* Modal skeleton required for "Start your journey" and "Talk to us" buttons */}
+      <div 
+        suppressHydrationWarning 
+        dangerouslySetInnerHTML={{ __html: modalHtml }} 
+      />
     </>
   );
 }
+

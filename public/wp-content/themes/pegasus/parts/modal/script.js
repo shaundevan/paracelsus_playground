@@ -15,7 +15,7 @@ import { pegasus } from "../../assets/scripts/global/01-pegasus";
  *
  * @since  2.0.0
  */
-window.allModals = () => {
+const allModals = () => {
     return {
         init() {
 
@@ -287,21 +287,28 @@ window.allModals = () => {
                             '"'
                         );
 
-                        // Load HubSpot script and create form only when script is ready
-                        window.hubSpotLoader.load()
-                            .then(hbspt => {
+                        // Initialize HubSpot form directly using the SDK
+                        const initHubspotForm = () => {
+                            if (typeof hbspt !== 'undefined' && hbspt.forms) {
                                 hbspt.forms.create({
-                                    "portalId": portalId,
-                                    "formId": formId,
-                                    "target": target,
-                                    "onFormSubmitted": function ($form) {
-                                        $form.closest('.Hubspot_Form').querySelector('.Hubspot_Form--innerblocks').classList.add('hidden');
+                                    region: "eu1",
+                                    portalId: portalId,
+                                    formId: formId,
+                                    target: target,
+                                    onFormSubmitted: function ($form) {
+                                        const hubspotForm = $form.closest('.Hubspot_Form');
+                                        if (hubspotForm) {
+                                            const innerblocks = hubspotForm.querySelector('.Hubspot_Form--innerblocks');
+                                            if (innerblocks) innerblocks.classList.add('hidden');
+                                        }
                                     }
                                 });
-                            })
-                            .catch(error => {
-                                console.error('Failed to load HubSpot:', error);
-                            });
+                            } else {
+                                // Retry if HubSpot SDK not loaded yet
+                                setTimeout(initHubspotForm, 100);
+                            }
+                        };
+                        initHubspotForm();
                     }
                 });
         },
@@ -341,7 +348,7 @@ window.allModals = () => {
  *
  * @since  2.0.0
  */
-window.singleModal = () => {
+const singleModal = () => {
     return {
         open: false,
 
@@ -359,3 +366,10 @@ window.singleModal = () => {
         },
     };
 };
+
+// Assign to window for Alpine.js x-data usage
+window.allModals = allModals;
+window.singleModal = singleModal;
+
+// Export functions to ensure they're included in the bundle
+export { allModals, singleModal };
