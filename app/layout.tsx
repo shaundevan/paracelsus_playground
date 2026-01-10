@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import CriticalCSS from "./critical-css";
 import BodyAlpine from "./body-alpine";
@@ -83,6 +83,72 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <CriticalCSS />
         <StructuredData />
+        {/* Ensure lang attribute is set on any dynamically created HTML elements (e.g., shadow DOMs) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Set lang on main HTML element if missing (safety check)
+                if (document.documentElement && !document.documentElement.getAttribute('lang')) {
+                  document.documentElement.setAttribute('lang', 'en-US');
+                  document.documentElement.setAttribute('xml:lang', 'en-US');
+                }
+                
+                // Monitor for dynamically created HTML elements in shadow DOMs
+                const observer = new MutationObserver(function(mutations) {
+                  mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                      if (node.nodeType === 1) { // Element node
+                        // Check if it's an HTML element
+                        if (node.tagName === 'HTML' && !node.getAttribute('lang')) {
+                          node.setAttribute('lang', 'en-US');
+                          node.setAttribute('xml:lang', 'en-US');
+                        }
+                        // Check shadow roots
+                        if (node.shadowRoot) {
+                          const htmlInShadow = node.shadowRoot.querySelector('html');
+                          if (htmlInShadow && !htmlInShadow.getAttribute('lang')) {
+                            htmlInShadow.setAttribute('lang', 'en-US');
+                            htmlInShadow.setAttribute('xml:lang', 'en-US');
+                          }
+                        }
+                        // Check for shadow DOMs in children
+                        const shadowRoots = node.querySelectorAll ? 
+                          Array.from(node.querySelectorAll('*')).filter(el => el.shadowRoot) : [];
+                        shadowRoots.forEach(function(shadowHost) {
+                          const htmlInShadow = shadowHost.shadowRoot.querySelector('html');
+                          if (htmlInShadow && !htmlInShadow.getAttribute('lang')) {
+                            htmlInShadow.setAttribute('lang', 'en-US');
+                            htmlInShadow.setAttribute('xml:lang', 'en-US');
+                          }
+                        });
+                      }
+                    });
+                  });
+                });
+                
+                // Start observing
+                observer.observe(document.documentElement, {
+                  childList: true,
+                  subtree: true
+                });
+                
+                // Also check immediately for any existing shadow DOMs
+                setTimeout(function() {
+                  document.querySelectorAll('*').forEach(function(el) {
+                    if (el.shadowRoot) {
+                      const htmlInShadow = el.shadowRoot.querySelector('html');
+                      if (htmlInShadow && !htmlInShadow.getAttribute('lang')) {
+                        htmlInShadow.setAttribute('lang', 'en-US');
+                        htmlInShadow.setAttribute('xml:lang', 'en-US');
+                      }
+                    }
+                  });
+                }, 100);
+              })();
+            `,
+          }}
+        />
       </head>
       <body 
         className="body-main modal-form scrolled" 
@@ -147,9 +213,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         {/* HubSpot Forms SDK for contact modal */}
+        {/* Using proxied version to enable proper cache headers for Lighthouse */}
         <Script
           id="hubspot-forms-sdk"
-          src="//js-eu1.hsforms.net/forms/embed/v2.js"
+          src="/api/hubspot-proxy/forms/embed/v2.js"
           strategy="lazyOnload"
         />
         {/* Handle bundle load completion */}

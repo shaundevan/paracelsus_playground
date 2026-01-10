@@ -5,7 +5,7 @@
 <div class="fixed z-40 w-full top-0 transition duration-300" :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
 
 
-<div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors" :class="{ 'text-pale-01':atTop, }">
+<div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors text-pale-01" :class="{ 'text-pale-01':atTop, }">
 <div class="w-1/3" x-show="navigationIn" x-transition:enter="transition ease-in-out duration-1000" x-transition:enter-start="-translate-y-10 opacity-0" x-transition:enter-end="translate-y-0 opacity-100">
 <button class="site-menu-toggle h-[80px] md:w-[64px] relative grid place-items-center" aria-label="Open Menu" @click="activeMenuItem = 'menu'">
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@
 
 </div>
 </div>
-            <a href="/contact/?modal=yes" data-pegasus-modal="Modal--Full -right" class="btn btn__rounded ltr:ml-5 transition-colors" :class="{ 'btn__rounded--pale':atTop }" data-pegasus-modal-id="modal-0">
+            <a href="/contact/?modal=yes" data-pegasus-modal="Modal--Full -right" class="btn btn__rounded btn__rounded--pale ltr:ml-5 transition-colors" :class="{ 'btn__rounded--pale':atTop }" data-pegasus-modal-id="modal-0">
 <span>Talk to us</span>
 </a>
     </div>

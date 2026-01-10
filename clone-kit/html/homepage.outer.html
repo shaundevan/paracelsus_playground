@@ -2126,7 +2126,7 @@
                 :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
 
 
-                <div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors"
+                <div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors text-pale-01"
                     :class="{ 'text-pale-01':atTop, }">
                     <div class="w-1/3" x-show="navigationIn" x-transition:enter="transition ease-in-out duration-1000"
                         x-transition:enter-start="-translate-y-10 opacity-0"
@@ -2311,7 +2311,7 @@
                             </div>
                         </div>
                         <a href="/contact/?modal=yes" data-pegasus-modal="Modal--Full -right"
-                            class="btn btn__rounded ltr:ml-5 transition-colors" :class="{ 'btn__rounded--pale':atTop }"
+                            class="btn btn__rounded btn__rounded--pale ltr:ml-5 transition-colors" :class="{ 'btn__rounded--pale':atTop }"
                             data-pegasus-modal-id="modal-0">
                             <span>Talk to us</span>
                         </a>
@@ -9942,7 +9942,7 @@
                         }
 
                         const script = document.createElement("script");
-                        script.src = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+                        script.src = "/api/hubspot-proxy/forms/embed/v2.js";
                         script.async = true;
 
                         script.onload = () => {
@@ -10508,8 +10508,7 @@
 
 
 
-    <browser-mcp-container data-wxt-shadow-root=""></browser-mcp-container>
-    <script src="https://js-eu1.hsforms.net/forms/embed/v2.js" async=""></script>
+    <script src="/api/hubspot-proxy/forms/embed/v2.js" async=""></script>
 </body>
 
 </html>
