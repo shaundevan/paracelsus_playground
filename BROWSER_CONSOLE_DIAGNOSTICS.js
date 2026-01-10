@@ -199,3 +199,7 @@ console.log('5. Check if x-data attribute is being processed by Alpine');
 
 
 
+
+
+
+

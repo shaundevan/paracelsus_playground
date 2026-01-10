@@ -2,8 +2,8 @@
 import Script from "next/script";
 import CriticalCSS from "./critical-css";
 import BodyAlpine from "./body-alpine";
-import Header from "./components/Header";
 import StructuredData from "./components/StructuredData";
+// Note: Header is now rendered from cloned HTML in page.tsx for full navigation fidelity
 // Note: All CSS is now inlined server-side via CriticalCSS component
 // This prevents FOUC and eliminates render-blocking CSS requests
 // globals.css content is inlined in critical-css.tsx
@@ -90,7 +90,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
       >
         <BodyAlpine />
-        <Header />
         {children}
         {/* CRITICAL: Intercept Alpine.start() BEFORE bundle loads */}
         {/* This ensures components register before Alpine evaluates x-data expressions */}

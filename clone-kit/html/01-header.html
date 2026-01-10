@@ -2,7 +2,7 @@
     <div x-intersect:leave="atTop = false" x-intersect:enter="atTop = true" class="absolute pointer-events-none top-0 left-0 w-px h-px opacity-0"></div>
 <div x-intersect:leave="nearTop = false" x-intersect:enter="nearTop = true" class="absolute pointer-events-none top-[50vh] left-0 w-px h-px opacity-0"></div>
 <div x-data="navigation">
-<div class="fixed z-40 w-full top-0 transition duration-300 bg- sm:bg- -translate-y-full" :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
+<div class="fixed z-40 w-full top-0 transition duration-300" :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
 
 
 <div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors" :class="{ 'text-pale-01':atTop, }">
