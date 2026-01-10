@@ -214,8 +214,40 @@ export default function CriticalCSS() {
       <link rel="preconnect" href="https://paracelsus-recovery.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://paracelsus-recovery.com" />
       
-      {/* Team Grid images are NOT above-fold, so don't preload them */}
-      {/* They will be loaded by the lazy-load script when user scrolls near them */}
+      {/* Team Grid images - preload with imagesrcset to match responsive behavior */}
+      {/* Using imagesrcset and imagesizes so browser picks correct size for viewport */}
+      <link
+        rel="preload"
+        href="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936.webp"
+        as="image"
+        type="image/webp"
+        imageSrcSet="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936.webp 1306w, /wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936-200x300.webp 200w"
+        imageSizes="200px"
+      />
+      <link
+        rel="preload"
+        href="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365.webp"
+        as="image"
+        type="image/webp"
+        imageSrcSet="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365.webp 3332w, /wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365-200x300.webp 200w"
+        imageSizes="200px"
+      />
+      <link
+        rel="preload"
+        href="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340.webp"
+        as="image"
+        type="image/webp"
+        imageSrcSet="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340.webp 3000w, /wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340-199x300.webp 199w"
+        imageSizes="200px"
+      />
+      <link
+        rel="preload"
+        href="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270.webp"
+        as="image"
+        type="image/webp"
+        imageSrcSet="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270.webp 1306w, /wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270-200x300.webp 200w"
+        imageSizes="200px"
+      />
 
       {/* FONT PRELOADS - Updated for performance */}
       <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/reckless-neue/RecklessNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
