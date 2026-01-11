@@ -4,7 +4,7 @@ import DebugHeader from "./debug-header";
 
 // Force static generation - page will be pre-rendered at build time
 // This eliminates the 3+ second TTFB from reading files on every request
-// Rebuild trigger: header fix for -translate-y-full removal
+// Rebuild trigger: accordion icon animation fix - remove static rotate-90
 export const dynamic = 'force-static';
 
 // Normalize line endings to prevent hydration mismatches
