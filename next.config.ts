@@ -49,6 +49,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // Rewrite WordPress asset URLs to proxy from the live site
+  async rewrites() {
+    return [
+      {
+        source: "/wp-content/:path*",
+        destination: "https://paracelsus-recovery.com/wp-content/:path*",
+      },
+      {
+        source: "/wp-includes/:path*",
+        destination: "https://paracelsus-recovery.com/wp-includes/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -111,6 +111,12 @@ export default function CriticalCSS() {
     #site-footer {
       background-color: #181918 !important;
     }
+    /* Fix sticky section z-index for proper stacking order */
+    /* WordPress generates dynamic .wp-container-N rules with z-index: 10 */
+    /* but not all are captured. This ensures consistent stacking. */
+    section.is-position-sticky {
+      z-index: 10 !important;
+    }
     #site-footer, #site-footer * {
       color: #FAF6EE !important;
     }

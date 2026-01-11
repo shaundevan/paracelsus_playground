@@ -471,6 +471,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     }
                   }));
                 }
+                
+                // Register blurRevealSlide component (basic version - just the blur state)
+                if (typeof Alpine.data('blurRevealSlide') !== 'function') {
+                  console.warn('[Fallback] Registering blurRevealSlide - bundle registration may have failed');
+                  Alpine.data('blurRevealSlide', () => ({
+                    blur: true
+                  }));
+                }
               };
               
               // Define the Alpine start function that will be called after bundle is ready
@@ -521,6 +529,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               if (typeof window.Alpine !== 'undefined' && typeof window.Alpine.data === 'function') {
                 registerComponents();
               }
+              
+              // CRITICAL: Set up blur reveal observers AFTER Alpine has processed elements
+              // This is needed because Alpine's x-intersect plugin may not load in time
+              const setupBlurRevealObservers = () => {
+                const blurDivs = document.querySelectorAll('[x-data="blurRevealSlide"]');
+                if (blurDivs.length === 0) return;
+                
+                blurDivs.forEach(el => {
+                  // Skip if already processed
+                  if (el.hasAttribute('data-blur-observer-set')) return;
+                  el.setAttribute('data-blur-observer-set', 'true');
+                  
+                  const blurTarget = el.querySelector('.transition-all.blur-3xl') || 
+                                     el.querySelector('.blur-3xl');
+                  const sentinel = el.querySelector('.absolute.top-0.pointer-events-none');
+                  
+                  if (!sentinel || !blurTarget) return;
+                  
+                  const options = {
+                    root: null,
+                    rootMargin: '0px 0px -50% 0px',
+                    threshold: 0
+                  };
+                  
+                  const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                        blurTarget.classList.remove('blur-3xl', 'scale-125');
+                      } else {
+                        blurTarget.classList.add('blur-3xl', 'scale-125');
+                      }
+                    });
+                  }, options);
+                  
+                  observer.observe(sentinel);
+                });
+              };
+              
+              // Run after Alpine starts and DOM is ready
+              document.addEventListener('alpine:initialized', setupBlurRevealObservers);
+              // Also run after a short delay as fallback
+              setTimeout(setupBlurRevealObservers, 1000);
             `,
           }}
         />

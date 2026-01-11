@@ -365,3 +365,131 @@ Since pages use `force-static`, the dev server caches the HTML at module load ti
 | `clone-kit/html/{page}/02-main.html` | Main content section |
 | `clone-kit/html/{page}/03-footer.html` | Footer section |
 | `clone-kit/html/{page}/04-modal.html` | Modal content (contact form, etc.) |
+
+---
+
+## Rebuild Log
+
+### 2026-01-11: programmes-and-therapies Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Added missing rewrites to `next.config.ts` for `/wp-content/` and `/wp-includes/` proxying
+2. Captured fresh HTML from live WordPress site using browser MCP tools
+3. Split HTML using `node scripts/split-page-html.js programmes-and-therapies`
+4. Verified all 4 sections extracted successfully (header: 87KB, main: 101KB, footer: 17KB, modal: 35KB)
+5. Verified page at `localhost:3000/programmes-and-therapies`
+
+**Verification Results:**
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- "Talk to us" button opens contact modal with form
+- All images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- No visible escape sequences
+
+**Issues Found & Fixed:**
+- `next.config.ts` was missing rewrites for proxying WordPress assets - added:
+  ```typescript
+  async rewrites() {
+    return [
+      { source: "/wp-content/:path*", destination: "https://paracelsus-recovery.com/wp-content/:path*" },
+      { source: "/wp-includes/:path*", destination: "https://paracelsus-recovery.com/wp-includes/:path*" },
+    ];
+  }
+  ```
+
+**Console Warnings (non-critical):**
+- WordPress JS bundle compatibility issues ("s is not a constructor")
+- Custom element "pegasus-module" registered twice
+- Meta pixel/tracking warnings (expected on localhost)
+
+---
+
+### Issue 9: Blur/Reveal Effect Not Working on Images
+
+**Symptom:** Images remain blurred and don't unblur when scrolling past them. The sticky image sections don't transition properly.
+
+**Cause:** The blur effect uses Alpine's `x-intersect` plugin via attributes like `x-intersect:enter.margin.0.0.-50%.0="blur = false"`. When Alpine loads before the Intersect plugin is ready, these directives are ignored.
+
+**Evidence:**
+```javascript
+// Alpine started but x-intersect not registered
+{
+  "alpineLoaded": true,
+  "xIntersectRegistered": "not registered"
+}
+```
+
+**Fix:** Added a standalone script in `layout.tsx` that sets up IntersectionObservers after Alpine starts, independent of the plugin:
+
+```javascript
+// Set up blur reveal observers AFTER Alpine has processed elements
+const setupBlurRevealObservers = () => {
+  const blurDivs = document.querySelectorAll('[x-data="blurRevealSlide"]');
+  blurDivs.forEach(el => {
+    if (el.hasAttribute('data-blur-observer-set')) return;
+    el.setAttribute('data-blur-observer-set', 'true');
+    
+    const blurTarget = el.querySelector('.transition-all.blur-3xl') || el.querySelector('.blur-3xl');
+    const sentinel = el.querySelector('.absolute.top-0.pointer-events-none');
+    
+    if (!sentinel || !blurTarget) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          blurTarget.classList.remove('blur-3xl', 'scale-125');
+        } else {
+          blurTarget.classList.add('blur-3xl', 'scale-125');
+        }
+      });
+    }, { rootMargin: '0px 0px -50% 0px' });
+    
+    observer.observe(sentinel);
+  });
+};
+
+// Run after Alpine starts
+document.addEventListener('alpine:initialized', setupBlurRevealObservers);
+setTimeout(setupBlurRevealObservers, 1000); // Fallback
+```
+
+**Script Update:** Added blur reveal observer setup to `layout.tsx` alongside other Alpine component fallbacks.
+
+---
+
+### Issue 10: Sticky Images Not Stacking Properly (Wrong Image Showing)
+
+**Symptom:** When scrolling through the programmes-and-therapies page, earlier sticky images remain visible on top of later ones. For example, the "red dress woman" image continues to show even when the "health check-up" section is active, instead of the second image overlaying the first.
+
+**Cause:** WordPress generates dynamic CSS rules like `.wp-container-2 { z-index: 10; }` for each sticky section. When capturing HTML, not all of these CSS rules are included in the captured stylesheets. The sections with missing z-index rules have `z-index: auto`, breaking the stacking order (later sections should visually overlay earlier ones).
+
+**Evidence:**
+```javascript
+// Live site: all sections have z-index: 10
+{ "wp-container-2": "10", "wp-container-3": "10", "wp-container-4": "10", ... }
+
+// Local (before fix): only some sections have z-index: 10
+{ "wp-container-3": "10", "wp-container-6": "10" }
+// Others have z-index: auto
+```
+
+**Fix:** Added a CSS rule in `critical-css.tsx` to ensure all sticky sections have consistent z-index:
+
+```css
+/* Fix sticky section z-index for proper stacking order */
+/* WordPress generates dynamic .wp-container-N rules with z-index: 10 */
+/* but not all are captured. This ensures consistent stacking. */
+section.is-position-sticky {
+  z-index: 10 !important;
+}
+```
+
+**Location:** `app/critical-css.tsx` in the `globalsCss` constant.
+
+**Verification:**
+- All sticky sections now have `z-index: 10`
+- Images properly stack with later sections overlaying earlier ones
+- Visual behavior matches the live WordPress site
