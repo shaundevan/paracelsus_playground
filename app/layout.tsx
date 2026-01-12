@@ -83,13 +83,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <CriticalCSS />
         {/* Preload LCP image for programmes-and-therapies page */}
+        {/* Using original image for src to ensure it exists, optimized variants in srcset for responsive loading */}
         <link
           rel="preload"
-          href="/wp-content/uploads/2025/01/Parac-Reco-4207-1024x683.webp"
+          href="/wp-content/uploads/2025/01/Parac-Reco-4207.webp"
           as="image"
           type="image/webp"
           fetchPriority="high"
-          imageSrcSet="/wp-content/uploads/2025/01/Parac-Reco-4207-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-4207-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4207-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-4207-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-4207-640x427.webp 640w"
+          imageSrcSet="/wp-content/uploads/2025/01/Parac-Reco-4207.webp 8664w, /wp-content/uploads/2025/01/Parac-Reco-4207-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-4207-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4207-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-4207-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-4207-640x427.webp 640w"
           imageSizes="(min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"
         />
         <StructuredData />
