@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { loadPageHtml } from "@/lib/load-page-html";
 
 // Force static generation - page will be pre-rendered at build time
-// Trigger rebuild: removed text-pale-01 for light background
+// Trigger rebuild: absolute URLs for images (2026-01-12)
 export const dynamic = 'force-static';
+export const revalidate = false; // Ensure no ISR caching
 
 // Pre-read files at module initialization (build time only)
 const { headerHtml, mainHtml, footerHtml, modalHtml } = loadPageHtml("programmes-and-therapies");
