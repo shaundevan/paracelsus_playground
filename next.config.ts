@@ -67,6 +67,8 @@ const nextConfig: NextConfig = {
   },
 
   // Rewrite WordPress asset URLs to proxy from the live site
+  // These rewrites work on both localhost and Vercel
+  // If rewrites don't work on Vercel, images will fall back to direct WordPress URLs
   async rewrites() {
     return [
       {
