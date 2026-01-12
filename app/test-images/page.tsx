@@ -25,12 +25,6 @@ export default function TestImagesPage() {
             src={url} 
             alt={`Test image ${index + 1}`}
             style={{ maxWidth: '100%', border: '2px solid red' }}
-            onLoad={() => console.log(`✓ Image ${index + 1} loaded successfully`)}
-            onError={(e) => {
-              console.error(`✗ Image ${index + 1} failed to load:`, e);
-              const target = e.target as HTMLImageElement;
-              console.error('Failed URL:', target.src);
-            }}
           />
           <p><strong>Status:</strong> <span id={`status-${index}`}>Loading...</span></p>
         </div>

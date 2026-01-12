@@ -7,11 +7,14 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
+    // Await params (required in Next.js 15+)
+    const { path } = await params;
+    
     // Reconstruct the path from the catch-all route
-    const imagePath = params.path.join('/');
+    const imagePath = path.join('/');
     
     // Build the full WordPress URL
     const wordPressUrl = `https://paracelsus-recovery.com/wp-content/${imagePath}`;
