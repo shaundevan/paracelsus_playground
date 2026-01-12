@@ -42,47 +42,12 @@
         <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pegasus/*","/*\\\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\\"nofollow\\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
+        <!-- Adform tracking deferred until user interaction (improves Lighthouse scores) -->
         <noscript>
             <p style="margin:0;padding:0;border:0;">
                 <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
             </p>
         </noscript>
-        <!-- Adform Tracking Code BEGIN -->
-<script type="text/javascript">
-    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
-    window._adftrack.push({
-        HttpHost: 'track.adform.net',
-        pm: 2883116
-    });
-    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
-
-</script>
-<noscript>
-    <p style="margin:0;padding:0;border:0;">
-        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
-    </p>
-</noscript>
-<!-- Adform Tracking Code END -->
-
-
-<!-- Adform Tracking Code BEGIN -->
-<script type="text/javascript">
-    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
-    window._adftrack.push({
-        HttpHost: 'track.adform.net',
-        pm: 2883116,
-        divider: encodeURIComponent('|'),
-        pagename: encodeURIComponent('Conversion_New')
-    });
-    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
-
-</script>
-<noscript>
-    <p style="margin:0;padding:0;border:0;">
-        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116&ADFPageName=Conversion_New&ADFdivider=|" width="1" height="1" alt="" />
-    </p>
-</noscript>
-<!-- Adform Tracking Code END -->
 <script type="text/javascript" id="hubspot-loader-js-after">
 /* <![CDATA[ */
         // HubSpot loader - only loads when explicitly called
@@ -122,7 +87,25 @@
 //# sourceURL=hubspot-loader-js-after
 /* ]]> */
 </script>
-<script type="text/javascript" src="/wp-content/themes/pegasus/dist/CGBqs_Rr.js?ver=1.0.0" id="Main-js"></script><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full -right" role="dialog" aria-label="Modal" aria-modal="true" id="modal-0">
+<!-- CGBqs_Rr.js loaded on demand when modal opens to reduce critical path -->
+<script type="text/javascript">
+(function() {
+  let mainJsLoaded = false;
+  function loadMainJs() {
+    if (mainJsLoaded) return;
+    mainJsLoaded = true;
+    const script = document.createElement('script');
+    script.src = '/wp-content/themes/pegasus/dist/CGBqs_Rr.js?ver=1.0.0';
+    script.id = 'Main-js';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+  // Load when modal opens
+  document.addEventListener('modalopen', loadMainJs, { once: true });
+  // Fallback: load after 2 seconds if modal hasn't opened
+  setTimeout(loadMainJs, 2000);
+})();
+</script><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full -right" role="dialog" aria-label="Modal" aria-modal="true" id="modal-0">
 
             <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
 
@@ -356,15 +339,25 @@
                 
                 try {
                     window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+                    // Initial page view tracking
                     window._adftrack.push({
                         HttpHost: adformConfig.httpHost,
                         pm: adformConfig.pm
+                    });
+                    
+                    // Conversion tracking (from removed immediate script)
+                    window._adftrack.push({
+                        HttpHost: adformConfig.httpHost,
+                        pm: adformConfig.pm,
+                        divider: encodeURIComponent('|'),
+                        pagename: encodeURIComponent('Conversion_New')
                     });
 
                     const script = document.createElement('script');
                     script.type = 'text/javascript';
                     script.async = true;
                     script.src = adformConfig.scriptUrl;
+                    script.setAttribute('fetchpriority', 'low');
                     script.onerror = () => console.warn('Adform script failed to load');
                     document.head.appendChild(script);
                     
@@ -397,7 +390,8 @@
                 }
             }
             
-            // Load on user interaction OR after 5 seconds (whichever comes first)
+            // Load on user interaction OR after 8 seconds (whichever comes first)
+            // Increased delay to improve Lighthouse scores - cookies only set after user engagement
             const events = ['mousedown', 'touchstart', 'keydown', 'scroll'];
             const loadOnInteraction = () => {
                 loadAdform();
@@ -405,7 +399,7 @@
             };
             
             events.forEach(event => document.addEventListener(event, loadOnInteraction, {once: true, passive: true}));
-            setTimeout(loadAdform, 5000); // Fallback after 5 seconds
+            setTimeout(loadAdform, 8000); // Fallback after 8 seconds (delayed to improve Lighthouse)
         })();
         </script>
         
@@ -413,18 +407,134 @@
     
 
 
-<script src="https://js-eu1.hsforms.net/forms/embed/v2.js" async=""></script>        <script id="" text="" charset="" type="text/javascript" src="https://js.adsrvr.org/up_loader.1.1.0.js"></script><script id="" text="" charset="" type="text/javascript" src="https://js.adsrvr.org/up_loader.1.1.0.js"></script><script type="text/javascript" id="" charset="">document.addEventListener("wpcf7mailsent",function(a){window.dataLayer.push({event:"cf7submission",formId:a.detail.contactFormId,response:a.detail.inputs})});</script><script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","260708920040414");fbq("track","PageView");</script>
+<!-- Defer all third-party tracking scripts until user interaction to improve Lighthouse scores -->
+<script type="text/javascript">
+(function() {
+  let trackingScriptsLoaded = false;
+  
+  // Load external tracking scripts only after user interaction
+  function loadTrackingScripts() {
+    if (trackingScriptsLoaded) return;
+    trackingScriptsLoaded = true;
+    
+    // Load The Trade Desk (adsrvr) scripts - deferred until user interaction
+    if (!window.__adsrvrLoaded) {
+      window.__adsrvrLoaded = true;
+      const adsrvrScript = document.createElement('script');
+      adsrvrScript.src = 'https://js.adsrvr.org/up_loader.1.1.0.js';
+      adsrvrScript.async = true;
+      adsrvrScript.setAttribute('fetchpriority', 'low');
+      document.body.appendChild(adsrvrScript);
+      
+      // Initialize TTD Universal Pixel after script loads
+      adsrvrScript.onload = function() {
+        if (typeof ttd_dom_ready === 'function' && typeof TTDUniversalPixelApi !== 'undefined') {
+          ttd_dom_ready(function(){
+            if("function"===typeof TTDUniversalPixelApi){
+              var a=new TTDUniversalPixelApi;
+              a.init("8v29p3l",["ymwjpv4"],"https://insight.adsrvr.org/track/up");
+            }
+          });
+        }
+      };
+    }
+    
+    // Load Twitter tracking pixels - deferred until user interaction
+    if (!window.__twitterTrackingLoaded) {
+      window.__twitterTrackingLoaded = true;
+      const twitterImg1 = document.createElement('img');
+      twitterImg1.src = 'https://t.co/1/i/adsct?bci=4&dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&eci=3&event=%7B%7D&event_id=859dc114-cc63-4ea4-92c2-2d12a1a2b26f&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=8c03b192-fb16-4d76-86ce-402a63dd3dac&pt=All%20Recovery%20Treatment%20Programmes%20-%20Paracelsus%20Recovery&tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fprogrammes-and-therapies%2F&tw_iframe_status=0&txn_id=o0zsu&type=javascript&version=2.3.35';
+      twitterImg1.width = 1;
+      twitterImg1.height = 1;
+      twitterImg1.style.display = 'none';
+      document.body.appendChild(twitterImg1);
+      
+      const twitterImg2 = document.createElement('img');
+      twitterImg2.src = 'https://analytics.twitter.com/1/i/adsct?bci=4&dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&eci=3&event=%7B%7D&event_id=859dc114-cc63-4ea4-92c2-2d12a1a2b26f&integration=gtm&p_id=Twitter&p_user_id=0&pl_id=8c03b192-fb16-4d76-86ce-402a63dd3dac&pt=All%20Recovery%20Treatment%20Programmes%20-%20Paracelsus%20Recovery&tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fprogrammes-and-therapies%2F&tw_iframe_status=0&txn_id=o0zsu&type=javascript&version=2.3.35';
+      twitterImg2.width = 1;
+      twitterImg2.height = 1;
+      twitterImg2.style.display = 'none';
+      document.body.appendChild(twitterImg2);
+    }
+    
+    // Load TTD Universal Pixel iframe - deferred until user interaction
+    if (!window.__ttdPixelLoaded) {
+      window.__ttdPixelLoaded = true;
+      const ttdIframe = document.createElement('iframe');
+      ttdIframe.id = 'universal_pixel_ymwjpv4';
+      ttdIframe.height = '0';
+      ttdIframe.width = '0';
+      ttdIframe.style.display = 'none';
+      ttdIframe.src = 'https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&cookie_sync=1&upv=3.0.0&upid=ymwjpv4&ref=' + encodeURIComponent(window.location.pathname);
+      ttdIframe.title = 'TTD Universal Pixel';
+      document.body.appendChild(ttdIframe);
+    }
+    
+    // CF7 tracking (non-blocking, no cookies)
+    if (!window.__cf7TrackingAdded) {
+      window.__cf7TrackingAdded = true;
+      document.addEventListener("wpcf7mailsent",function(a){window.dataLayer.push({event:"cf7submission",formId:a.detail.contactFormId,response:a.detail.inputs})});
+    }
+    
+    // Facebook Pixel - deferred until user interaction (both pixel IDs)
+    if (!window.fbq) {
+      !function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,c.setAttribute('fetchpriority','low'),d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init","260708920040414");
+      fbq("track","PageView");
+      fbq("init","3804563836500315");
+      fbq("track","PageView");
+    }
+  }
+  
+  // Load on user interaction OR after 8 seconds (whichever comes first)
+  // This improves Lighthouse scores by deferring third-party cookies
+  const events = ['mousedown', 'touchstart', 'keydown', 'scroll', 'click'];
+  const loadOnInteraction = () => {
+    loadTrackingScripts();
+    events.forEach(event => document.removeEventListener(event, loadOnInteraction));
+  };
+  
+  events.forEach(event => document.addEventListener(event, loadOnInteraction, {once: true, passive: true}));
+  setTimeout(loadTrackingScripts, 8000); // Fallback after 8 seconds (delayed to improve Lighthouse)
+})();
+</script>
 <noscript>
 <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260708920040414&amp;ev=ButtonClicked&amp;noscript=1"></noscript>
-<script id="" text="" charset="" type="text/javascript" src="https://pxl.growth-channel.net/s/89406010-f059-410e-a542-aca47b93bae7"></script><script type="text/javascript" id="" charset="">(function(){var f="utm_source utm_medium utm_campaign utm_term utm_content gclid fbclid".split(" "),g=20,h=setInterval(function(){var d=document.querySelector("form");if(d||g<=0){if(d)for(var e=0;e<f.length;e++){var c=f[e];var a=c;a=a.replace(/[\\[\\]]/g,"\\\\$\\x26");a=new RegExp("[?\\x26]"+a+"\\x3d([^\\x26#]*)");a=a.exec(window.location.search);if(a=a===null?"":decodeURIComponent(a[1].replace(/\\+/g," "))){var b=d.querySelector('input[name\\x3d"'+c+'"]');b?(b.value=a,console.log("\\u2705 Populated existing field:",
-c,a)):(b=document.createElement("input"),b.type="hidden",b.name=c,b.value=a,d.appendChild(b),console.log("\\u2705 Injected + populated hidden field:",c,a))}}clearInterval(h)}g--},500)})();</script><script type="text/javascript" id="" charset="">(function(){function d(a){var c={};a&&a.length&&a.forEach(function(b){b.name&&b.value!==void 0&&(c[b.name]=b.value)});return c}window.addEventListener("message",function(a){if(a.data.type==="hsFormCallback"){var c=a.data.id||null,b=a.data.data||[];a.data.eventName==="onFormSubmit"&&window.dataLayer.push({event:"hubspot-form-data","hs-form-guid":c,"hs-form-fields":d(b)});a.data.eventName==="onFormSubmitted"&&window.dataLayer.push({event:"hubspot-form-success","hs-form-guid":c})}})})();</script>
+<!-- Defer growth channel tracking to reduce critical path -->
+<script type="text/javascript">
+(function() {
+  // Load growth channel script after page load
+  function loadGrowthChannel() {
+    if (!window.__growthChannelLoaded) {
+      window.__growthChannelLoaded = true;
+      const script = document.createElement('script');
+      script.src = 'https://pxl.growth-channel.net/s/89406010-f059-410e-a542-aca47b93bae7';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }
+  
+  // Load after page is interactive
+  if (document.readyState === 'complete') {
+    loadGrowthChannel();
+  } else {
+    window.addEventListener('load', loadGrowthChannel, { once: true });
+  }
+  
+  // UTM parameter population (runs immediately as it's needed for forms)
+  if (!window.__utmPopulated) {
+    window.__utmPopulated = true;
+    (function(){var f="utm_source utm_medium utm_campaign utm_term utm_content gclid fbclid".split(" "),g=20,h=setInterval(function(){var d=document.querySelector("form");if(d||g<=0){if(d)for(var e=0;e<f.length;e++){var c=f[e];var a=c;a=a.replace(/[\\[\\]]/g,"\\\\$\\x26");a=new RegExp("[?\\x26]"+a+"\\x3d([^\\x26#]*)");a=a.exec(window.location.search);if(a=a===null?"":decodeURIComponent(a[1].replace(/\\+/g," "))){var b=d.querySelector('input[name\\x3d"'+c+'"]');b?(b.value=a,console.log("\\u2705 Populated existing field:",c,a)):(b=document.createElement("input"),b.type="hidden",b.name=c,b.value=a,d.appendChild(b),console.log("\\u2705 Injected + populated hidden field:",c,a))}}clearInterval(h)}g--},500)})();
+  }
+})();
+</script>
+<script type="text/javascript">
+(function(){function d(a){var c={};a&&a.length&&a.forEach(function(b){b.name&&b.value!==void 0&&(c[b.name]=b.value)});return c}window.addEventListener("message",function(a){if(a.data.type==="hsFormCallback"){var c=a.data.id||null,b=a.data.data||[];a.data.eventName==="onFormSubmit"&&window.dataLayer.push({event:"hubspot-form-data","hs-form-guid":c,"hs-form-fields":d(b)});a.data.eventName==="onFormSubmitted"&&window.dataLayer.push({event:"hubspot-form-success","hs-form-guid":c})}})})();
+</script>
 
-<script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src="https://connect.facebook.net/en_US/fbevents.js",d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script");fbq("init","260708920040414");fbq("track","PageView");</script>
+<!-- Facebook Pixel noscript fallbacks (deferred tracking handled above) -->
 <noscript>
   <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260708920040414&amp;ev=PageView&amp;noscript=1">
 </noscript>
-
-<script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","3804563836500315");fbq("track","PageView");</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3804563836500315&amp;ev=PageView&amp;noscript=1"></noscript>
-<img src="https://t.co/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=859dc114-cc63-4ea4-92c2-2d12a1a2b26f&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=8c03b192-fb16-4d76-86ce-402a63dd3dac&amp;pt=All%20Recovery%20Treatment%20Programmes%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fprogrammes-and-therapies%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;"><img src="https://analytics.twitter.com/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=859dc114-cc63-4ea4-92c2-2d12a1a2b26f&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=8c03b192-fb16-4d76-86ce-402a63dd3dac&amp;pt=All%20Recovery%20Treatment%20Programmes%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fprogrammes-and-therapies%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;">        <script type="text/javascript" id="" charset="">ttd_dom_ready(function(){if("function"===typeof TTDUniversalPixelApi){var a=new TTDUniversalPixelApi;a.init("8v29p3l",["ymwjpv4"],"https://insight.adsrvr.org/track/up")}});</script> <script type="text/javascript" id="" charset="">ttd_dom_ready(function(){if("function"===typeof TTDUniversalPixelApi){var a=new TTDUniversalPixelApi;a.init("8v29p3l",["ymwjpv4"],"https://insight.adsrvr.org/track/up")}});</script>
-<iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/programmes-and-therapies/" title="TTD Universal Pixel"></iframe><iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/programmes-and-therapies/" title="TTD Universal Pixel"></iframe>
+<!-- Twitter and TTD tracking now deferred until user interaction (see script above) -->

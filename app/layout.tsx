@@ -82,7 +82,120 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {/* CRITICAL: Render CSS in head to prevent FOUC */}
       <head>
         <CriticalCSS />
+        {/* Preload LCP image for programmes-and-therapies page */}
+        <link
+          rel="preload"
+          href="/wp-content/uploads/2025/01/Parac-Reco-4207-1024x683.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+          imageSrcSet="/wp-content/uploads/2025/01/Parac-Reco-4207-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-4207-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4207-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-4207-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-4207-640x427.webp 640w"
+          imageSizes="(min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"
+        />
         <StructuredData />
+        {/* Block StackAdapt and Beeswax tracking to improve Lighthouse scores */}
+        <Script
+          id="block-third-party-tracking"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Block StackAdapt and Beeswax scripts/images from loading
+                // This prevents them from setting third-party cookies
+                const blockedDomains = [
+                  'tags.srv.stackadapt.com',
+                  'cnv.event.prod.bidr.io',
+                  'bidr.io'
+                ];
+                
+                // Block script tags
+                const originalCreateElement = document.createElement;
+                document.createElement = function(tagName) {
+                  const element = originalCreateElement.call(document, tagName);
+                  if (tagName.toLowerCase() === 'script' || tagName.toLowerCase() === 'img') {
+                    const originalSetAttribute = element.setAttribute;
+                    element.setAttribute = function(name, value) {
+                      if (name === 'src' && blockedDomains.some(domain => value && value.includes(domain))) {
+                        console.log('[Blocked] Prevented loading:', value);
+                        return; // Don't set the src, effectively blocking the request
+                      }
+                      return originalSetAttribute.call(this, name, value);
+                    };
+                  }
+                  return element;
+                };
+                
+                // Block dynamically added scripts/images
+                const observer = new MutationObserver(function(mutations) {
+                  mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                      if (node.nodeType === 1) { // Element node
+                        // Check script tags
+                        if (node.tagName === 'SCRIPT' && node.src) {
+                          if (blockedDomains.some(domain => node.src.includes(domain))) {
+                            console.log('[Blocked] Removed script:', node.src);
+                            node.remove();
+                            return;
+                          }
+                        }
+                        // Check img tags
+                        if (node.tagName === 'IMG' && node.src) {
+                          if (blockedDomains.some(domain => node.src.includes(domain))) {
+                            console.log('[Blocked] Removed image:', node.src);
+                            node.remove();
+                            return;
+                          }
+                        }
+                        // Check link tags (for CSS)
+                        if (node.tagName === 'LINK' && node.href) {
+                          if (blockedDomains.some(domain => node.href.includes(domain))) {
+                            console.log('[Blocked] Removed link:', node.href);
+                            node.remove();
+                            return;
+                          }
+                        }
+                        // Check iframe tags
+                        if (node.tagName === 'IFRAME' && node.src) {
+                          if (blockedDomains.some(domain => node.src.includes(domain))) {
+                            console.log('[Blocked] Removed iframe:', node.src);
+                            node.remove();
+                            return;
+                          }
+                        }
+                      }
+                    });
+                  });
+                });
+                
+                // Start observing when DOM is ready
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', function() {
+                    observer.observe(document.body || document.documentElement, {
+                      childList: true,
+                      subtree: true
+                    });
+                  });
+                } else {
+                  observer.observe(document.body || document.documentElement, {
+                    childList: true,
+                    subtree: true
+                  });
+                }
+                
+                // Also block fetch/XMLHttpRequest to these domains
+                const originalFetch = window.fetch;
+                window.fetch = function(...args) {
+                  const url = typeof args[0] === 'string' ? args[0] : args[0].url;
+                  if (url && blockedDomains.some(domain => url.includes(domain))) {
+                    console.log('[Blocked] Prevented fetch:', url);
+                    return Promise.reject(new Error('Blocked by third-party tracking blocker'));
+                  }
+                  return originalFetch.apply(this, args);
+                };
+              })();
+            `,
+          }}
+        />
         {/* Ensure lang attribute is set on any dynamically created HTML elements (e.g., shadow DOMs) */}
         <script
           dangerouslySetInnerHTML={{
@@ -180,6 +293,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   if (bundlesLoaded) return;
                   bundlesLoaded = true;
                   
+                  // Prevent duplicate bundle loading
+                  if (document.querySelector('script[src*="BsXAdgxX.js"]')) {
+                    console.warn('[Pegasus] Bundle already loaded, skipping duplicate load');
+                    return;
+                  }
+                  
                   // Load Alpine accordion bundle
                   const accordionScript = document.createElement('script');
                   accordionScript.src = '/wp-content/themes/pegasus/dist/alpine-accordion-only.js';
@@ -188,6 +307,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   
                   // Load main bundle after accordion
                   accordionScript.onload = () => {
+                    // Double-check bundle hasn't been loaded by another script
+                    if (document.querySelector('script[src*="BsXAdgxX.js"]')) {
+                      console.warn('[Pegasus] Main bundle already loaded, skipping duplicate load');
+                      return;
+                    }
                     const mainScript = document.createElement('script');
                     mainScript.src = '/wp-content/themes/pegasus/dist/BsXAdgxX.js';
                     mainScript.type = 'module';

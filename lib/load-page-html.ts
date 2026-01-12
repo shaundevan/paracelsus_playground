@@ -4,9 +4,10 @@ import path from "path";
 /**
  * Normalize line endings to prevent hydration mismatches between
  * Windows (CRLF) and Unix (LF) line endings.
+ * Also trims leading/trailing whitespace to prevent hydration issues.
  * Updated: removed video opacity-80 to fix overlay
  */
-const normalize = (s: string) => s.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+const normalize = (s: string) => s.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
 
 /**
  * Load the 4 HTML parts (header, main, footer, modal) for a given page.

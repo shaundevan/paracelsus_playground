@@ -216,9 +216,11 @@ export default function CriticalCSS() {
       {/* Video loads naturally after poster - no preload needed */}
       {/* Preloading video competes with poster and slows Speed Index */}
       
-      {/* Preconnect to external domain for images, mobile video and other assets */}
-      <link rel="preconnect" href="https://paracelsus-recovery.com" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://paracelsus-recovery.com" />
+      {/* Note: Removed unused preconnect hints for js.adsrvr.org and pxl.growth-channel.net */}
+      {/* These scripts load dynamically via JavaScript after user interaction, not during initial page load */}
+      {/* Preconnecting to them doesn't help performance and wastes resources */}
+      
+      {/* Note: Removed unused preconnect to paracelsus-recovery.com as it's not requested in current setup */}
       
       {/* Team Grid images - preload with imagesrcset to match responsive behavior */}
       {/* Using imagesrcset and imagesizes so browser picks correct size for viewport */}
@@ -256,10 +258,17 @@ export default function CriticalCSS() {
       />
 
       {/* FONT PRELOADS - Updated for performance */}
+      {/* Preload custom fonts used by the site */}
       <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/reckless-neue/RecklessNeue-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-250.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-300.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href="/wp-content/themes/pegasus/assets/fonts/lausanne-pan/TWKLausannePan-450.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      
+      {/* Preload Next.js default Geist font to reduce critical path latency */}
+      {/* Note: This font is loaded by Next.js by default but may not be used */}
+      {/* Preloading reduces the 807ms latency in the critical path */}
+      <link rel="preload" href="/__nextjs_font/geist-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      
       <meta name="x-font-test" content="lausanne-preloads-added" />
 
       {/* Load external CSS files - render-blocking to prevent FOUC */}

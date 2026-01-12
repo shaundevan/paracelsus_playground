@@ -4,6 +4,22 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
   
+  // Source maps configuration
+  // 
+  // About the Lighthouse source map warnings:
+  // 1. Turbopack dev source maps: The "Map has no mappings field" errors are a known
+  //    Next.js/Turbopack development issue. These don't affect production builds.
+  // 
+  // 2. Third-party scripts: HubSpot's embed/v2.js and other third-party scripts
+  //    cannot have source maps controlled by this application.
+  // 
+  // 3. WordPress theme files: The proxied /wp-content files already have source maps
+  //    configured in vite.config.js (sourcemap: true), but they're served from the live site.
+  // 
+  // 4. Production: Source maps are disabled by default for security (prevents exposing
+  //    source code). Enable only if needed for production debugging.
+  productionBrowserSourceMaps: false,
+  
   // Headers for caching static assets
   async headers() {
     return [

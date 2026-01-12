@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function ProgrammesAndTherapiesPage() {
   return (
-    <>
+    <div>
       <div 
         suppressHydrationWarning 
         dangerouslySetInnerHTML={{ __html: headerHtml }} 
@@ -40,6 +40,6 @@ export default function ProgrammesAndTherapiesPage() {
         suppressHydrationWarning 
         dangerouslySetInnerHTML={{ __html: modalHtml }} 
       />
-    </>
+    </div>
   );
 }
