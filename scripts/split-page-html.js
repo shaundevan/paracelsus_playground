@@ -97,7 +97,11 @@ function extractSection(html, startMarker, endMarker) {
  */
 function rewriteUrls(content) {
   return content
-    // Convert absolute URLs to relative
+    // Handle bare domain URLs (no trailing slash) - convert to "/"
+    // This fixes logo links and search form actions that point to the domain root
+    .replace(/href="https?:\/\/(www\.)?paracelsus-recovery\.com"/g, 'href="/"')
+    .replace(/action="https?:\/\/(www\.)?paracelsus-recovery\.com"/g, 'action="/"')
+    // Convert absolute URLs to relative (with trailing slash/path)
     .replace(/https?:\/\/paracelsus-recovery\.com\//g, '/')
     // Also handle www subdomain
     .replace(/https?:\/\/www\.paracelsus-recovery\.com\//g, '/')
@@ -162,10 +166,25 @@ function fixAlpineAttributes(headerContent, options = {}) {
     /class="([^"]*)-translate-y-full([^"]*)"/g,
     'class="$1$2"'
   );
+  
+  // Remove translate-y-[-150%] from static class (Alpine will add it dynamically)
+  // This fixes "Start your journey" button being hidden by default
+  fixed = fixed.replace(
+    /class="([^"]*)translate-y-\[-150%\]([^"]*)"/g,
+    'class="$1$2"'
+  );
   // Clean up double spaces that may result from removals
   fixed = fixed.replace(/class="([^"]*)  +([^"]*)"/g, 'class="$1 $2"');
   fixed = fixed.replace(/class=" /g, 'class="');
   fixed = fixed.replace(/ "/g, '"');
+  
+  // Fix header hide behavior: the :class binding should add -translate-y-full when scrolling down
+  // When capturing HTML, the else branch often gets captured as empty '' instead of '-translate-y-full'
+  // This pattern matches the header fixed div's :class binding and restores the translate
+  fixed = fixed.replace(
+    /:class="\(goingUp \|\| atTop \|\| languagePromptOpen \|\| open \? \( !atTop \? 'bg-\[#fcf7f11a\] backdrop-blur-xl' : '' \) : ''\)"/g,
+    `:class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')"`
+  );
   
   console.log('  → Applied Alpine.js attribute fixes');
   return fixed;
@@ -212,6 +231,251 @@ function fixVideoAttributes(mainContent) {
   return fixed;
 }
 
+/**
+ * Fix lazy-loaded images that were captured before loading.
+ * When capturing HTML before scrolling through the page, images may have:
+ * - data-src instead of src (with placeholder SVG in src)
+ * - data-srcset instead of srcset
+ * - Missing is-loaded class on picture wrapper
+ * 
+ * This converts them to regular loaded images so they display properly.
+ */
+function fixLazyLoadedImages(content) {
+  let fixed = content;
+  let imagesFixed = 0;
+  
+  // Add is-loaded class to pegasus-lazy-wrapper pictures that don't have it
+  fixed = fixed.replace(
+    /class="pegasus-lazy-wrapper"(?!.*is-loaded)/g,
+    'class="pegasus-lazy-wrapper is-loaded"'
+  );
+  
+  // Convert data-srcset to srcset on source elements
+  fixed = fixed.replace(
+    /<source([^>]*) data-srcset="([^"]+)"([^>]*)>/g,
+    (match, before, srcset, after) => {
+      // Remove data-srcset and add srcset
+      imagesFixed++;
+      return `<source${before} srcset="${srcset}"${after}>`;
+    }
+  );
+  
+  // Convert data-src and data-srcset to src and srcset on img elements
+  // Pattern: img with data-src and/or data-srcset
+  fixed = fixed.replace(
+    /<img([^>]*) data-src="([^"]+)"([^>]*)>/g,
+    (match, before, dataSrc, after) => {
+      // Replace placeholder SVG src with actual image src
+      let result = match;
+      
+      // If there's an existing src with SVG placeholder, replace it
+      if (result.includes('src="data:image/svg+xml')) {
+        result = result.replace(/src="data:image\/svg\+xml[^"]*"/, `src="${dataSrc}"`);
+      } else if (!result.includes(' src="')) {
+        // Add src if missing
+        result = result.replace('<img', `<img src="${dataSrc}"`);
+      }
+      
+      // Remove data-src since we've moved it to src
+      result = result.replace(/ data-src="[^"]*"/, '');
+      
+      imagesFixed++;
+      return result;
+    }
+  );
+  
+  // Convert data-srcset to srcset on img elements
+  fixed = fixed.replace(
+    /<img([^>]*) data-srcset="([^"]+)"([^>]*)>/g,
+    (match, before, dataSrcset, after) => {
+      // Add srcset from data-srcset
+      let result = match.replace(/ data-srcset="[^"]*"/, ` srcset="${dataSrcset}"`);
+      return result;
+    }
+  );
+  
+  // Convert data-sizes to sizes
+  fixed = fixed.replace(/ data-sizes="/g, ' sizes="');
+  
+  if (imagesFixed > 0) {
+    console.log(`  → Fixed ${imagesFixed} lazy-loaded images (converted to loaded)`);
+  }
+  
+  return fixed;
+}
+
+/**
+ * Remove pre-rendered HubSpot forms that were captured after loading.
+ * When capturing HTML, HubSpot forms may have already loaded and inserted
+ * their form HTML. This causes duplicate forms when the page loads and the
+ * script tries to create the form again.
+ * 
+ * We remove the pre-rendered form content but keep the container and script.
+ */
+function fixPrerenderedHubspotForms(content) {
+  let fixed = content;
+  let formsFixed = 0;
+  
+  // Pattern: </script><div id="hbspt-form-..." class="hbspt-form" ...>...(form content)...</div>
+  // We want to remove the pre-rendered form but keep the script and container
+  fixed = fixed.replace(
+    /(<\/script>)<div id="hbspt-form-[^"]*" class="hbspt-form"[^>]*>.*?<\/form><\/div>\s*(<\/div><\/div>)/gs,
+    (match, scriptEnd, closingDivs) => {
+      formsFixed++;
+      return `${scriptEnd}\n  <!-- HubSpot form will be loaded here dynamically -->\n${closingDivs}`;
+    }
+  );
+  
+  if (formsFixed > 0) {
+    console.log(`  → Removed ${formsFixed} pre-rendered HubSpot form(s)`);
+  }
+  
+  return fixed;
+}
+
+/**
+ * Fix Flickity slider that was captured after initialization.
+ * When capturing HTML, Flickity has already transformed the DOM:
+ * - Added flickity-enabled, is-draggable classes to slider
+ * - Added flickity-viewport and flickity-slider wrapper divs
+ * - Added inline position/transform styles to slides
+ * 
+ * We need to remove these so Flickity can initialize fresh on page load.
+ */
+function fixFlickitySlider(content) {
+  let fixed = content;
+  let flickityFixed = false;
+  
+  // Remove flickity-enabled and is-draggable classes from slider divs
+  fixed = fixed.replace(
+    /class="([^"]*)\bflickity-enabled\b([^"]*)"/g,
+    (match, before, after) => {
+      flickityFixed = true;
+      return `class="${before}${after}"`;
+    }
+  );
+  fixed = fixed.replace(
+    /class="([^"]*)\bis-draggable\b([^"]*)"/g,
+    (match, before, after) => `class="${before}${after}"`
+  );
+  
+  // Remove tabindex="0" that Flickity adds to sliders
+  fixed = fixed.replace(
+    /(<div[^>]*x-ref="slider"[^>]*) tabindex="0"/g,
+    '$1'
+  );
+  
+  // Remove the flickity-viewport and flickity-slider wrapper divs
+  // Pattern: <div class="flickity-viewport" style="..."><div class="flickity-slider" style="...">CONTENT</div></div>
+  // Just keep the CONTENT - slides should be direct children of slider for Flickity to work
+  fixed = fixed.replace(
+    /<div class="flickity-viewport"[^>]*><div class="flickity-slider"[^>]*>([\s\S]*?)<\/div><\/div>/g,
+    (match, content) => {
+      flickityFixed = true;
+      return content;
+    }
+  );
+  
+  // Remove inline position/transform styles from slides that Flickity added
+  // Pattern: style="--slide-width: 31.948881789137%; position: absolute; left: 0px; transform: translateX(0%);"
+  // Keep --slide-width but remove position, left, transform
+  fixed = fixed.replace(
+    /(<div class="slide[^"]*"[^>]*) style="([^"]*)"/g,
+    (match, before, styleContent) => {
+      // Keep only --slide-width, remove position, left, transform
+      const cleanedStyle = styleContent
+        .replace(/position:\s*absolute;?\s*/g, '')
+        .replace(/left:\s*[^;]+;?\s*/g, '')
+        .replace(/transform:\s*translateX\([^)]+\);?\s*/g, '')
+        .trim();
+      
+      if (cleanedStyle) {
+        return `${before} style="${cleanedStyle}"`;
+      }
+      return before;
+    }
+  );
+  
+  // Remove is-selected class from slides (Flickity adds this to visible slides)
+  fixed = fixed.replace(
+    /class="slide is-selected"/g,
+    'class="slide"'
+  );
+  
+  // Remove aria-hidden="true" from slides (Flickity adds this)
+  fixed = fixed.replace(
+    /(<div class="slide"[^>]*) aria-hidden="true"/g,
+    '$1'
+  );
+  
+  // Clean up double spaces in class attributes
+  fixed = fixed.replace(/class="([^"]*)  +([^"]*)"/g, 'class="$1 $2"');
+  fixed = fixed.replace(/class=" /g, 'class="');
+  fixed = fixed.replace(/ "/g, '"');
+  
+  if (flickityFixed) {
+    console.log('  → Fixed Flickity slider (removed pre-initialized state)');
+  }
+  
+  return fixed;
+}
+
+/**
+ * Fix modal visibility - the modal container (id="modal-0") should be hidden by default.
+ * When capturing the DOM, the modal content may be visible because Alpine.js hasn't
+ * initialized yet. We add x-show="open" and style="display: none;" to hide it.
+ */
+function fixModalVisibility(content) {
+  let fixed = content;
+  let modalFixed = false;
+  
+  // Find modal containers with id="modal-0" that don't have x-show="open"
+  // These modals show their content (like contact forms) by default
+  fixed = fixed.replace(
+    /(<div[^>]*class="Modal Modal--Full[^"]*"[^>]*id="modal-0")(?![^>]*x-show="open")([^>]*>)/g,
+    (match, beforeId, afterId) => {
+      modalFixed = true;
+      return `${beforeId} x-show="open" style="display: none;"${afterId}`;
+    }
+  );
+  
+  if (modalFixed) {
+    console.log('  → Fixed modal visibility (added x-show="open" to modal-0)');
+  }
+  
+  return fixed;
+}
+
+/**
+ * Fix Alpine.js transition state classes that get captured in hidden state.
+ * When capturing the DOM, some elements may be captured with their "hidden" state
+ * classes baked into the static class attribute, causing content to be invisible.
+ */
+function fixAlpineTransitionClasses(content) {
+  let fixed = content;
+  
+  // Remove opacity-0 and translate-y-24 from static class attributes
+  // These are Alpine.js x-intersect transition classes that should start visible
+  // and only animate when Alpine.js handles them
+  const beforeCount = (fixed.match(/opacity-0 translate-y-24/g) || []).length;
+  
+  // Only remove from static class="" attributes, not from :class="" dynamic bindings
+  // Match class="..." but not :class="..."
+  fixed = fixed.replace(
+    /(\sclass="[^"]*) opacity-0 translate-y-24([^"]*")/g,
+    '$1$2'
+  );
+  
+  const afterCount = (fixed.match(/opacity-0 translate-y-24/g) || []).length;
+  const removed = beforeCount - afterCount;
+  
+  if (removed > 0) {
+    console.log(`  → Removed opacity-0 translate-y-24 from ${removed} static class attributes`);
+  }
+  
+  return fixed;
+}
+
 // Extract sections
 console.log('Extracting sections...');
 
@@ -249,9 +513,18 @@ for (const [filename, content] of Object.entries(sections)) {
       processedContent = fixAlpineAttributes(processedContent);
     }
     
-    // Apply video fixes to main content
+    // Apply video, Flickity, lazy images, HubSpot, and Alpine transition fixes to main content
     if (filename === '02-main.html') {
       processedContent = fixVideoAttributes(processedContent);
+      processedContent = fixFlickitySlider(processedContent);
+      processedContent = fixLazyLoadedImages(processedContent);
+      processedContent = fixPrerenderedHubspotForms(processedContent);
+      processedContent = fixAlpineTransitionClasses(processedContent);
+    }
+    
+    // Apply modal visibility fix to modal content
+    if (filename === '04-modal.html') {
+      processedContent = fixModalVisibility(processedContent);
     }
     
     const outputPath = path.join(outputDir, filename);

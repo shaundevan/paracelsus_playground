@@ -4,7 +4,7 @@ import DebugHeader from "./debug-header";
 
 // Force static generation - page will be pre-rendered at build time
 // This eliminates the 3+ second TTFB from reading files on every request
-// Rebuild trigger: Update Treatment Programmes links - relative for local page, absolute for external
+// Rebuild trigger: Added 3-day-health-asssessment page and fixed nav links (2026-01-12 v3)
 export const dynamic = 'force-static';
 
 // Normalize line endings to prevent hydration mismatches
@@ -13,6 +13,7 @@ const normalizeLineEndings = (content: string) =>
 
 // Pre-read files at module initialization (build time only)
 // Using explicit paths to avoid Turbopack's broad file pattern warnings
+// Force re-read by updating this timestamp: 2026-01-13T00:50:00Z (fixed mental-health-treatment-center nav link)
 const headerHtml = normalizeLineEndings(
   fs.readFileSync(path.join(process.cwd(), "clone-kit/html/01-header.html"), "utf8")
 );

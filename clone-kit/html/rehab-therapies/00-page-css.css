@@ -1,0 +1,27 @@
+/* Page-specific wp-container CSS for rehab-therapies */
+.wp-container-core-column-is-layout-bf43075d > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-bf43075d > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-columns-is-layout-f798d21e{flex-wrap:nowrap;gap:2em 0;}
+.wp-container-core-columns-is-layout-28232c24{flex-wrap:nowrap;gap:0 0;}
+.wp-container-core-buttons-is-layout-a89b3969{justify-content:center;}
+.wp-container-core-group-is-layout-efe4a161 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:560px !important;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-efe4a161 > .alignwide{max-width:560px !important;}
+.wp-container-core-group-is-layout-efe4a161 .alignfull{max-width:none;}
+.wp-container-core-group-is-layout-efe4a161 > .alignfull{margin-right:calc(20px * -1);margin-left:calc(20px * -1);}
+.wp-container-core-column-is-layout-a77db08e > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-a77db08e > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-1{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}
+.wp-container-2{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}
+.wp-container-core-column-is-layout-b108c007 > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-b108c007 > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-group-is-layout-d1e9d9b9 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:542px !important;margin-left:0 !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-d1e9d9b9 > .alignwide{max-width:542px !important;}
+.wp-container-core-group-is-layout-d1e9d9b9 .alignfull{max-width:none;}
+.wp-container-core-group-is-layout-3c7d874c{flex-direction:column;align-items:flex-start;justify-content:space-between;}
+.wp-container-core-buttons-is-layout-45b20515{align-items:flex-start;}
+.wp-container-core-group-is-layout-91057431{flex-direction:column;align-items:flex-start;justify-content:space-between;}
+.wp-container-core-columns-is-layout-4674cc20{flex-wrap:nowrap;gap:0 0;}
+.wp-container-core-group-is-layout-4b827052{gap:0;flex-direction:column;align-items:flex-start;}
+.wp-container-core-column-is-layout-eeaf3a62 > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-eeaf3a62 > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-group-is-layout-c385debf.wp-block-group-is-layout-constrained {\n    height: 100%;\n    min-height: 100vh;\n    display: flex\n;\n    align-items: center;\n    flex-direction: column;\n    justify-content: center;\n}

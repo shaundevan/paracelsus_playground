@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { loadPageHtml } from "@/lib/load-page-html";
 
 // Force static generation - page will be pre-rendered at build time
-// Trigger rebuild: absolute URLs for images (2026-01-12)
+// Trigger rebuild: fixed 7-day-health-check-up nav link (2026-01-13)
 export const dynamic = 'force-static';
 export const revalidate = false; // Ensure no ISR caching
 

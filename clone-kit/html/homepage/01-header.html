@@ -5,7 +5,7 @@
             class="absolute pointer-events-none top-[50vh] left-0 w-px h-px opacity-0"></div>
         <div x-data="navigation">
             <div class="fixed z-40 w-full top-0 transition duration-300"
-                :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '')">
+                :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
 
 
                 <div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors text-pale-01"
@@ -23,7 +23,7 @@
                         x-transition:enter="transition ease-in-out duration-1000 delay-300"
                         x-transition:enter-start="-translate-y-10 sm:opacity-0"
                         x-transition:enter-end="translate-y-0 sm:opacity-100">
-                        <a href="https://paracelsus-recovery.com" class="site-logo block w-[36px] md:w-max mx-auto"
+                        <a href="/" class="site-logo block w-[36px] md:w-max mx-auto"
                             :class="atTop ? 'sm:hidden' : ''" title="Paracelsus Recovery">
                             <svg width="278" height="36" viewBox="0 0 278 36" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -242,7 +242,7 @@
                                 </svg> </button>
                         </div>
                     </div>
-                    <form role="search" method="get" class="searchform" action="https://paracelsus-recovery.com"
+                    <form role="search" method="get" class="searchform" action="/"
                         x-show="openSearchForm" x-transition.duration.300ms="" x-collapse="" @click.stop=""
                         style="display: none; height: 0px; overflow: hidden;" hidden="">
                         <div class="xl:pt-5 pb-10">
@@ -350,7 +350,7 @@
                                         <li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent"
                                             :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71827}">
                                             <a class="text-base flex justify-between items-center"
-                                                href="https://paracelsus-recovery.com/residential-rehab-treatment/">
+                                                href="/residential-rehab-treatment/">
                                                 <span class="max-w-[245px] xl:max-w-full">Residential Rehabilitation
                                                     Programme</span>
                                             </a>
@@ -358,14 +358,14 @@
                                         <li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent"
                                             :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66523}">
                                             <a class="text-base flex justify-between items-center"
-                                                href="https://paracelsus-recovery.com/therapies/seven-day-executive-detox/">
+                                                href="/therapies/seven-day-executive-detox/">
                                                 <span class="max-w-[245px] xl:max-w-full">7-Day Executive Detox</span>
                                             </a>
                                         </li>
                                         <li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent"
                                             :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66355}">
                                             <a class="text-base flex justify-between items-center"
-                                                href="https://paracelsus-recovery.com/3-day-health-asssessment/">
+                                                href="/3-day-health-asssessment/">
                                                 <span class="max-w-[245px] xl:max-w-full">3-Day Comprehensive Health
                                                     Asssessment</span>
                                             </a>
@@ -373,7 +373,7 @@
                                         <li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent"
                                             :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71828}">
                                             <a class="text-base flex justify-between items-center"
-                                                href="https://paracelsus-recovery.com/7-day-health-check-up/">
+                                                href="/7-day-health-check-up/">
                                                 <span class="max-w-[245px] xl:max-w-full">7-Day Comprehensive
                                                     Check-Up</span>
                                             </a>
@@ -381,7 +381,7 @@
                                         <li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent"
                                             :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71829}">
                                             <a class="text-base flex justify-between items-center"
-                                                href="https://paracelsus-recovery.com/aftercare-treatment/">
+                                                href="/aftercare-treatment/">
                                                 <span class="max-w-[245px] xl:max-w-full">Aftercare Services</span>
                                             </a>
                                         </li>

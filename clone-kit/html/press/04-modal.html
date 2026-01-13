@@ -1,0 +1,416 @@
+<div x-data="allModals()" id="all-modals">
+
+    <div x-ref="modalSkeleton" id="Modal__Skeleton">
+        <div x-data="singleModal()" @modalopen.window="handleModalOpen" class="ModalSkeleton" role="dialog" aria-label="Modal" aria-modal="true">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+                                <p class="Modal__error hidden">An error has occurred, please try again later.An error has occurred, please try again later.</p>
+                            </div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        
+
+        <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pegasus/*","/*\\\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\\"nofollow\\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+        <noscript>
+            <p style="margin:0;padding:0;border:0;">
+                <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+            </p>
+        </noscript>
+        <!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+
+
+<!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116,
+        divider: encodeURIComponent('|'),
+        pagename: encodeURIComponent('Conversion_New')
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116&ADFPageName=Conversion_New&ADFdivider=|" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+<script type="text/javascript" id="hubspot-loader-js-after">
+/* <![CDATA[ */
+        // HubSpot loader - only loads when explicitly called
+        window.hubSpotLoader = {
+            promise: null,
+            load: function() {
+                if (!this.promise) {
+                    this.promise = new Promise((resolve, reject) => {
+                        if (window.hbspt) {
+                            resolve(window.hbspt);
+                            return;
+                        }
+
+                        const script = document.createElement("script");
+                        script.src = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+                        script.async = true;
+                        
+                        script.onload = () => {
+                            if (window.hbspt) {
+                                resolve(window.hbspt);
+                            } else {
+                                reject(new Error("HubSpot failed to load"));
+                            }
+                        };
+                        
+                        script.onerror = () => {
+                            reject(new Error("Failed to load HubSpot script"));
+                        };
+                        
+                        document.body.appendChild(script);
+                    });
+                }
+                return this.promise;
+            }
+        };
+    
+//# sourceURL=hubspot-loader-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/pegasus/dist/CGBqs_Rr.js?ver=1.0.0" id="Main-js"></script><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full -right" role="dialog" aria-label="Modal" aria-modal="true" id="modal-0" x-show="open" style="display: none;">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+
+            <article id="page-639" class="Modal__Form ">
+                                        <div class="Modal_Content overflow-auto bg-pale-02 " style="">
+    <div class="acf-innerblocks-container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-174be915 wp-block-group-is-layout-constrained" style="padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px" loadtransition="">
+<h2 class="wp-block-heading has-x-large-font-size">How can we help?</h2>
+</div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-a0fea2e2 wp-block-columns-is-layout-flex" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px;border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-right:20px;padding-bottom:var(--wp--preset--spacing--30);padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;padding-bottom:0;flex-basis:25%">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-large-font-size wp-elements-8ecc8810f4d3c445666e7ece240b1991">Call anytime</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:75%">
+<p class="has-text-align-right is-style-subtitle has-medium-font-size is-style-subtitle--1 wp-block-paragraph" style="text-decoration:none"><a href="tel:+41445056898">+</a><a href="tel:+41445056898">41 44 505 68 98</a></p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-a0fea2e2 wp-block-columns-is-layout-flex" style="border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-right:20px;padding-bottom:var(--wp--preset--spacing--30);padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:25%">
+<h2 class="wp-block-heading has-large-font-size">Message us</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:75%">
+<div class="wp-block-buttons is-not-stacked-on-mobile is-horizontal is-content-justification-right is-nowrap is-layout-flex wp-container-core-buttons-is-layout-7ca620e1 wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-outline is-style-outline--2" modaltype=""><a class="wp-block-button__link wp-element-button" href="mailto:info@paracelsus-recovery.com">email</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--3" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://api.whatsapp.com/send?phone=41795312379">Whatsapp</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--4" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://t.me/ParacelsusRecovery">telegram</a></div>
+</div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-14275348 wp-block-columns-is-layout-flex" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px;border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:33px;padding-right:20px;padding-bottom:33px;padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;padding-bottom:0;flex-basis:33%">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-large-font-size wp-elements-8ecc8810f4d3c445666e7ece240b1991">Call anytime</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:67%">
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p class="has-text-align-left is-style-subtitle has-medium-font-size is-style-subtitle--5 wp-block-paragraph" style="text-decoration:none"><a href="tel:+41522228800" data-type="tel" data-id="tel:+41522228800">+41 52 222 88 00</a></p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-14275348 wp-block-columns-is-layout-flex" style="border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:33px;padding-right:20px;padding-bottom:33px;padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:33%">
+<h2 class="wp-block-heading has-large-font-size">Message us</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:67%">
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-buttons is-not-stacked-on-mobile is-horizontal is-content-justification-left is-nowrap is-layout-flex wp-container-core-buttons-is-layout-135d6855 wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-outline is-style-outline--6" modaltype=""><a class="wp-block-button__link wp-element-button" href="mailto:info@paracelsus-recovery.com">email</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--7" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://api.whatsapp.com/send?phone=41795312379">Whatsapp</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--8" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://t.me/ParacelsusRecovery">telegram</a></div>
+</div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+		
+	        </section>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-33370267 wp-block-group-is-layout-constrained" style="padding-right:20px;padding-bottom:20px;padding-left:20px" loadtransition=""><div class="Hubspot_Form Form ">
+  <div class="Hubspot_Form--innerblocks">
+    <div class="acf-innerblocks-container">
+
+<h2 class="wp-block-heading is-style-subtitle has-large-font-size">Send us an enquiry</h2>
+
+
+
+<div style="margin-top:0px;margin-bottom:0px;height:1px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+  </div>
+  <script>
+    // Use intersection observer to load HubSpot forms only when visible
+    (function() {
+      const hubspotContainer = document.currentScript.parentElement;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Load HubSpot script and create form when container becomes visible
+            window.hubSpotLoader.load()
+              .then(hbspt => {
+                hbspt.forms.create({
+                  portalId: "144185588",
+                  formId: "860cc935-80b7-4f19-add1-7eed6e028aa4",
+                  target: "",
+                  onFormSubmitted: function ($form) {
+                    $form.closest('.Hubspot_Form').querySelector('.Hubspot_Form--innerblocks').classList.add('hidden');
+                  }
+                });
+              })
+              .catch(error => {
+                console.error('Failed to load HubSpot form:', error);
+              });
+            
+            observer.disconnect();
+          }
+        });
+      });
+      
+      observer.observe(hubspotContainer);
+    })();
+  </script>
+</div></div>
+
+</div>
+</div>
+
+                
+            </article>
+
+</div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script>
+        (function() {
+            let adformLoaded = false;
+            
+            const adformConfig = {
+                httpHost: 'track.adform.net',
+                pm: 2883116,
+                scriptUrl: 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'
+            };
+            
+            function loadAdform() {
+                if (adformLoaded) return;
+                adformLoaded = true;
+                
+                try {
+                    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+                    window._adftrack.push({
+                        HttpHost: adformConfig.httpHost,
+                        pm: adformConfig.pm
+                    });
+
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.async = true;
+                    script.src = adformConfig.scriptUrl;
+                    script.onerror = () => console.warn('Adform script failed to load');
+                    document.head.appendChild(script);
+                    
+                    // Track conversion after delay
+                    setTimeout(() => {
+                        try {
+                            window._adftrack.push({
+                                HttpHost: adformConfig.httpHost,
+                                pm: adformConfig.pm,
+                                divider: encodeURIComponent('|'),
+                                pagename: encodeURIComponent('Conversion')
+                            });
+                        } catch(e) {}
+                    }, 60000);
+                    
+                    // Handle page visit tracking
+                    const pageVisits = parseInt(localStorage.getItem('adformPageVisits') || '0') + 1;
+                    localStorage.setItem('adformPageVisits', pageVisits.toString());
+                    
+                    if (pageVisits >= 3) {
+                        window._adftrack.push({
+                            HttpHost: adformConfig.httpHost,
+                            pm: adformConfig.pm,
+                            divider: encodeURIComponent('|'),
+                            pagename: encodeURIComponent('Three Page Visits')
+                        });
+                    }
+                } catch(error) {
+                    console.warn('Adform tracking error:', error);
+                }
+            }
+            
+            // Load on user interaction OR after 5 seconds (whichever comes first)
+            const events = ['mousedown', 'touchstart', 'keydown', 'scroll'];
+            const loadOnInteraction = () => {
+                loadAdform();
+                events.forEach(event => document.removeEventListener(event, loadOnInteraction));
+            };
+            
+            events.forEach(event => document.addEventListener(event, loadOnInteraction, {once: true, passive: true}));
+            setTimeout(loadAdform, 5000); // Fallback after 5 seconds
+        })();
+        </script>
+        
+
+    
+
+
+<img src="https://t.co/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=a8fcb306-be0a-44e3-b9dd-0ec87198ca46&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=d4c7305b-7bf2-4a53-bdcb-710e44e2a7fc&amp;pt=Press%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fpress%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;"><img src="https://analytics.twitter.com/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=a8fcb306-be0a-44e3-b9dd-0ec87198ca46&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=d4c7305b-7bf2-4a53-bdcb-710e44e2a7fc&amp;pt=Press%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Fpress%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;"><script src="https://js-eu1.hsforms.net/forms/embed/v2.js" async=""></script><iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/press/" title="TTD Universal Pixel"></iframe><iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/press/" title="TTD Universal Pixel"></iframe>

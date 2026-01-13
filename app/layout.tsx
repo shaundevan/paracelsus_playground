@@ -604,6 +604,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     blur: true
                   }));
                 }
+                
+                // Register overlappingImages component for parallax scroll animations
+                if (typeof Alpine.data('overlappingImages') !== 'function') {
+                  console.warn('[Fallback] Registering overlappingImages - bundle registration may have failed');
+                  Alpine.data('overlappingImages', () => ({
+                    init() {
+                      const targets = document.querySelectorAll('.OverlappingImages');
+                      targets.forEach((target) => {
+                        if (!target.classList.contains('parallax-observer-set')) {
+                          target.classList.add('parallax-observer-set');
+                          
+                          const observer = new IntersectionObserver(
+                            (entries) => {
+                              entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                  if (entry.boundingClientRect.top > 0) {
+                                    target.style.setProperty("--parallax-offset", 1 - entry.intersectionRatio);
+                                  } else {
+                                    target.style.setProperty("--parallax-offset", -1 + entry.intersectionRatio);
+                                  }
+                                }
+                              });
+                            },
+                            { threshold: [...Array(101)].map((v, i) => i / 100) }
+                          );
+                          observer.observe(target);
+                        }
+                      });
+                    }
+                  }));
+                }
               };
               
               // Define the Alpine start function that will be called after bundle is ready
@@ -696,6 +727,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               document.addEventListener('alpine:initialized', setupBlurRevealObservers);
               // Also run after a short delay as fallback
               setTimeout(setupBlurRevealObservers, 1000);
+              
+              // CRITICAL: Set up overlapping images parallax observers
+              // These update --parallax-offset CSS variable as elements scroll into view
+              const setupOverlappingImagesObservers = () => {
+                const targets = document.querySelectorAll('.OverlappingImages');
+                if (targets.length === 0) return;
+                
+                targets.forEach((target) => {
+                  // Skip if already processed
+                  if (target.hasAttribute('data-parallax-observer-set')) return;
+                  target.setAttribute('data-parallax-observer-set', 'true');
+                  
+                  const observer = new IntersectionObserver(
+                    (entries) => {
+                      entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                          if (entry.boundingClientRect.top > 0) {
+                            target.style.setProperty("--parallax-offset", 1 - entry.intersectionRatio);
+                          } else {
+                            target.style.setProperty("--parallax-offset", -1 + entry.intersectionRatio);
+                          }
+                        }
+                      });
+                    },
+                    { threshold: [...Array(101)].map((v, i) => i / 100) }
+                  );
+                  observer.observe(target);
+                });
+              };
+              
+              // Run after Alpine starts and DOM is ready
+              document.addEventListener('alpine:initialized', setupOverlappingImagesObservers);
+              // Also run after a short delay as fallback
+              setTimeout(setupOverlappingImagesObservers, 1000);
             `,
           }}
         />

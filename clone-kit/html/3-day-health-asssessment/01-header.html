@@ -1,0 +1,844 @@
+<header id="page-header" class="relative z-30">
+                            <div x-intersect:leave="atTop = false" x-intersect:enter="atTop = true" class="absolute pointer-events-none top-0 left-0 w-px h-px opacity-0"></div>
+<div x-intersect:leave="nearTop = false" x-intersect:enter="nearTop = true" class="absolute pointer-events-none top-[50vh] left-0 w-px h-px opacity-0"></div>
+<div x-data="navigation">
+	<div class="fixed z-40 w-full top-0 transition duration-300" :class="(goingUp || atTop || languagePromptOpen || open ? ( !atTop ? 'bg-[#fcf7f11a] backdrop-blur-xl' : '' ) : '-translate-y-full')">
+
+		
+		<div class="container px-5 md:pl-0 md:pr-9 mx-auto flex items-center transition-colors" :class="{ 'text-pale-01':atTop,'sm:text-dark-01':atTop, }">
+			<div class="w-1/3" x-show="navigationIn" x-transition:enter="transition ease-in-out duration-1000" x-transition:enter-start="-translate-y-10 opacity-0" x-transition:enter-end="translate-y-0 opacity-100">
+				<button class="site-menu-toggle h-[80px] md:w-[64px] relative grid place-items-center" aria-label="Open Menu" @click="activeMenuItem = 'menu'">
+					<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="currentColor"></path>
+</svg>				</button>
+			</div>
+			<div class="w-1/3 md:pl-9" x-show="navigationIn" x-transition:enter="transition ease-in-out duration-1000 delay-300" x-transition:enter-start="-translate-y-10 sm:opacity-0" x-transition:enter-end="translate-y-0 sm:opacity-100">
+				<a href="/" class="site-logo block w-[36px] md:w-max mx-auto" title="Paracelsus Recovery">
+											<svg width="278" height="36" viewBox="0 0 278 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M23.3654 18.6944H36.6467C36.7038 18.6944 36.75 18.6481 36.75 18.591V17.4088C36.75 17.3517 36.7038 17.3055 36.6467 17.3055H23.3654C23.3031 17.3055 23.2551 17.3602 23.2631 17.4222C23.2871 17.6113 23.2994 17.8042 23.2994 17.9999C23.2994 18.1956 23.2871 18.3885 23.2631 18.5777C23.2553 18.6395 23.3031 18.6944 23.3654 18.6944Z" fill="#181918"></path>
+<path d="M14.1346 17.3055H0.853333C0.79625 17.3055 0.75 17.3517 0.75 17.4088V18.591C0.75 18.6481 0.79625 18.6944 0.853333 18.6944H14.1346C14.1969 18.6944 14.2449 18.6397 14.2369 18.5777C14.2129 18.3885 14.2006 18.1956 14.2006 17.9999C14.2006 17.8042 14.2129 17.6113 14.2369 17.4222C14.2447 17.3603 14.1969 17.3055 14.1346 17.3055Z" fill="#181918"></path>
+<path d="M19.4445 13.3846V0.103333C19.4445 0.04625 19.3982 0 19.3411 0H18.1589C18.1018 0 18.0556 0.04625 18.0556 0.103333V13.3846C18.0556 13.4469 18.1103 13.4949 18.1722 13.4869C18.3614 13.4629 18.5543 13.4506 18.75 13.4506C18.9457 13.4506 19.1386 13.4629 19.3278 13.4869C19.3896 13.4947 19.4445 13.4469 19.4445 13.3846Z" fill="#181918"></path>
+<path d="M18.0556 22.6154V35.8967C18.0556 35.9538 18.1018 36 18.1589 36H19.3411C19.3982 36 19.4445 35.9538 19.4445 35.8967V22.6154C19.4445 22.5531 19.3897 22.5051 19.3278 22.5131C19.1386 22.5371 18.9457 22.5494 18.75 22.5494C18.5543 22.5494 18.3614 22.5371 18.1722 22.5131C18.1104 22.5053 18.0556 22.5531 18.0556 22.6154Z" fill="#181918"></path>
+<path d="M14.9959 20.772L5.60425 30.1637C5.56384 30.2041 5.56384 30.2695 5.60425 30.3098L6.44022 31.1457C6.48064 31.1862 6.54606 31.1862 6.58634 31.1457L15.978 21.7541C16.0222 21.7099 16.0172 21.6374 15.9679 21.5992C15.6622 21.3625 15.3874 21.0878 15.1508 20.7821C15.1126 20.7328 15.0399 20.728 14.9959 20.772Z" fill="#181918"></path>
+<path d="M22.5041 15.228L31.8958 5.83634C31.9362 5.79592 31.9362 5.7305 31.8958 5.69022L31.0598 4.85425C31.0194 4.81384 30.954 4.81384 30.9137 4.85425L21.522 14.2459C21.4779 14.2901 21.4829 14.3626 21.5322 14.4008C21.8379 14.6374 22.1126 14.9122 22.3493 15.2179C22.3875 15.2672 22.4601 15.272 22.5041 15.228Z" fill="#181918"></path>
+<path d="M15.978 14.2459L6.58634 4.85425C6.54592 4.81384 6.4805 4.81384 6.44022 4.85425L5.60425 5.69022C5.56384 5.73064 5.56384 5.79606 5.60425 5.83634L14.9959 15.228C15.0401 15.2722 15.1126 15.2672 15.1508 15.2179C15.3874 14.9122 15.6622 14.6374 15.9679 14.4008C16.0172 14.3626 16.022 14.2899 15.978 14.2459Z" fill="#181918"></path>
+<path d="M21.5221 21.7541L30.9137 31.1458C30.9542 31.1862 31.0196 31.1862 31.0599 31.1458L31.8958 30.3098C31.9362 30.2694 31.9362 30.204 31.8958 30.1637L22.5042 20.772C22.46 20.7279 22.3875 20.7329 22.3493 20.7822C22.1126 21.0879 21.8379 21.3626 21.5322 21.5993C21.4829 21.6375 21.478 21.7101 21.5221 21.7541Z" fill="#181918"></path>
+<path d="M7.43721 22.0463L7.88957 23.1385C7.91137 23.1913 7.97193 23.2163 8.02457 23.1945L17.3236 19.3427C17.3886 19.3158 17.4079 19.2335 17.3623 19.1799C17.1215 18.897 16.9658 18.5395 16.9346 18.1469C16.929 18.077 16.8569 18.0327 16.7921 18.0596L7.49318 21.9114C7.4404 21.9333 7.4154 21.9937 7.43721 22.0463Z" fill="#181918"></path>
+<path d="M30.0628 13.954L29.6104 12.8618C29.5886 12.809 29.5281 12.784 29.4754 12.8058L20.1764 16.6576C20.1114 16.6846 20.0921 16.7668 20.1377 16.8204C20.3785 17.1033 20.5342 17.4608 20.5654 17.8535C20.571 17.9233 20.6431 17.9676 20.7079 17.9407L30.0068 14.0889C30.0596 14.0671 30.0846 14.0067 30.0628 13.954Z" fill="#181918"></path>
+<path d="M14.7038 6.68735L13.6116 7.13971C13.5588 7.16151 13.5338 7.22207 13.5556 7.27471L17.4075 16.5737C17.4344 16.6387 17.5166 16.658 17.5702 16.6125C17.8532 16.3717 18.2108 16.216 18.6033 16.1847C18.6731 16.1792 18.7175 16.1071 18.6905 16.0422L14.8387 6.74318C14.8169 6.6904 14.7565 6.66554 14.7038 6.68735Z" fill="#181918"></path>
+<path d="M22.7961 29.3129L23.8883 28.8605C23.9411 28.8387 23.9661 28.7782 23.9443 28.7255L20.0925 19.4265C20.0656 19.3615 19.9833 19.3422 19.9297 19.3877C19.6468 19.6286 19.2892 19.7843 18.8967 19.8155C18.8268 19.8211 18.7825 19.8932 18.8095 19.958L22.6613 29.257C22.6831 29.3098 22.7435 29.3347 22.7961 29.3129Z" fill="#181918"></path>
+<path d="M23.8883 7.13957L22.7961 6.68721C22.7433 6.6654 22.6829 6.6904 22.6611 6.74318L18.8093 16.0422C18.7825 16.1071 18.8267 16.1792 18.8965 16.1847C19.2892 16.216 19.6467 16.3718 19.9296 16.6125C19.9832 16.658 20.0654 16.6387 20.0924 16.5737L23.9442 7.27471C23.966 7.22193 23.9411 7.16137 23.8883 7.13957Z" fill="#181918"></path>
+<path d="M13.6117 28.8607L14.7039 29.313C14.7567 29.3348 14.8171 29.3098 14.8389 29.257L18.6907 19.958C18.7175 19.8932 18.6733 19.8211 18.6035 19.8155C18.2108 19.7843 17.8533 19.6284 17.5704 19.3877C17.5168 19.3422 17.4346 19.3615 17.4076 19.4265L13.5558 28.7255C13.534 28.7783 13.5589 28.8389 13.6117 28.8607Z" fill="#181918"></path>
+<path d="M7.88975 12.8617L7.43739 13.9539C7.41558 14.0067 7.44058 14.0671 7.49336 14.0889L16.7922 17.9407C16.8571 17.9675 16.9292 17.9233 16.9347 17.8535C16.966 17.4608 17.1218 17.1033 17.3625 16.8204C17.4081 16.7668 17.3888 16.6846 17.3238 16.6576L8.02475 12.8058C7.97197 12.784 7.91155 12.8089 7.88975 12.8617Z" fill="#181918"></path>
+<path d="M20.1764 19.3428L29.4754 23.1946C29.5282 23.2164 29.5886 23.1914 29.6104 23.1386L30.0628 22.0464C30.0846 21.9936 30.0596 21.9332 30.0068 21.9114L20.7079 18.0596C20.6431 18.0328 20.571 18.077 20.5654 18.1468C20.5342 18.5394 20.3783 18.8969 20.1377 19.1799C20.0921 19.2335 20.1114 19.3158 20.1764 19.3428Z" fill="#181918"></path>
+<g>
+	<path d="M56.3536 22.6946C56.3536 24.3916 57.0694 24.753 59.7673 24.9756V25.7822H51.75V25.0313C53.7872 24.7811 53.7655 24.6417 53.7655 23.0561V8.97958C53.7655 7.39392 53.7872 7.25458 51.75 7.0044V6.25341H58.611C63.5664 6.25341 65.9066 8.95199 65.9066 11.9564C65.9066 15.3784 63.5117 17.7983 58.7214 17.7983H56.3536V22.6946ZM56.3536 16.8803H58.1706C61.6395 16.8803 63.0708 15.1277 63.0708 12.0677C63.0708 9.42475 61.6391 7.17133 58.1706 7.17133H56.3536V16.8803Z" fill="#181918"></path>
+<path d="M76.3954 22.6946C76.3954 23.9188 76.6708 24.5309 77.469 24.5309C77.9094 24.5309 78.3223 24.364 78.7352 24.1694L78.8727 24.5865C78.212 25.5881 77.2759 26.0609 76.2299 26.0609C74.881 26.0609 74.0828 25.0873 73.9449 23.5293C72.9812 24.6698 71.4396 26.0609 69.5127 26.0609C67.3656 26.0609 66.0162 24.6422 66.0162 22.5833C66.0162 20.2466 67.7504 19.2726 69.9256 18.4384L73.8897 16.936V15.044C73.8897 13.1245 73.1738 11.7333 71.3568 11.7333C69.7877 11.7333 69.127 12.7906 69.127 14.2093C69.127 14.6821 69.1821 15.0997 69.3196 15.6561L67.8603 15.8787C67.172 15.6561 66.7868 15.1277 66.7868 14.3487C66.7868 12.2622 68.9339 11.038 71.7145 11.038C74.8529 11.038 76.3945 12.4011 76.3945 15.3222V22.6946H76.3954ZM73.8902 22.9452V17.715L70.5867 19.0781C69.2102 19.6345 68.412 20.4136 68.412 21.888C68.412 23.3623 69.2378 24.4196 70.807 24.4196C71.9357 24.4196 72.7614 23.8912 73.8902 22.9452Z" fill="#181918"></path>
+<path d="M83.6898 23.6682C83.6898 24.753 84.3229 24.9756 86.1399 25.0593V25.7827H79.3124V25.0593C80.7717 24.9756 81.2122 24.7535 81.2122 23.6682V13.709L79.4227 12.7354V12.4296L83.4696 11.0385H83.8002L83.6898 14.9888C85.2039 12.1514 85.8645 11.0385 87.4066 11.0385C87.9022 11.0385 88.2599 11.233 88.4526 11.4836V13.5701H88.0673C86.3878 13.5701 85.2319 13.7094 83.6898 15.6009V23.6686V23.6682Z" fill="#181918"></path>
+<path d="M99.1067 22.6946C99.1067 23.9188 99.3821 24.5309 100.18 24.5309C100.621 24.5309 101.034 24.364 101.447 24.1694L101.584 24.5865C100.923 25.5881 99.9872 26.0609 98.9412 26.0609C97.5923 26.0609 96.7941 25.0873 96.6562 23.5293C95.6925 24.6698 94.1509 26.0609 92.224 26.0609C90.0769 26.0609 88.7275 24.6422 88.7275 22.5833C88.7275 20.2466 90.4617 19.2726 92.6369 18.4384L96.601 16.936V15.044C96.601 13.1245 95.8852 11.7333 94.0682 11.7333C92.499 11.7333 91.8383 12.7906 91.8383 14.2093C91.8383 14.6821 91.8934 15.0997 92.0309 15.6561L90.5716 15.8787C89.8833 15.6561 89.4981 15.1277 89.4981 14.3487C89.4981 12.2622 91.6452 11.038 94.4259 11.038C97.5642 11.038 99.1058 12.4011 99.1058 15.3222V22.6946H99.1067ZM96.6015 22.9452V17.715L93.298 19.0781C91.9215 19.6345 91.1233 20.4136 91.1233 21.888C91.1233 23.3623 91.9491 24.4196 93.5183 24.4196C94.647 24.4196 95.4727 23.8912 96.6015 22.9452Z" fill="#181918"></path>
+<path d="M108.081 24.0857C109.898 24.0857 111.164 23.2234 112.1 21.7767L112.43 21.9436C111.605 24.5585 109.815 26.0609 107.282 26.0609C103.731 26.0609 101.281 23.251 101.281 19.0505C101.281 14.488 103.841 11.0385 107.943 11.0385C110.531 11.0385 112.045 12.179 112.045 13.9872C112.045 14.7106 111.715 15.3783 111.165 15.6842H109.595C109.651 15.3783 109.705 15.0445 109.705 14.5156C109.705 13.1801 109.237 11.9007 107.448 11.9007C104.97 11.9007 103.484 14.5156 103.484 17.8263C103.484 21.5541 105.246 24.0857 108.081 24.0857H108.081Z" fill="#181918"></path>
+<path d="M124.516 16.5464V17.1305H115.376C115.183 21.6373 117.386 24.1966 120.249 24.1966C122.231 24.1966 123.415 23.2506 124.378 21.7206L124.708 21.8875C124.048 24.3079 122.148 26.0605 119.285 26.0605C115.376 26.0605 113.146 22.8611 113.146 18.9663C113.146 14.4039 115.788 11.038 119.34 11.038C122.892 11.038 124.516 13.4303 124.516 16.546L124.516 16.5464ZM115.459 16.3239H122.121C122.121 13.8203 121.268 11.9283 119.12 11.9283C116.973 11.9283 115.734 13.8479 115.459 16.3239Z" fill="#181918"></path>
+<path d="M129.251 23.6682C129.251 24.753 129.692 24.9756 131.151 25.0593V25.7827H124.874V25.0593C126.334 24.9756 126.774 24.7535 126.774 23.6682V6.67053L124.985 5.69696V5.39114L128.921 4H129.251V23.6682Z" fill="#181918"></path>
+<path d="M131.949 24.6978L131.784 20.8587H132.527C133.216 23.3904 134.537 25.2819 136.684 25.2819C138.309 25.2819 139.575 24.4472 139.575 22.6946C139.575 21.0809 138.556 20.3855 136.106 19.412C133.353 18.3271 132.004 17.2979 132.004 14.9608C132.004 12.6237 133.793 11.0385 136.547 11.0385C138.253 11.0385 139.602 11.4836 140.731 12.207V15.5733H140.07C139.519 13.4312 138.418 11.8179 136.409 11.8179C134.812 11.8179 133.959 12.7915 133.959 14.127C133.959 15.5738 134.839 16.3248 137.29 17.2427C139.932 18.2443 141.584 19.3848 141.584 21.7771C141.584 24.4476 139.602 26.0614 136.574 26.0614C134.701 26.0614 132.967 25.5049 131.949 24.6983V24.6978Z" fill="#181918"></path>
+<path d="M154.688 23.0841C154.688 24.0301 154.744 24.2246 155.982 24.3639L156.698 24.4472V25.0312L152.541 26.0605H152.128L152.238 23.4456C150.916 24.7811 149.457 26.0605 147.53 26.0605C145.162 26.0605 143.759 24.753 143.759 21.7206V14.0148C143.759 13.0132 143.539 12.735 142.245 12.568L141.804 12.5124V11.8727L146.044 11.0936H146.347L146.209 14.1261V21.2202C146.209 23.251 146.953 24.4196 148.659 24.4196C150.091 24.4196 151.192 23.6686 152.238 22.8339V14.0153C152.238 13.0136 152.046 12.7354 150.724 12.5685L150.311 12.5128V11.8731L154.496 11.0941H154.799L154.688 14.0153V23.0846V23.0841Z" fill="#181918"></path>
+<path d="M157.936 24.6978L157.771 20.8587H158.514C159.203 23.3904 160.524 25.2819 162.672 25.2819C164.296 25.2819 165.562 24.4472 165.562 22.6946C165.562 21.0809 164.543 20.3855 162.093 19.412C159.34 18.3271 157.991 17.2979 157.991 14.9608C157.991 12.6237 159.78 11.0385 162.534 11.0385C164.24 11.0385 165.589 11.4836 166.718 12.207V15.5733H166.057C165.506 13.4312 164.405 11.8179 162.396 11.8179C160.799 11.8179 159.946 12.7915 159.946 14.127C159.946 15.5738 160.826 16.3248 163.277 17.2427C165.919 18.2443 167.571 19.3848 167.571 21.7771C167.571 24.4476 165.589 26.0614 162.561 26.0614C160.689 26.0614 158.954 25.5049 157.936 24.6983V24.6978Z" fill="#181918"></path>
+<path d="M180.608 23.1564C180.608 24.7421 180.993 24.8815 183.031 25.1316V25.8826H176.002V25.1316C178.04 24.8815 178.019 24.7421 178.019 23.1564V9.07997C178.019 7.4943 178.04 7.35496 176.002 7.10478V6.35379H182.976C187.658 6.35379 189.972 8.57916 189.972 11.6673C189.972 14.9223 187.163 16.5355 185.097 16.9251L189.614 22.795C190.936 24.52 191.845 25.104 193.387 25.1316V25.8826H189.283C188.485 25.3262 187.824 24.5195 186.997 23.4066L182.508 17.3422H180.607V23.1564H180.608ZM180.608 7.27172V16.4243H182.481C185.731 16.4243 187.191 14.6717 187.191 11.6673C187.191 9.27495 185.703 7.27172 182.37 7.27172H180.608Z" fill="#181918"></path>
+<path d="M204.074 17.2309H194.93C194.737 21.7377 196.941 24.2969 199.805 24.2969C201.788 24.2969 202.972 23.351 203.936 21.821L204.267 21.9879C203.606 24.4082 201.705 26.1608 198.841 26.1608C194.93 26.1608 192.699 22.9615 192.699 19.0667C192.699 14.5043 195.343 11.1384 198.896 11.1384C202.45 11.1384 204.074 13.5307 204.074 16.6464V17.2309ZM195.013 16.4242H201.678C201.678 13.9207 200.825 12.0287 198.676 12.0287C196.527 12.0287 195.288 13.9483 195.013 16.4242Z" fill="#181918"></path>
+<path d="M211.374 24.1857C213.191 24.1857 214.458 23.3234 215.395 21.8766L215.725 22.0435C214.899 24.6584 213.109 26.1608 210.575 26.1608C207.022 26.1608 204.571 23.351 204.571 19.1504C204.571 14.5879 207.133 11.1384 211.236 11.1384C213.826 11.1384 215.34 12.2789 215.34 14.0871C215.34 14.8105 215.01 15.4783 214.459 15.7841H212.889C212.944 15.4783 212.999 15.1444 212.999 14.6155C212.999 13.2801 212.531 12.0007 210.741 12.0007C208.262 12.0007 206.775 14.6155 206.775 17.9262C206.775 21.654 208.537 24.1857 211.374 24.1857H211.374Z" fill="#181918"></path>
+<path d="M216.269 19.0111C216.269 14.226 219.161 11.1384 222.824 11.1384C226.68 11.1384 229.214 14.0871 229.214 18.2881C229.214 23.0732 226.322 26.1608 222.659 26.1608C218.803 26.1608 216.269 23.2677 216.269 19.0111ZM226.597 18.9835C226.597 15.3113 225.358 12.0007 222.686 12.0007C220.235 12.0007 218.885 14.5599 218.885 18.3157C218.885 22.0716 220.125 25.2986 222.797 25.2986C225.248 25.2986 226.597 22.7393 226.597 18.9835Z" fill="#181918"></path>
+<path d="M242.495 12.316C241.476 12.5648 241.338 12.7584 241.091 13.3389L235.885 26.2463H235.279L229.633 13.3389C229.385 12.7584 229.247 12.5648 228.228 12.316V11.5976H234.343V12.316C232.965 12.482 232.415 12.5648 232.415 13.228C232.415 13.4493 232.47 13.67 232.58 14.0021L236.243 22.9845L239.769 13.9745C239.906 13.6153 239.961 13.4493 239.961 13.228C239.961 12.5648 239.41 12.5096 238.006 12.316V11.5976H242.495V12.316Z" fill="#181918"></path>
+<path d="M253.045 17.2309H243.9C243.708 21.7377 245.911 24.2969 248.775 24.2969C250.758 24.2969 251.943 23.351 252.907 21.821L253.238 21.9879C252.577 24.4082 250.676 26.1608 247.812 26.1608C243.9 26.1608 241.669 22.9615 241.669 19.0667C241.669 14.5043 244.313 11.1384 247.867 11.1384C251.42 11.1384 253.045 13.5307 253.045 16.6464V17.2309ZM243.983 16.4242H250.649C250.649 13.9207 249.795 12.0287 247.646 12.0287C245.498 12.0287 244.259 13.9483 243.983 16.4242Z" fill="#181918"></path>
+<path d="M257.838 23.7685C257.838 24.8534 258.471 25.076 260.289 25.1597V25.8831H253.458V25.1597C254.918 25.076 255.359 24.8538 255.359 23.7685V13.8094L253.568 12.8358V12.53L257.617 11.1388H257.947L257.837 15.0892C259.352 12.2517 260.013 11.1388 261.556 11.1388C262.051 11.1388 262.409 11.3334 262.602 11.584V13.6705H262.217C260.536 13.6705 259.38 13.8098 257.837 15.7013V23.769L257.838 23.7685Z" fill="#181918"></path>
+<path d="M275.078 13.979C275.189 13.675 275.244 13.4538 275.244 13.2326C275.244 12.5693 274.693 12.4861 273.316 12.3205V11.6021H277.75V12.3205C276.731 12.5693 276.566 12.7906 276.345 13.3434L270.506 28.849C269.735 30.8667 268.909 32 267.256 32C266.43 32 265.493 31.5024 265.273 30.6179V29.8163C265.741 29.9547 266.127 30.0651 266.871 30.0651C268.331 30.0651 269.322 29.6507 269.983 27.7709L270.506 26.3613L264.97 13.3434C264.722 12.763 264.584 12.5693 263.565 12.3205V11.6021H269.652V12.3205C268.275 12.4866 267.724 12.5693 267.724 13.2326C267.724 13.4538 267.779 13.6746 267.889 14.0066L271.635 23.3763L275.078 13.979H275.078Z" fill="#181918"></path>
+</g>
+</svg>
+									</a>
+			</div>
+			<div class="w-1/3 flex items-center justify-end" x-show="navigationIn" x-transition:enter="transition ease-in-out duration-1000" x-transition:enter-start="-translate-y-10 opacity-0" x-transition:enter-end="translate-y-0 opacity-100">
+				<div class="hidden xl:block relative eyebrow w-max ltr:ml-auto">
+					<button @click="open = !open" @keydown.escape="open = false" class="flex items-center pr-1" aria-label="Toggle Language Selector">
+						<span class="ltr:mr-2.5 text-base uppercase">en</span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 15 8" fill="currentColor" class="transition-transform" :class="open ? 'rotate-180' : ''">
+    <path d="M12.6351 0.294922L7.44993 4.87492L2.26472 0.294922L0.671875 1.70492L7.44993 7.70492L14.228 1.70492L12.6351 0.294922Z"></path>
+</svg>					</button>
+					<div x-show="open" @click.away="open = false" class="absolute right-0 text-right bg-pale-02 rounded-[10px] p-[7px_5px] min-w-full mt-2 transition-colors" :class="{ 'bg-transparent':atTop,'sm:bg-pale-02':atTop }" x-transition.scale.origin.top="" style="display: none;">
+						
+<div class="wpml-ls-statics-shortcode_actions wpml-ls wpml-ls-legacy-list-vertical">
+	<ul>
+
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-en wpml-ls-current-language wpml-ls-first-item wpml-ls-item-legacy-list-vertical">
+				<a href="/3-day-health-asssessment/" class="wpml-ls-link">
+                    <span class="wpml-ls-native">English</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-de wpml-ls-item-legacy-list-vertical">
+				<a href="/de/3-taegige-umfassende-gesundheitsbeurteilung/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="de">Deutsch</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-fr wpml-ls-item-legacy-list-vertical">
+				<a href="/fr/evaluation-complete-de-la-sante-sur-3-jours/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="fr">Français</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-es wpml-ls-item-legacy-list-vertical">
+				<a href="/es/evaluacion-integral-de-salud-de-3-dias/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="es">Español</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-it wpml-ls-item-legacy-list-vertical">
+				<a href="/it/valutazione-completa-della-salute-in-3-giorni/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="it">Italiano</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-ar wpml-ls-last-item wpml-ls-item-legacy-list-vertical">
+				<a href="/ar/3-%d9%8a%d9%88%d9%85-%d8%aa%d9%82%d9%8a%d9%8a%d9%85-%d8%b4%d8%a7%d9%85%d9%84/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="ar">العربية</span></a>
+			</li>
+		
+	</ul>
+</div>
+
+					</div>
+				</div>
+									<a href="/contact/?modal=yes" data-pegasus-modal="Modal--Full -right" class="btn btn__rounded ltr:ml-5 transition-colors" :class="{ 'btn__rounded--pale-xs':atTop }" data-pegasus-modal-id="modal-0">
+						<span>Talk to us</span>
+					</a>
+							</div>
+		</div>
+	</div>
+	<div class="fixed inset-0 z-50 bg-black/80" x-show="activeMenuItem" @click.stop="activeMenuItem = false" x-transition.opacity.duration.300ms="" style="display: none;"></div>
+	<nav class="nav-draw fixed left-0 top-0 bottom-0 right-0 sm:right-auto transform transition-transform duration-200 -translate-x-full z-50 overflow-hidden xl:overflow-visible" :class="{'!-translate-x-0': activeMenuItem !== false}">
+		<div class="bg-yellow-01 text-dark-01 py-10 px-5 xl:px-10 h-full sm:min-w-[397px] overflow-auto border-r border-dark transition-colors duration-300 flex flex-col" @click="activeMenuItem = 'menu'">
+			<div class="flex items-center justify-between mb-10">
+				<button class="site-menu-toggle eyebrow flex items-center gap-2" aria-label="Close Menu" @click.stop="activeMenuItem = false">
+					
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"></path>
+</svg>
+					Close
+				</button>
+				<div class="flex items-center justify-end">
+					<button @click.away="openSearchForm = false" class="search-toggle flex items-center" aria-label="Toggle Search Form" @click="openSearchForm = !openSearchForm" :class="{'text-dark-02':openSearchForm}">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.7559 14.2549H14.9659L14.6859 13.9849C15.6659 12.8449 16.2559 11.3649 16.2559 9.75488C16.2559 6.16488 13.3459 3.25488 9.75586 3.25488C6.16586 3.25488 3.25586 6.16488 3.25586 9.75488C3.25586 13.3449 6.16586 16.2549 9.75586 16.2549C11.3659 16.2549 12.8459 15.6649 13.9859 14.6849L14.2559 14.9649V15.7549L19.2559 20.7449L20.7459 19.2549L15.7559 14.2549ZM9.75586 14.2549C7.26586 14.2549 5.25586 12.2449 5.25586 9.75488C5.25586 7.26488 7.26586 5.25488 9.75586 5.25488C12.2459 5.25488 14.2559 7.26488 14.2559 9.75488C14.2559 12.2449 12.2459 14.2549 9.75586 14.2549Z"></path>
+</svg>
+						<span class="sr-only">Search</span>
+					</button>
+					<button @click="open = !open" @keydown.escape="open = false" class="flex items-center pr-1 ml-10 xl:hidden eyebrow" aria-label="Toggle Language Selector">
+						<span class="ltr:mr-2.5 uppercase">en</span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="8" viewBox="0 0 15 8" fill="currentColor" class="transition-transform" :class="open ? 'rotate-180' : ''">
+    <path d="M12.6351 0.294922L7.44993 4.87492L2.26472 0.294922L0.671875 1.70492L7.44993 7.70492L14.228 1.70492L12.6351 0.294922Z"></path>
+</svg>					</button>
+				</div>
+			</div>
+			<form role="search" method="get" class="searchform" action="/" x-show="openSearchForm" x-transition.duration.300ms="" x-collapse="" @click.stop="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+				<div class="xl:pt-5 pb-10">
+					<div class="border-b border-dark flex justify-between">
+						<input type="text" value="" placeholder="Enter search term..." name="s" class="placeholder:text-dark-02 bg-transparent">
+						<button type="submit" value="Search" aria-label="Search">
+							<svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.4778 13.4129L5.87207 12.8072L10.6675 8.01172H11.8778L6.4778 13.4129Z" fill="black"></path>
+<path d="M11.8922 6.00144H10.6819L5.87207 1.19279L6.4778 0.588257L11.8922 6.00144Z" fill="black"></path>
+<path d="M7.69407 6.58436H12.4763L12.8902 6.99818L12.4619 7.42638L12.4332 7.42758H11.2601L11.2613 7.42638L0.109863 7.42998V6.57357L5.05405 6.57237V6.58436H6.48381L6.47062 6.57117H7.68088L7.69407 6.58436Z" fill="black"></path>
+</svg>
+						</button>
+					</div>
+				</div>
+			</form>
+			<div x-show="open" @click.away="open = false" class="xl:hidden eyebrow" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+				
+<div class="wpml-ls-statics-shortcode_actions wpml-ls wpml-ls-legacy-list-vertical">
+	<ul>
+
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-en wpml-ls-current-language wpml-ls-first-item wpml-ls-item-legacy-list-vertical">
+				<a href="/3-day-health-asssessment/" class="wpml-ls-link">
+                    <span class="wpml-ls-native">English</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-de wpml-ls-item-legacy-list-vertical">
+				<a href="/de/3-taegige-umfassende-gesundheitsbeurteilung/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="de">Deutsch</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-fr wpml-ls-item-legacy-list-vertical">
+				<a href="/fr/evaluation-complete-de-la-sante-sur-3-jours/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="fr">Français</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-es wpml-ls-item-legacy-list-vertical">
+				<a href="/es/evaluacion-integral-de-salud-de-3-dias/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="es">Español</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-it wpml-ls-item-legacy-list-vertical">
+				<a href="/it/valutazione-completa-della-salute-in-3-giorni/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="it">Italiano</span></a>
+			</li>
+					<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-ar wpml-ls-last-item wpml-ls-item-legacy-list-vertical">
+				<a href="/ar/3-%d9%8a%d9%88%d9%85-%d8%aa%d9%82%d9%8a%d9%8a%d9%85-%d8%b4%d8%a7%d9%85%d9%84/" class="wpml-ls-link">
+                    <span class="wpml-ls-native" lang="ar">العربية</span></a>
+			</li>
+		
+	</ul>
+</div>
+
+				<div class="py-10">
+					<div class="border-t border-mid"></div>
+				</div>
+			</div>
+			<ul class="nav-main xl:pt-5 transition-colors duration-300" :class="{'xl:text-black/25':activeMenuItem&amp;&amp;activeMenuItem!='menu'}">
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children" :class="{'text-dark-01':activeMenuItem == 70494}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/programmes-and-therapies/" @click.stop.prevent="activeMenuItem = 70494">Treatment Programmes
+							<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>						</a>
+													<div class="absolute w-full xl:-z-10 -right-full xl:right-auto xl:left-0 top-0 bottom-0 transition-transform duration-300" :class="{'-translate-x-full xl:translate-x-full':activeMenuItem == 70494}" @click.stop="">
+								<div class="bg-yellow-01 py-10 xl:p-10 h-full overflow-auto border-r border-dark transition-colors duration-300" :class="{'xl:text-black/25':activeSubMenuItem}" @click="activeSubMenuItem = false">
+									<div class="px-5 xl:px-0">
+										<button class="xl:hidden inline-flex items-center eyebrow" @click.stop="activeMenuItem = 'menu'">
+											<span class="rotate-180 ltr:mr-2.5">
+												<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>											</span>
+											Back
+										</button>
+										<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/programmes-and-therapies/">Treatment Programmes
+										</a>
+									</div>
+									<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 mt-10 xl:mt-5" :class="{'xl:border-t-black/25':activeSubMenuItem}">
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71827}">
+																									<a class="text-base flex justify-between items-center" href="/residential-rehab-treatment/">
+														<span class="max-w-[245px] xl:max-w-full">Residential Rehabilitation Programme</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66523}">
+																									<a class="text-base flex justify-between items-center" href="/therapies/seven-day-executive-detox/">
+														<span class="max-w-[245px] xl:max-w-full">7-Day Executive Detox</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66355}">
+																									<a class="text-base flex justify-between items-center" href="/3-day-health-asssessment/">
+														<span class="max-w-[245px] xl:max-w-full">3-Day Comprehensive Health Asssessment</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71828}">
+																									<a class="text-base flex justify-between items-center" href="/7-day-health-check-up/">
+														<span class="max-w-[245px] xl:max-w-full">7-Day Comprehensive Check-Up</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71829}">
+																									<a class="text-base flex justify-between items-center" href="/aftercare-treatment/">
+														<span class="max-w-[245px] xl:max-w-full">Aftercare Services</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 70522}">
+																									<a class="subtitle-md eyebrow flex justify-between items-center" href="/programmes-and-therapies/">
+														<span class="max-w-[245px] xl:max-w-full">VIEW ALL</span>
+													</a>
+																																			</li>
+																			</ul>
+								</div>
+							</div>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children" :class="{'text-dark-01':activeMenuItem == 709}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/conditions-we-treat/" @click.stop.prevent="activeMenuItem = 709">Conditions We Treat
+							<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>						</a>
+													<div class="absolute w-full xl:-z-10 -right-full xl:right-auto xl:left-0 top-0 bottom-0 transition-transform duration-300" :class="{'-translate-x-full xl:translate-x-full':activeMenuItem == 709}" @click.stop="">
+								<div class="bg-yellow-01 py-10 xl:p-10 h-full overflow-auto border-r border-dark transition-colors duration-300" :class="{'xl:text-black/25':activeSubMenuItem}" @click="activeSubMenuItem = false">
+									<div class="px-5 xl:px-0">
+										<button class="xl:hidden inline-flex items-center eyebrow" @click.stop="activeMenuItem = 'menu'">
+											<span class="rotate-180 ltr:mr-2.5">
+												<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>											</span>
+											Back
+										</button>
+										<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/conditions-we-treat/">Conditions We Treat
+										</a>
+									</div>
+									<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 mt-10 xl:mt-5" :class="{'xl:border-t-black/25':activeSubMenuItem}">
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71826}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/mental-health-treatment-center/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 71826 ? false : 71826">
+														<span class="max-w-[245px] xl:max-w-full">Mental Health</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 71826}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 71826}" @click.stop="" x-show="activeSubMenuItem == 71826" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/mental-health-treatment-center/">Mental Health
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/rehab-for-depression/">Depression</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/trd-rehab/">Treatment-Resistant Depression</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/anxiety/">Anxiety</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/narcissism-npd-rehab/">Narcissism</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/narcissistic-abuse/">Narcissistic Abuse</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/personality-disorders/">Personality Disorders</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/borderline-personality-disorder/">Borderline Personality Disorder</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/ptsd-rehab/">PTSD</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/trauma/">Trauma</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/sudden-wealth-syndrome/">Sudden Wealth Syndrome</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/elite-athlete-support/">Elite Athlete Support</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/adhd-rehab/">ADHD</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/ocd-treatment-centre/">OCD</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/phobias/">Phobias</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/bipolar-disorder/">Bipolar Disorder</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/cyclothymia/">Cyclothymia</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/burnout-treatment-center/">Burnout</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/stress-disorders/">Stress</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/treatment/mental-health-treatment-center/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66380}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/luxury-alcohol-treatment-center/">
+														<span class="max-w-[245px] xl:max-w-full">Alcohol Dependency</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66409}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/drug-addiction-treatment/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66409 ? false : 66409">
+														<span class="max-w-[245px] xl:max-w-full">Drug Addiction</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66409}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66409}" @click.stop="" x-show="activeSubMenuItem == 66409" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/drug-addiction-treatment/">Drug Addiction
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/cocaine-addiction-treatment/">Cocaine</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/nicotine-addiction/">Nicotine</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/rehab-for-ghb-addiction/">GHB</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/methamphetamine-addiction-rehab/">Methamphetamine</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/ketamine/">Ketamine</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/cannabis-addiction-rehab/">Cannabis</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/kratom-addiction-rehab/">Kratom</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/opioid-addiction-rehab/">Opioids</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/crack-cocaine/">Crack Cocaine</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/heroin/">Heroin</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/synthetic-cannabinoids-spice-k2/">Synthetic Cannabinoids (Spice, K2)</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/synthetic-cathinones-bath-salts/">Synthetic Cathinones (Bath Salts)</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/treatment/drug-addiction-treatment/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66486}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/prescription-drug-addiction-treatment/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66486 ? false : 66486">
+														<span class="max-w-[245px] xl:max-w-full">Medication Addictions</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66486}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66486}" @click.stop="" x-show="activeSubMenuItem == 66486" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/prescription-drug-addiction-treatment/">Medication Addictions
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/stimulant-prescriptions/">Prescription Stimulants</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/depressant-prescriptions-2/">Prescription Depressants</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66384}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/behavioural-addiction-treatment/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66384 ? false : 66384">
+														<span class="max-w-[245px] xl:max-w-full">Behavioural Addictions</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66384}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66384}" @click.stop="" x-show="activeSubMenuItem == 66384" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/behavioural-addiction-treatment/">Behavioural Addictions
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/cryptocurrency-addiction/">Cryptocurrency</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/work-addiction/">Work</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/codependency/">Codependency</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/shopping-addiction/">Shopping</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/exercise-addiction/">Exercise</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/pornography-addiction/">Pornography</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/social-media-addiction/">Social Media</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/gambling-addiction/">Gambling</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/gaming-addiction/">Gaming</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/sex-and-love-addiction/">Sex &amp; Love</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/dependencies-addictions/adrenaline-addiction/">Adrenaline</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/treatment/behavioural-addiction-treatment/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66400}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/chronic-conditions-recovery/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66400 ? false : 66400">
+														<span class="max-w-[245px] xl:max-w-full">Chronic Conditions</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66400}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66400}" @click.stop="" x-show="activeSubMenuItem == 66400" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/chronic-conditions-recovery/">Chronic Conditions
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/arthritis/">Arthritis</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/osteoporosis/">Osteoporosis</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/holistic-cancer-support/">Cancer</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/alzheimers/">Alzheimer’s</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/chronic-kidney-disease/">Chronic Kidney Disease</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/sleep-disorders/">Sleep Disorders</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/copd/">COPD</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/chronic-conditions/diabetes/">Diabetes</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/holistic-heart-disease-support/">Heart Disease</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/chronic-covid-treatment-centre/">Long Covid</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/menopause-treatment-centre/">Menopause</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/treatment/chronic-conditions-recovery/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 71831}">
+																									<a class="text-base flex justify-between items-center" href="/treatment/eating-disorder-rehab/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 71831 ? false : 71831">
+														<span class="max-w-[245px] xl:max-w-full">Eating Disorders</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 71831}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 71831}" @click.stop="" x-show="activeSubMenuItem == 71831" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/treatment/eating-disorder-rehab/">Eating Disorders
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/anorexia-nervosa-treatment-center/">Anorexia Nervosa</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/binge-eating-disorder/">Binge Eating Disorder</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/bulimia-treatment-centre/">Bulimia</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/obesity-and-metabolic-syndrome/">Obesity and Metabolic Syndrome</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/orthorexia-nervosa/">Orthorexia Nervosa</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/conditions-we-treat/body-dysmorphic-disorder/">Body Dysmorphic Disorder</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/treatment/eating-disorder-rehab/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 70530}">
+																									<a class="subtitle-md eyebrow flex justify-between items-center" href="/conditions-we-treat/">
+														<span class="max-w-[245px] xl:max-w-full">VIEW ALL</span>
+													</a>
+																																			</li>
+																			</ul>
+								</div>
+							</div>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 75207}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/hospitality/">Hospitality
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 96254}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/spa-wellness/">Spa and Wellness
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 736}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/our-approach/">Our Approach
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children" :class="{'text-dark-01':activeMenuItem == 70503}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/rehab-therapies/" @click.stop.prevent="activeMenuItem = 70503">Types of Therapies
+							<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>						</a>
+													<div class="absolute w-full xl:-z-10 -right-full xl:right-auto xl:left-0 top-0 bottom-0 transition-transform duration-300" :class="{'-translate-x-full xl:translate-x-full':activeMenuItem == 70503}" @click.stop="">
+								<div class="bg-yellow-01 py-10 xl:p-10 h-full overflow-auto border-r border-dark transition-colors duration-300" :class="{'xl:text-black/25':activeSubMenuItem}" @click="activeSubMenuItem = false">
+									<div class="px-5 xl:px-0">
+										<button class="xl:hidden inline-flex items-center eyebrow" @click.stop="activeMenuItem = 'menu'">
+											<span class="rotate-180 ltr:mr-2.5">
+												<svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.700729 14L0.0291958 13.384L6.86131 7L6.42336 6.58L-1.18554e-08 0.615999L0.671533 -3.20337e-07L8 7L0.700729 14Z"></path>
+</svg>											</span>
+											Back
+										</button>
+										<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/rehab-therapies/">Types of Therapies
+										</a>
+									</div>
+									<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 mt-10 xl:mt-5" :class="{'xl:border-t-black/25':activeSubMenuItem}">
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66476}">
+																									<a class="text-base flex justify-between items-center" href="/therapies/clinical-recovery-technology/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66476 ? false : 66476">
+														<span class="max-w-[245px] xl:max-w-full">Diagnostics &amp; Technologies</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66476}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66476}" @click.stop="" x-show="activeSubMenuItem == 66476" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/therapies/clinical-recovery-technology/">Diagnostics &amp; Technologies
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/health-assessments/">Assessments</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/therapies/clinical-recovery-technology/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66464}">
+																									<a class="text-base flex justify-between items-center" href="/therapies/psychiatry-recovery-treatment/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66464 ? false : 66464">
+														<span class="max-w-[245px] xl:max-w-full">Psychiatry</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66464}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66464}" @click.stop="" x-show="activeSubMenuItem == 66464" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/therapies/psychiatry-recovery-treatment/">Psychiatry
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/live-in-therapist/">Live-in Therapist</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/trauma-focused-therapy/">Trauma-Focused Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/psilocybin-assisted-psychotherapy/">Psilocybin-Assisted Psychotherapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/psychoeducation/">Psychoeducation</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/eye-movement-desensitisation-and-reprocessing-emdr/">Eye Movement Desensitisation and Reprocessing (EMDR)</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/family-psychoeducation/">Family Psychoeducation</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/cognitive-behavioural-therapy-cbt/">Cognitive Behavioural Therapy (CBT)</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/dialectical-behaviour-therapy/">Dialectical Behaviour Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/ketamine-assisted-therapy/">Ketamine-Assisted Psychotherapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/therapies/psychiatry-recovery-treatment/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66435}">
+																									<a class="text-base flex justify-between items-center" href="/functional-medicine-treatment/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66435 ? false : 66435">
+														<span class="max-w-[245px] xl:max-w-full">Functional Medicine</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66435}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66435}" @click.stop="" x-show="activeSubMenuItem == 66435" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/functional-medicine-treatment/">Functional Medicine
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/psychonutrition/">Psychonutrition</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/probiotic-therapies/">Probiotic Therapies</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/treatment/biochemical-restoration/">Biochemical Restoration</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/nutritional-therapy/">Nutritional Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/supplements-vitamin-iv-infusions/">Supplements &amp; Vitamin-IV Infusions</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/biofeedback-bioresonance/">Biofeedback &amp; Bioresonance</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/intermittent-hypoxic-hyperoxic-treatment-ihht-treatment/">Intermittent Hypoxic-Hyperoxic Treatment (IHHT)</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/sleep-therapies/">Sleep Therapies</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/functional-medicine-treatment/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66837}">
+																									<a class="text-base flex justify-between items-center" href="/holistic-complementary-therapies/" @click.stop.prevent="activeSubMenuItem = activeSubMenuItem == 66837 ? false : 66837">
+														<span class="max-w-[245px] xl:max-w-full">Holistic &amp; Complementary Therapies</span>
+																													<span class="transition-transform xl:-rotate-90" :class="{'rotate-180':activeSubMenuItem == 66837}"><svg width="14" height="8" viewBox="0 0 14 8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.38123e-07 0.700728L0.616002 0.0291951L7 6.86131L7.42 6.42336L13.384 -5.38524e-08L14 0.671533L7 8L6.38123e-07 0.700728Z"></path>
+</svg>
+</span>
+																											</a>
+																																					<div class="xl:absolute w-full -z-10 left-0 top-0 bottom-0 xl:bg-yellow-01 xl:!transition-transform xl:!duration-300 xl:p-10 xl:!overflow-auto xl:!block xl:!h-auto" :class="{'xl:translate-x-full':activeSubMenuItem == 66837}" @click.stop="" x-show="activeSubMenuItem == 66837" x-collapse="" style="display: none; height: 0px; overflow: hidden;" hidden="">
+														<div class="px-5 xl:px-0 hidden xl:block">
+															<a class="block heading-five pt-1 mt-10 xl:mt-20" href="/holistic-complementary-therapies/">Holistic &amp; Complementary Therapies
+															</a>
+														</div>
+														<ul class="nav-drop border-t border-[#F3DBAF] xl:border-dark transition-color duration-300 py-5 mt-10 xl:mt-5 xl:py-1 xl:pt-5">
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/yoga-therapy-for-recovery/">Yoga</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/personal-trainer/">Personal Trainer</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/acupuncture-treatment/">Acupuncture</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/meditation-treatment/">Meditation</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/breathwork/">Breathwork</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/reflexology/">Reflexology</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/art-therapy-treatment/">Art Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/therapies/massage-therapy-treatment/">Massage Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/shiatsu/">Shiatsu</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/dog-therapy/">Dog Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="body-sm" href="/equine-therapy/">Equine Therapy</a>
+																																	</li>
+																															<li class="nav-drop-item mb-4">
+																																			<a class="eyebrow block" href="/holistic-complementary-therapies/">VIEW ALL</a>
+																																	</li>
+																													</ul>
+													</div>
+																							</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 66512}">
+																									<a class="text-base flex justify-between items-center" href="/treatment-in-conjunction-with-zurichs-best-hospitals/">
+														<span class="max-w-[245px] xl:max-w-full">Treatment in Conjunction with Zurich’s Best Hospitals</span>
+																											</a>
+																																			</li>
+																					<li class="nav-drop-item border-b border-[#F3DBAF] xl:border-dark xl:border-b-0 py-4 xl:pt-5 xl:pb-0 transition-colors duration-300 px-5 xl:px-0 xl:bg-transparent" :class="{'text-dark-01 bg-[#FFF1D8]':activeSubMenuItem == 70529}">
+																									<a class="subtitle-md eyebrow flex justify-between items-center" href="/rehab-therapies/">
+														<span class="max-w-[245px] xl:max-w-full">VIEW ALL</span>
+													</a>
+																																			</li>
+																			</ul>
+								</div>
+							</div>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 74813}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/about-us/">About Us
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 66838}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/team/">Meet the Team
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 721}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/testimonials/">Testimonials
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 737}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/prices/">Prices
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 70497}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/press/">In the Press
+													</a>
+											</li>
+									<li class="nav-main-item mb-5 transition-colors duration-300 menu-item menu-item-type-post_type menu-item-object-page" :class="{'text-dark-01':activeMenuItem == 722}">
+						<a class="nav-main-link heading-five flex items-center justify-between" href="/contact/">Contact
+													</a>
+											</li>
+							</ul>
+				<div class="flex items-end justify-between mt-auto">
+					<div class="text-[14px] font-light leading-[1.2]">
+						<div>Paracelsus Recovery </div>
+						Utoquai 43 | 8008
+						Zurich
+						<div>Switzerland</div>
+					</div>
+					
+<svg width="37" height="36" viewBox="0 0 37 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M23.2756 18.6944H36.5568C36.6139 18.6944 36.6602 18.6481 36.6602 18.591V17.4088C36.6602 17.3517 36.6139 17.3055 36.5568 17.3055H23.2756C23.2132 17.3055 23.1653 17.3602 23.1732 17.4222C23.1972 17.6113 23.2096 17.8042 23.2096 17.9999C23.2096 18.1956 23.1972 18.3885 23.1732 18.5777C23.1654 18.6395 23.2132 18.6944 23.2756 18.6944Z"></path>
+    <path d="M14.0447 17.3055H0.76349C0.706406 17.3055 0.660156 17.3517 0.660156 17.4088V18.591C0.660156 18.6481 0.706406 18.6944 0.76349 18.6944H14.0447C14.1071 18.6944 14.155 18.6397 14.1471 18.5777C14.1231 18.3885 14.1107 18.1956 14.1107 17.9999C14.1107 17.8042 14.1231 17.6113 14.1471 17.4222C14.1549 17.3603 14.1071 17.3055 14.0447 17.3055Z"></path>
+    <path d="M19.3546 13.3846V0.103333C19.3546 0.04625 19.3084 0 19.2513 0H18.0691C18.012 0 17.9657 0.04625 17.9657 0.103333V13.3846C17.9657 13.4469 18.0205 13.4949 18.0824 13.4869C18.2716 13.4629 18.4645 13.4506 18.6602 13.4506C18.8559 13.4506 19.0488 13.4629 19.238 13.4869C19.2998 13.4947 19.3546 13.4469 19.3546 13.3846Z"></path>
+    <path d="M17.9657 22.6154V35.8967C17.9657 35.9538 18.012 36 18.0691 36H19.2513C19.3084 36 19.3546 35.9538 19.3546 35.8967V22.6154C19.3546 22.5531 19.2999 22.5051 19.238 22.5131C19.0488 22.5371 18.8559 22.5494 18.6602 22.5494C18.4645 22.5494 18.2716 22.5371 18.0824 22.5131C18.0206 22.5053 17.9657 22.5531 17.9657 22.6154Z"></path>
+    <path d="M14.9061 20.772L5.51441 30.1637C5.47399 30.2041 5.47399 30.2695 5.51441 30.3098L6.35038 31.1457C6.3908 31.1862 6.45621 31.1862 6.49649 31.1457L15.8882 21.7541C15.9323 21.7099 15.9273 21.6374 15.878 21.5992C15.5723 21.3625 15.2976 21.0878 15.0609 20.7821C15.0227 20.7328 14.9501 20.728 14.9061 20.772Z"></path>
+    <path d="M22.4143 15.228L31.8059 5.83634C31.8464 5.79592 31.8464 5.7305 31.8059 5.69022L30.97 4.85425C30.9296 4.81384 30.8641 4.81384 30.8239 4.85425L21.4322 14.2459C21.388 14.2901 21.393 14.3626 21.4423 14.4008C21.748 14.6374 22.0228 14.9122 22.2594 15.2179C22.2976 15.2672 22.3703 15.272 22.4143 15.228Z"></path>
+    <path d="M15.8882 14.2459L6.49649 4.85425C6.45608 4.81384 6.39066 4.81384 6.35038 4.85425L5.51441 5.69022C5.47399 5.73064 5.47399 5.79606 5.51441 5.83634L14.9061 15.228C14.9502 15.2722 15.0227 15.2672 15.0609 15.2179C15.2976 14.9122 15.5723 14.6374 15.878 14.4008C15.9273 14.3626 15.9322 14.2899 15.8882 14.2459Z"></path>
+    <path d="M21.4322 21.7541L30.8239 31.1458C30.8643 31.1862 30.9297 31.1862 30.97 31.1458L31.806 30.3098C31.8464 30.2694 31.8464 30.204 31.806 30.1637L22.4143 20.772C22.3701 20.7279 22.2976 20.7329 22.2595 20.7822C22.0228 21.0879 21.7481 21.3626 21.4424 21.5993C21.3931 21.6375 21.3882 21.7101 21.4322 21.7541Z"></path>
+    <path d="M7.34736 22.0463L7.79972 23.1385C7.82153 23.1913 7.88209 23.2163 7.93472 23.1945L17.2338 19.3427C17.2988 19.3158 17.3181 19.2335 17.2725 19.1799C17.0317 18.897 16.876 18.5395 16.8447 18.1469C16.8392 18.077 16.7671 18.0327 16.7022 18.0596L7.40334 21.9114C7.35056 21.9333 7.32556 21.9937 7.34736 22.0463Z"></path>
+    <path d="M29.9729 13.954L29.5206 12.8618C29.4988 12.809 29.4382 12.784 29.3856 12.8058L20.0866 16.6576C20.0216 16.6846 20.0023 16.7668 20.0478 16.8204C20.2886 17.1033 20.4443 17.4608 20.4756 17.8535C20.4811 17.9233 20.5532 17.9676 20.6181 17.9407L29.917 14.0889C29.9698 14.0671 29.9948 14.0067 29.9729 13.954Z"></path>
+    <path d="M14.614 6.68735L13.5218 7.13971C13.469 7.16151 13.444 7.22207 13.4658 7.27471L17.3176 16.5737C17.3446 16.6387 17.4268 16.658 17.4804 16.6125C17.7633 16.3717 18.1209 16.216 18.5134 16.1847C18.5833 16.1792 18.6276 16.1071 18.6007 16.0422L14.7489 6.74318C14.7271 6.6904 14.6666 6.66554 14.614 6.68735Z"></path>
+    <path d="M22.7063 29.3129L23.7985 28.8605C23.8513 28.8387 23.8763 28.7782 23.8545 28.7255L20.0027 19.4265C19.9757 19.3615 19.8935 19.3422 19.8399 19.3877C19.557 19.6286 19.1993 19.7843 18.8068 19.8155C18.737 19.8211 18.6927 19.8932 18.7196 19.958L22.5714 29.257C22.5932 29.3098 22.6536 29.3347 22.7063 29.3129Z"></path>
+    <path d="M23.7985 7.13957L22.7063 6.68721C22.6535 6.6654 22.5931 6.6904 22.5713 6.74318L18.7195 16.0422C18.6927 16.1071 18.7368 16.1792 18.8067 16.1847C19.1993 16.216 19.5568 16.3718 19.8398 16.6125C19.8934 16.658 19.9756 16.6387 20.0025 16.5737L23.8543 7.27471C23.8761 7.22193 23.8513 7.16137 23.7985 7.13957Z"></path>
+    <path d="M13.5218 28.8607L14.614 29.313C14.6668 29.3348 14.7272 29.3098 14.749 29.257L18.6008 19.958C18.6277 19.8932 18.5835 19.8211 18.5136 19.8155C18.121 19.7843 17.7635 19.6284 17.4806 19.3877C17.427 19.3422 17.3447 19.3615 17.3178 19.4265L13.466 28.7255C13.4442 28.7783 13.469 28.8389 13.5218 28.8607Z"></path>
+    <path d="M7.7999 12.8617L7.34754 13.9539C7.32574 14.0067 7.35074 14.0671 7.40351 14.0889L16.7024 17.9407C16.7673 17.9675 16.8394 17.9233 16.8449 17.8535C16.8762 17.4608 17.032 17.1033 17.2727 16.8204C17.3182 16.7668 17.2989 16.6846 17.2339 16.6576L7.93491 12.8058C7.88213 12.784 7.82171 12.8089 7.7999 12.8617Z"></path>
+    <path d="M20.0866 19.3428L29.3856 23.1946C29.4384 23.2164 29.4988 23.1914 29.5206 23.1386L29.9729 22.0464C29.9948 21.9936 29.9698 21.9332 29.917 21.9114L20.6181 18.0596C20.5532 18.0328 20.4811 18.0769 20.4756 18.1468C20.4443 18.5394 20.2885 18.897 20.0478 19.1799C20.0023 19.2335 20.0216 19.3158 20.0866 19.3428Z"></path>
+</svg>
+				</div>
+			</div>
+		</nav>
+					<div class="fixed bottom-0 left-0 right-0">
+				<a href="/contact/?modal=yes" data-pegasus-modal="Modal--Full -right" class="inline-flex justify-between items-center btn--large btn__rounded absolute left-1/2 transition -translate-x-1/2" :class="{'translate-y-[-150%]':(!nearTop&amp;&amp;!goingUp)}" data-pegasus-modal-id="modal-0">
+					<span class="pr-5">Start your journey</span>
+					
+<svg width="32" height="32" viewBox="0 0 33 33" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" fill="none"></rect>
+    <path d="M15.9793 22.0366L15.4092 21.4665L19.9226 16.9531H21.0616L15.9793 22.0366Z"></path>
+    <path d="M21.0752 15.0596H19.9361L15.4092 10.5338L15.9793 9.96484L21.0752 15.0596Z"></path>
+    <path d="M17.1234 15.6081H21.6244L22.0139 15.9976L21.6108 16.4006L21.5837 16.4017H20.4797L20.4808 16.4006L9.98535 16.404V15.598L14.6387 15.5968V15.6081H15.9844L15.9719 15.5957H17.111L17.1234 15.6081Z"></path>
+</svg>				</a>
+			</div>
+			</div>
+
+                    </header>
