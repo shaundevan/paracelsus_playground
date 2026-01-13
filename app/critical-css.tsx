@@ -71,6 +71,26 @@ export default function CriticalCSS() {
 
   // Base typography styles (inlined from globals.css to avoid render-blocking request)
   const globalsCss = `
+    /* WordPress spacing variables - extracted from live WordPress site global styles */
+    :root {
+      --wp--preset--spacing--10: 1rem;
+      --wp--preset--spacing--20: 40px;
+      --wp--preset--spacing--30: 60px;
+      --wp--preset--spacing--40: clamp(3.75rem, 4.16vw, 6rem);
+      --wp--preset--spacing--50: clamp(5.625rem, 6.25vw, 8rem);
+      --wp--preset--spacing--60: clamp(6.25rem, 8.3vw, 12rem);
+      --wp--preset--spacing--70: 3.38rem;
+      --wp--preset--spacing--80: 5.06rem;
+      --wp--preset--spacing--100: auto;
+    }
+    /* WordPress block list styling - ensures proper bullets and spacing */
+    :root :where(.wp-block-list) {
+      list-style-type: disc;
+      margin-left: var(--wp--preset--spacing--20);
+    }
+    :root :where(.wp-block-list > li) {
+      margin-bottom: var(--wp--preset--spacing--10);
+    }
     html {
       font-family: var(--wp--preset--font-family--body);
       line-height: 1.4;
@@ -111,10 +131,13 @@ export default function CriticalCSS() {
     #site-footer {
       background-color: #181918 !important;
     }
-    /* Fix sticky section z-index for proper stacking order */
-    /* WordPress generates dynamic .wp-container-N rules with z-index: 10 */
-    /* but not all are captured. This ensures consistent stacking. */
-    section.is-position-sticky {
+    /* Fix sticky section positioning and z-index for proper stacking order */
+    /* WordPress generates dynamic .wp-container-N rules with position:sticky and z-index: 10 */
+    /* but Tailwind lg:relative class can override sticky positioning. This ensures it works. */
+    section.is-position-sticky,
+    .is-position-sticky {
+      position: sticky !important;
+      top: 0 !important;
       z-index: 10 !important;
     }
     #site-footer, #site-footer * {

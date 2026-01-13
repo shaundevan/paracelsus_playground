@@ -1,0 +1,19 @@
+/* Page-specific wp-container CSS for clinical-recovery-technology */
+.wp-container-core-columns-is-layout-28232c24{flex-wrap:nowrap;gap:0 0;}
+.wp-container-core-group-is-layout-d7edfaf1 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:720px !important;margin-left:auto !important;margin-right:0 !important;}
+.wp-container-core-group-is-layout-d7edfaf1 > .alignwide{max-width:720px !important;}
+.wp-container-core-group-is-layout-d7edfaf1 .alignfull{max-width:none;}
+.wp-container-1{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}
+.wp-container-core-column-is-layout-bf43075d > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-bf43075d > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-columns-is-layout-9c22b1e3{flex-wrap:nowrap;gap:2em 0;}
+.wp-container-core-column-is-layout-eaaf75d1 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:720px !important;margin-left:0 !important;margin-right:auto !important;}
+.wp-container-core-column-is-layout-eaaf75d1 > .alignwide{max-width:720px !important;}
+.wp-container-core-column-is-layout-eaaf75d1 .alignfull{max-width:none;}
+.wp-container-core-buttons-is-layout-c3d5205c{justify-content:center;}
+.wp-container-core-buttons-is-layout-ca13948c{justify-content:flex-end;align-items:flex-end;}
+.wp-container-core-buttons-is-layout-b5994976{justify-content:center;align-items:center;}
+.wp-container-core-group-is-layout-37835022 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:850px !important;margin-left:0 !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-37835022 > .alignwide{max-width:850px !important;}
+.wp-container-core-group-is-layout-37835022 .alignfull{max-width:none;}
+.wp-container-core-group-is-layout-c385debf.wp-block-group-is-layout-constrained {\n    height: 100%;\n    min-height: 100vh;\n    display: flex\n;\n    align-items: center;\n    flex-direction: column;\n    justify-content: center;\n}

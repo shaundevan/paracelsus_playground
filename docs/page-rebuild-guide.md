@@ -1514,3 +1514,718 @@ function rewriteUrls(content) {
 **Files Fixed:** All 20 `01-header.html` files in `clone-kit/html/` and subdirectories.
 
 **Important:** After fixing header HTML files, restart the Next.js dev server for changes to take effect (due to `force-static` caching at module load time).
+
+### Issue 22: Page Navigation Sticky Sidebar Highlighting Not Working
+
+**Symptom:** Pages with a sticky sidebar navigation (like the Alcohol Treatment Center page) have navigation links that should highlight based on which section is currently in view. The sidebar stays sticky correctly, but the active link highlighting doesn't update as the user scrolls.
+
+**Cause:** Multiple issues:
+
+1. **Hardcoded opacity classes:** The captured HTML had `opacity-50` hardcoded in the `class` attribute for links 2 and 3:
+   ```html
+   <!-- Link 2 and 3 had opacity-50 hardcoded -->
+   <a class="heading-four opacity-50" :class="item !== 2 ? 'opacity-50' : ''" ...>
+   ```
+   Even when Alpine.js evaluates `:class` to an empty string (when active), the static `opacity-50` class remains.
+
+2. **Alpine.js reactivity issue:** The `pageNavigation` Alpine component uses an IntersectionObserver callback to update the `item` property. However, Alpine's reactivity wasn't properly detecting changes when `this.item` was updated from within the observer callback, so the `:class` bindings weren't re-evaluated.
+
+3. **Missing component registration:** The `pageNavigation` Alpine component wasn't being registered as a fallback in `layout.tsx`, so if the bundle failed to load or register it, the component wouldn't work.
+
+**Evidence:**
+```javascript
+// Data property was updating correctly
+{ item: 3 }  // Value changes based on scroll
+
+// But DOM classes weren't updating
+{ classes: "heading-four opacity-50" }  // Link 3 should NOT have opacity-50 when item=3
+```
+
+**Fix (3 parts):**
+
+**Part 1:** Remove hardcoded `opacity-50` from links 2 and 3 in the HTML and use object syntax for `:class`:
+
+```html
+<!-- Before (broken): -->
+<a class="heading-four opacity-50" :class="item !== 2 ? 'opacity-50' : ''" ...>
+
+<!-- After (fixed): -->
+<a class="heading-four" x-bind:class="{ 'opacity-50': item !== 2 }" ...>
+```
+
+**Part 2:** Add fallback `pageNavigation` Alpine component registration in `app/layout.tsx`:
+
+```javascript
+// In registerComponents() function
+if (typeof Alpine.data('pageNavigation') !== 'function') {
+  console.warn('[Fallback] Registering pageNavigation - bundle registration may have failed');
+  Alpine.data('pageNavigation', () => ({
+    item: 1,
+    setItem(item) {
+      this.item = item;
+    },
+    addIntersect(targetId, index) {
+      const target = document.querySelector('#' + targetId);
+      if (target) {
+        target.dataset.index = index;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.item = parseInt(entry.target.dataset.index, 10);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -50% 0px' }
+        );
+        observer.observe(target);
+      }
+    }
+  }));
+}
+```
+
+**Part 3:** Add standalone JavaScript navigation highlighting that bypasses Alpine's reactivity issues (in `app/layout.tsx`):
+
+```javascript
+// CRITICAL: Set up page navigation highlighting
+// This directly manages the opacity classes on navigation links based on which section is visible
+const setupPageNavigationHighlighting = () => {
+  const navContainer = document.querySelector('[x-data="pageNavigation()"]');
+  if (!navContainer) return;
+  
+  // Skip if already processed
+  if (navContainer.hasAttribute('data-nav-observer-set')) return;
+  navContainer.setAttribute('data-nav-observer-set', 'true');
+  
+  const navLinks = navContainer.querySelectorAll('a[href^="#"]');
+  if (navLinks.length === 0) return;
+  
+  let currentActiveIndex = 0;
+  
+  const updateActiveLink = (newIndex) => {
+    if (newIndex === currentActiveIndex) return;
+    currentActiveIndex = newIndex;
+    
+    navLinks.forEach((link, i) => {
+      if (i === newIndex) {
+        link.classList.remove('opacity-50');
+      } else {
+        link.classList.add('opacity-50');
+      }
+    });
+  };
+  
+  // Set up intersection observers for each target section
+  navLinks.forEach((link, index) => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    
+    const targetId = href.substring(1);
+    const target = document.getElementById(targetId);
+    
+    if (!target) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            updateActiveLink(index);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -50% 0px' }
+    );
+    
+    observer.observe(target);
+  });
+  
+  // Initialize with first link active
+  updateActiveLink(0);
+};
+
+// Run after Alpine starts and DOM is ready
+document.addEventListener('alpine:initialized', setupPageNavigationHighlighting);
+// Also run after a short delay as fallback
+setTimeout(setupPageNavigationHighlighting, 2000);
+```
+
+**Files Modified:**
+- `clone-kit/html/luxury-alcohol-treatment-center/02-main.html` - Fixed hardcoded opacity classes
+- `app/layout.tsx` - Added `pageNavigation` fallback component and `setupPageNavigationHighlighting()` function
+
+**How it works:**
+1. The `setupPageNavigationHighlighting()` function finds the navigation container
+2. It sets up IntersectionObservers for each section target (using `rootMargin: '0px 0px -50% 0px'` so sections trigger when they cross the top 50% of the viewport)
+3. When a section becomes visible, it directly manipulates the `opacity-50` class on the navigation links
+4. This bypasses Alpine's reactivity entirely, ensuring reliable highlighting
+
+**Note:** This fix applies globally to any page with `[x-data="pageNavigation()"]` navigation. For new pages with this pattern, ensure the HTML doesn't have hardcoded `opacity-50` on the navigation links.
+
+---
+
+### 2026-01-13: eating-disorder-rehab Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Navigated to https://paracelsus-recovery.com/treatment/eating-disorder-rehab/ using browser MCP
+2. Scrolled to trigger lazy loading (1/3, 2/3, bottom) and captured full HTML (368KB)
+3. Saved HTML to `clone-kit/raw/eating-disorder-rehab.outer.html`
+4. Split HTML using `node scripts/split-page-html.js eating-disorder-rehab`
+   - Header: 87,528 bytes
+   - Main: 126,155 bytes
+   - Footer: 17,668 bytes
+   - Modal: 35,554 bytes (with modal visibility fix applied)
+5. Extracted page-specific CSS using `node scripts/extract-page-css.js eating-disorder-rehab` (33 rules)
+6. Created Next.js page at `app/treatment/eating-disorder-rehab/page.tsx`
+
+**Verification Results:**
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Eating Disorder Rehabilitation Centre" heading with image
+- Eating disorder types list (Anorexia, Bulimia, Orthorexia, Obesity, Binge Eating, Body Dysmorphic)
+- "How we treat" section with sticky image working correctly
+- Treatment accordions displayed (Assessment, Diagnostics, Psychotherapy, Psychiatry, etc.)
+- All images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Conditions We Treat > Eating Disorders > VIEW ALL
+
+**Files Created:**
+- `clone-kit/raw/eating-disorder-rehab.outer.html` (368 KB)
+- `clone-kit/html/eating-disorder-rehab/00-page-css.css` (3.6 KB, 33 rules)
+- `clone-kit/html/eating-disorder-rehab/01-header.html` (87.5 KB)
+- `clone-kit/html/eating-disorder-rehab/02-main.html` (126 KB)
+- `clone-kit/html/eating-disorder-rehab/03-footer.html` (17.7 KB)
+- `clone-kit/html/eating-disorder-rehab/04-modal.html` (35.5 KB)
+- `app/treatment/eating-disorder-rehab/page.tsx`
+
+**Console Warnings (non-critical):**
+- HubSpot portal ID issues (expected on localhost)
+- Meta pixel warnings (expected on localhost)
+- Alpine.js fallback registrations (expected - fallback system working)
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/eating-disorder-rehab.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### Issue 23: Sticky Image Not Working (Tailwind lg:relative Override)
+
+**Symptom:** Sticky image sections don't stay pinned when scrolling. The image scrolls away with the rest of the content instead of staying fixed at the top while the text content scrolls past it.
+
+**Cause:** The HTML element has both `sticky` and `lg:relative` Tailwind classes. On the live WordPress site, the page-specific CSS rule `.wp-container-N { position: sticky; }` has enough specificity to override Tailwind. However, on the Next.js clone, Tailwind's `lg:relative` class (which applies `position: relative` at large screen sizes) takes precedence over the page-specific CSS.
+
+**Evidence:**
+```javascript
+// Live site: position is sticky
+{ position: "sticky", top: "0px", zIndex: "10" }
+
+// Localhost (before fix): position is relative
+{ position: "relative", top: "0px", zIndex: "10" }
+
+// HTML has conflicting classes:
+// class="... sticky top-0 lg:relative lg:h-fit relative ... is-position-sticky ..."
+```
+
+**Fix:** Added `position: sticky !important` to the global `.is-position-sticky` rule in `app/critical-css.tsx`:
+
+```css
+/* Fix sticky section positioning and z-index for proper stacking order */
+/* WordPress generates dynamic .wp-container-N rules with position:sticky and z-index: 10 */
+/* but Tailwind lg:relative class can override sticky positioning. This ensures it works. */
+section.is-position-sticky,
+.is-position-sticky {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+```
+
+**Location:** `app/critical-css.tsx` - in the `globalsCss` constant.
+
+**Pages Affected:**
+- Clinical Recovery Technology (`/therapies/clinical-recovery-technology/`)
+- Any page with `.is-position-sticky` elements and sticky image sections
+
+**Note:** This is a global fix that applies to all pages. No per-page fixes needed.
+
+---
+
+### 2026-01-13: clinical-recovery-technology Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Navigated to https://paracelsus-recovery.com/therapies/clinical-recovery-technology/ using browser MCP
+2. Scrolled to trigger lazy loading (1/3, 2/3, bottom) and captured full HTML (360 KB)
+3. Saved HTML to `clone-kit/raw/clinical-recovery-technology.outer.html`
+4. Split HTML using `node scripts/split-page-html.js clinical-recovery-technology`
+   - Header: 86,986 bytes
+   - Main: 128,446 bytes
+   - Footer: 17,668 bytes
+   - Modal: 35,567 bytes
+5. Extracted page-specific CSS using `node scripts/extract-page-css.js clinical-recovery-technology` (18 rules)
+6. Created Next.js page at `app/therapies/clinical-recovery-technology/page.tsx`
+7. Fixed Issue 23: Added `position: sticky !important` to global `.is-position-sticky` rule
+
+**Verification Results:**
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Leading-edge clinical technology" heading with image
+- All technology sections present:
+  - Vagus Nerve Stimulation
+  - Continuous Glucose Monitoring (CGM)
+  - Sleepiz (Sleep Apnoea)
+  - Bioelectrical Impedance Analysis
+  - NAD and Orthomolecular IV Infusions
+  - Whoop Band and Oura Ring
+  - IHHT (Intermittent Hyperoxic Hypoxic Treatment)
+  - Biofeedback Devices (Bio-resonance & Metatron)
+  - Satori Chair
+  - Photobiomodulation Panels
+  - Neurofeedback
+  - Advanced AI-powered psychiatry
+- Sticky image effect working correctly (image stays pinned while content scrolls)
+- 32 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Types of Therapies > Diagnostics & Technologies > VIEW ALL
+
+**Files Created:**
+- `clone-kit/raw/clinical-recovery-technology.outer.html` (360 KB)
+- `clone-kit/html/clinical-recovery-technology/00-page-css.css` (2 KB, 18 rules)
+- `clone-kit/html/clinical-recovery-technology/01-header.html` (87 KB)
+- `clone-kit/html/clinical-recovery-technology/02-main.html` (128 KB)
+- `clone-kit/html/clinical-recovery-technology/03-footer.html` (17.7 KB)
+- `clone-kit/html/clinical-recovery-technology/04-modal.html` (35.6 KB)
+- `app/therapies/clinical-recovery-technology/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/clinical-recovery-technology.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: chronic-conditions-recovery Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest (310 KB)
+2. Split HTML using `node scripts/split-page-html.js chronic-conditions-recovery`
+   - Header: 86,670 bytes
+   - Main: 135,196 bytes (29 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js chronic-conditions-recovery` (34 rules)
+4. Created Next.js page at `app/treatment/chronic-conditions-recovery/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (798 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Chronic Condition Recovery - Your path to healing"
+- All chronic condition links displayed:
+  - Long Covid
+  - Treatment-Resistant Depression
+  - Holistic Cancer Treatment
+  - Heart Disease
+  - Sleep Disorders
+  - Menopause
+  - Alzheimer's and Other Dementias
+  - Chronic Kidney Disease
+  - Arthritis
+  - Osteoporosis
+  - Diabetes
+  - COPD and Allied Conditions
+- "How we treat" section with treatment approach details
+- Treatment accordions present (Assessment, Diagnostics, Psychotherapy, Psychiatry, etc.)
+- "Need help? We're here for you." CTA section
+- Footer displays correctly
+- All 29 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Conditions We Treat > Chronic Conditions menu
+
+**Files Created:**
+- `clone-kit/raw/chronic-conditions-recovery.outer.html` (310 KB)
+- `clone-kit/html/chronic-conditions-recovery/00-page-css.css` (3.7 KB, 34 rules)
+- `clone-kit/html/chronic-conditions-recovery/01-header.html` (87 KB)
+- `clone-kit/html/chronic-conditions-recovery/02-main.html` (135 KB)
+- `clone-kit/html/chronic-conditions-recovery/03-footer.html` (17.5 KB)
+- `clone-kit/html/chronic-conditions-recovery/04-modal.html` (10.3 KB)
+- `app/treatment/chronic-conditions-recovery/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/chronic-conditions-recovery.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: drug-addiction-treatment Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest
+2. Split HTML using `node scripts/split-page-html.js drug-addiction-treatment`
+   - Header: 86,324 bytes
+   - Main: 167,963 bytes (40 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js drug-addiction-treatment` (28 rules)
+4. Created Next.js page at `app/treatment/drug-addiction-treatment/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (867 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays drug addiction treatment information
+- All drug addiction types listed:
+  - Cocaine
+  - Nicotine
+  - GHB
+  - Methamphetamine
+  - Ketamine
+  - Cannabis
+  - Kratom
+  - Opioids
+  - Crack Cocaine
+  - Heroin
+  - Synthetic Cannabinoids (Spice, K2)
+  - Synthetic Cathinones (Bath Salts)
+- Treatment accordions present (Assessment, Diagnostics, Psychotherapy, Psychiatry, etc.)
+- Footer displays correctly
+- All 40 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Conditions We Treat > Drug Addiction > VIEW ALL
+
+**Files Created:**
+- `clone-kit/raw/drug-addiction-treatment.outer.html`
+- `clone-kit/html/drug-addiction-treatment/00-page-css.css` (3.1 KB, 28 rules)
+- `clone-kit/html/drug-addiction-treatment/01-header.html` (86 KB)
+- `clone-kit/html/drug-addiction-treatment/02-main.html` (168 KB)
+- `clone-kit/html/drug-addiction-treatment/03-footer.html` (17.5 KB)
+- `clone-kit/html/drug-addiction-treatment/04-modal.html` (10.3 KB)
+- `app/treatment/drug-addiction-treatment/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/drug-addiction-treatment.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### Issue 24: WordPress Block List Bullet Points Not Properly Formatted
+
+**Symptom:** Bullet point lists (using `<ul class="wp-block-list">`) appear with compressed vertical spacing. List items are too close together compared to the live WordPress site. The bullet points may also be missing or positioned incorrectly.
+
+**Cause:** WordPress generates global inline CSS styles for block list elements that provide proper bullet styling and spacing between items. These styles are in the `global-styles-inline-css` style block in the page's `<head>`:
+
+```css
+:root :where(.wp-block-list){list-style-type: disc; margin-left: var(--wp--preset--spacing--20);}
+:root :where(.wp-block-list > li){margin-bottom: var(--wp--preset--spacing--10);}
+```
+
+The theme's CSS files (`08-core-blocks.scss`) only include `margin-left: 1rem` for lists but are missing the crucial `margin-bottom` for list items. The `extract-page-css.js` script only extracts `wp-container` rules, not global element styles.
+
+**Evidence:**
+```html
+<!-- HTML structure is correct -->
+<ul class="wp-block-list">
+  <li class="has-body-font-family">Item 1</li>
+  <li class="has-body-font-family">Item 2</li>
+  <!-- Items appear too close together without margin-bottom -->
+</ul>
+```
+
+**Fix:** Added WordPress block list styling rules to `app/globals.css`:
+
+```css
+/* WordPress block list styling - ensures proper bullets and spacing */
+/* This matches the global-styles-inline-css from the live WordPress site */
+:root :where(.wp-block-list) {
+  list-style-type: disc;
+  margin-left: var(--wp--preset--spacing--20);
+}
+:root :where(.wp-block-list > li) {
+  margin-bottom: var(--wp--preset--spacing--10);
+}
+```
+
+**Location:** `app/critical-css.tsx` - in the `globalsCss` constant. This is where global styles are actually inlined (globals.css is not imported).
+
+**Pages Affected:**
+- Prescription Drug Addiction Treatment (`/treatment/prescription-drug-addiction-treatment/`)
+- Behavioural Addiction Treatment (`/treatment/behavioural-addiction-treatment/`)
+- Any page with `<ul class="wp-block-list">` elements containing bulleted lists
+
+**Note:** This is a global fix. After adding to `critical-css.tsx`, all pages with WordPress block lists will have proper formatting.
+
+**Important:** The CSS rules reference CSS variables (`--wp--preset--spacing--10`, `--wp--preset--spacing--20`) which must also be defined. See Issue 25.
+
+---
+
+### Issue 25: WordPress Spacing Variables Not Defined
+
+**Symptom:** CSS rules that use WordPress spacing variables (like `.wp-block-list > li { margin-bottom: var(--wp--preset--spacing--10); }`) have no effect. Elements appear with no spacing even though the CSS rules are present.
+
+**Cause:** WordPress defines spacing CSS variables in the `global-styles-inline-css` block in each page's `<head>`. These variables are not extracted by the splitter or CSS extractor scripts, so the variables are undefined in the Next.js clone.
+
+**Evidence:**
+```css
+/* WordPress defines these in global-styles-inline-css */
+:root {
+  --wp--preset--spacing--10: 1rem;
+  --wp--preset--spacing--20: 40px;
+  /* ... more spacing values ... */
+}
+
+/* Our CSS rules reference these undefined variables */
+.wp-block-list > li { margin-bottom: var(--wp--preset--spacing--10); }
+/* Without the variable defined, margin-bottom evaluates to nothing */
+```
+
+**Fix:** Added WordPress spacing variables to `app/critical-css.tsx` in the `globalsCss` constant:
+
+```css
+/* WordPress spacing variables - extracted from live WordPress site global styles */
+:root {
+  --wp--preset--spacing--10: 1rem;
+  --wp--preset--spacing--20: 40px;
+  --wp--preset--spacing--30: 60px;
+  --wp--preset--spacing--40: clamp(3.75rem, 4.16vw, 6rem);
+  --wp--preset--spacing--50: clamp(5.625rem, 6.25vw, 8rem);
+  --wp--preset--spacing--60: clamp(6.25rem, 8.3vw, 12rem);
+  --wp--preset--spacing--70: 3.38rem;
+  --wp--preset--spacing--80: 5.06rem;
+  --wp--preset--spacing--100: auto;
+}
+```
+
+**Location:** `app/critical-css.tsx` - in the `globalsCss` constant, before other CSS rules.
+
+**How to extract values from any page:**
+```powershell
+$content = Get-Content "clone-kit/raw/{page-name}.outer.html" -Raw
+$matches = [regex]::Matches($content, '--wp--preset--spacing--\d+:\s*[^;]+')
+$matches | ForEach-Object { $_.Value }
+```
+
+**Pages Affected:** All pages that use WordPress spacing variables in inline styles or wp-block-list elements.
+
+---
+
+### 2026-01-13: prescription-drug-addiction-treatment Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest
+2. Split HTML using `node scripts/split-page-html.js prescription-drug-addiction-treatment`
+   - Header: 87,134 bytes
+   - Main: 155,782 bytes (40 lazy-loaded images fixed)
+   - Footer: 17,668 bytes
+   - Modal: 35,279 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js prescription-drug-addiction-treatment` (27 rules)
+4. Created Next.js page at `app/treatment/prescription-drug-addiction-treatment/page.tsx`
+5. Fixed Issue 24: Added WordPress block list CSS to `app/globals.css`
+
+**Verification Results:**
+- Page loads with 200 status
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Prescription Drug Addiction Treatment" heading
+- All prescription drug types listed:
+  - Opioid-based Painkillers
+  - Benzodiazepines
+  - Stimulants
+  - Sleep Medication
+  - Muscle Relaxants
+  - Gabapentin and Pregabalin
+  - Antipsychotics
+- "What are the signs?" section with properly formatted bullet list
+- Treatment accordions present (Assessment, Diagnostics, Psychotherapy, Psychiatry, etc.)
+- Footer displays correctly
+- All 40 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Conditions We Treat > Prescription Drug Addiction
+
+**Files Created:**
+- `clone-kit/raw/prescription-drug-addiction-treatment.outer.html`
+- `clone-kit/html/prescription-drug-addiction-treatment/00-page-css.css` (2.8 KB, 27 rules)
+- `clone-kit/html/prescription-drug-addiction-treatment/01-header.html` (87 KB)
+- `clone-kit/html/prescription-drug-addiction-treatment/02-main.html` (156 KB)
+- `clone-kit/html/prescription-drug-addiction-treatment/03-footer.html` (17.7 KB)
+- `clone-kit/html/prescription-drug-addiction-treatment/04-modal.html` (35.3 KB)
+- `app/treatment/prescription-drug-addiction-treatment/page.tsx`
+
+**Issues Fixed:**
+- **Issue 24:** WordPress block list bullet points not properly formatted - Fixed by adding `.wp-block-list` styling to `globals.css`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/prescription-drug-addiction-treatment.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: psychiatry-recovery-treatment Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest (269 KB)
+2. Split HTML using `node scripts/split-page-html.js psychiatry-recovery-treatment`
+   - Header: 86,003 bytes
+   - Main: 95,326 bytes (36 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js psychiatry-recovery-treatment` (18 rules)
+4. Created Next.js page at `app/therapies/psychiatry-recovery-treatment/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (706 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Contains expected content ("Psychiatry", "holistic treatment model")
+- Header and footer present and rendering correctly
+- All 36 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Types of Therapies > Psychiatry
+
+**Files Created:**
+- `clone-kit/raw/psychiatry-recovery-treatment.outer.html` (269 KB)
+- `clone-kit/html/psychiatry-recovery-treatment/00-page-css.css` (2 KB, 18 rules)
+- `clone-kit/html/psychiatry-recovery-treatment/01-header.html` (86 KB)
+- `clone-kit/html/psychiatry-recovery-treatment/02-main.html` (95 KB)
+- `clone-kit/html/psychiatry-recovery-treatment/03-footer.html` (17.5 KB)
+- `clone-kit/html/psychiatry-recovery-treatment/04-modal.html` (10.3 KB)
+- `app/therapies/psychiatry-recovery-treatment/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/psychiatry-recovery-treatment.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: behavioural-addiction-treatment Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest (273 KB)
+2. Split HTML using `node scripts/split-page-html.js behavioural-addiction-treatment`
+   - Header: 86,424 bytes
+   - Main: 98,450 bytes (9 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js behavioural-addiction-treatment` (27 rules)
+4. Created Next.js page at `app/treatment/behavioural-addiction-treatment/page.tsx`
+5. Fixed Issue 25: Added WordPress spacing variables to `app/critical-css.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (719 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays correctly
+- All behavioural addiction types listed:
+  - Gambling Addiction
+  - Shopping Addiction
+  - Sex Addiction
+  - Gaming Addiction
+  - Internet Addiction
+  - Social Media Addiction
+  - Exercise Addiction
+  - Food Addiction
+  - Love Addiction
+  - Work Addiction
+  - Porn Addiction
+  - Cosmetic Surgery Addiction
+- "What are the signs?" accordion with properly formatted bullet list (Issue 24 + 25 fix)
+- Treatment accordions present (Assessment, Diagnostics, Psychotherapy, Psychiatry, etc.)
+- Footer displays correctly
+- All 9 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Conditions We Treat > Behavioural Addictions > VIEW ALL
+
+**Files Created:**
+- `clone-kit/raw/behavioural-addiction-treatment.outer.html` (273 KB)
+- `clone-kit/html/behavioural-addiction-treatment/00-page-css.css` (3 KB, 27 rules)
+- `clone-kit/html/behavioural-addiction-treatment/01-header.html` (86 KB)
+- `clone-kit/html/behavioural-addiction-treatment/02-main.html` (98 KB)
+- `clone-kit/html/behavioural-addiction-treatment/03-footer.html` (17.5 KB)
+- `clone-kit/html/behavioural-addiction-treatment/04-modal.html` (10.3 KB)
+- `app/treatment/behavioural-addiction-treatment/page.tsx`
+
+**Issues Fixed:**
+- **Issue 25:** WordPress spacing variables not defined - Fixed by adding spacing CSS variables to `critical-css.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/behavioural-addiction-treatment.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: functional-medicine-treatment Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest
+2. Split HTML using `node scripts/split-page-html.js functional-medicine-treatment`
+   - Header: 86,087 bytes
+   - Main: 92,240 bytes (35 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js functional-medicine-treatment` (18 rules)
+4. Created Next.js page at `app/functional-medicine-treatment/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (700 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Functional Medicine Treatment" heading
+- All FAQ sections present:
+  - What is functional medicine?
+  - What is functional medicine helpful for?
+  - Is functional medicine evidence-based?
+- "Latest news and insight" section with press articles carousel
+- Footer displays correctly
+- All 35 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Types of Therapies > Functional Medicine
+
+**Files Created:**
+- `clone-kit/raw/functional-medicine-treatment.outer.html`
+- `clone-kit/html/functional-medicine-treatment/00-page-css.css` (2 KB, 18 rules)
+- `clone-kit/html/functional-medicine-treatment/01-header.html` (86 KB)
+- `clone-kit/html/functional-medicine-treatment/02-main.html` (92 KB)
+- `clone-kit/html/functional-medicine-treatment/03-footer.html` (17.5 KB)
+- `clone-kit/html/functional-medicine-treatment/04-modal.html` (10.3 KB)
+- `app/functional-medicine-treatment/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/functional-medicine-treatment.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-13: holistic-complementary-therapies Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest (207 KB)
+2. Split HTML using `node scripts/split-page-html.js holistic-complementary-therapies`
+   - Header: 86,042 bytes
+   - Main: 41,530 bytes (4 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js holistic-complementary-therapies` (30 rules)
+4. Created Next.js page at `app/holistic-complementary-therapies/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (595 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Holistic Treatments & Complementary Therapies" heading
+- Subheading: "Nourishing your mind and body"
+- Main content describes complementary therapies approach
+- Footer displays correctly with Treatment, Information, and Connect sections
+- All 4 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Types of Therapies > Holistic & Complementary Therapies
+
+**Files Created:**
+- `clone-kit/raw/holistic-complementary-therapies.outer.html` (207 KB)
+- `clone-kit/html/holistic-complementary-therapies/00-page-css.css` (3.2 KB, 30 rules)
+- `clone-kit/html/holistic-complementary-therapies/01-header.html` (86 KB)
+- `clone-kit/html/holistic-complementary-therapies/02-main.html` (42 KB)
+- `clone-kit/html/holistic-complementary-therapies/03-footer.html` (17.5 KB)
+- `clone-kit/html/holistic-complementary-therapies/04-modal.html` (10.3 KB)
+- `app/holistic-complementary-therapies/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/holistic-complementary-therapies.md` for step-by-step instructions that can be used to reproduce this rebuild.

@@ -1,0 +1,1941 @@
+<div x-data="allModals()" id="all-modals">
+
+    <div x-ref="modalSkeleton" id="Modal__Skeleton">
+        <div x-data="singleModal()" @modalopen.window="handleModalOpen" class="ModalSkeleton" role="dialog" aria-label="Modal" aria-modal="true">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+                                <p class="Modal__error hidden">An error has occurred, please try again later.An error has occurred, please try again later.</p>
+                            </div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        
+
+        <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pegasus/*","/*\\\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\\"nofollow\\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+        <noscript>
+            <p style="margin:0;padding:0;border:0;">
+                <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+            </p>
+        </noscript>
+        <!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+
+
+<!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116,
+        divider: encodeURIComponent('|'),
+        pagename: encodeURIComponent('Conversion_New')
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116&ADFPageName=Conversion_New&ADFdivider=|" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+<script type="text/javascript" id="hubspot-loader-js-after">
+/* <![CDATA[ */
+        // HubSpot loader - only loads when explicitly called
+        window.hubSpotLoader = {
+            promise: null,
+            load: function() {
+                if (!this.promise) {
+                    this.promise = new Promise((resolve, reject) => {
+                        if (window.hbspt) {
+                            resolve(window.hbspt);
+                            return;
+                        }
+
+                        const script = document.createElement("script");
+                        script.src = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+                        script.async = true;
+                        
+                        script.onload = () => {
+                            if (window.hbspt) {
+                                resolve(window.hbspt);
+                            } else {
+                                reject(new Error("HubSpot failed to load"));
+                            }
+                        };
+                        
+                        script.onerror = () => {
+                            reject(new Error("Failed to load HubSpot script"));
+                        };
+                        
+                        document.body.appendChild(script);
+                    });
+                }
+                return this.promise;
+            }
+        };
+    
+//# sourceURL=hubspot-loader-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/pegasus/dist/CGBqs_Rr.js?ver=1.0.0" id="Main-js"></script><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full -right" role="dialog" aria-label="Modal" aria-modal="true" id="modal-0" x-show="open" style="display: none;">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+
+            <article id="page-639" class="Modal__Form ">
+                                        <div class="Modal_Content overflow-auto bg-pale-02 " style="">
+    <div class="acf-innerblocks-container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-174be915 wp-block-group-is-layout-constrained" style="padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px" loadtransition="">
+<h2 class="wp-block-heading has-x-large-font-size">How can we help?</h2>
+</div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-a0fea2e2 wp-block-columns-is-layout-flex" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px;border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-right:20px;padding-bottom:var(--wp--preset--spacing--30);padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;padding-bottom:0;flex-basis:25%">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-large-font-size wp-elements-8ecc8810f4d3c445666e7ece240b1991">Call anytime</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:75%">
+<p class="has-text-align-right is-style-subtitle has-medium-font-size is-style-subtitle--1 wp-block-paragraph" style="text-decoration:none"><a href="tel:+41445056898">+</a><a href="tel:+41445056898">41 44 505 68 98</a></p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-a0fea2e2 wp-block-columns-is-layout-flex" style="border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:var(--wp--preset--spacing--30);padding-right:20px;padding-bottom:var(--wp--preset--spacing--30);padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:25%">
+<h2 class="wp-block-heading has-large-font-size">Message us</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:75%">
+<div class="wp-block-buttons is-not-stacked-on-mobile is-horizontal is-content-justification-right is-nowrap is-layout-flex wp-container-core-buttons-is-layout-7ca620e1 wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-outline is-style-outline--2" modaltype=""><a class="wp-block-button__link wp-element-button" href="mailto:info@paracelsus-recovery.com">email</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--3" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://api.whatsapp.com/send?phone=41795312379">Whatsapp</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--4" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://t.me/ParacelsusRecovery">telegram</a></div>
+</div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-14275348 wp-block-columns-is-layout-flex" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px;border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:33px;padding-right:20px;padding-bottom:33px;padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;padding-bottom:0;flex-basis:33%">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-large-font-size wp-elements-8ecc8810f4d3c445666e7ece240b1991">Call anytime</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:67%">
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p class="has-text-align-left is-style-subtitle has-medium-font-size is-style-subtitle--5 wp-block-paragraph" style="text-decoration:none"><a href="tel:+41522228800" data-type="tel" data-id="tel:+41522228800">+41 52 222 88 00</a></p>
+</div>
+</div>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-14275348 wp-block-columns-is-layout-flex" style="border-bottom-color:var(--wp--preset--color--mid);border-bottom-width:1px;padding-top:33px;padding-right:20px;padding-bottom:33px;padding-left:20px">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:33%">
+<h2 class="wp-block-heading has-large-font-size">Message us</h2>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:67%">
+<div style="height:0px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-buttons is-not-stacked-on-mobile is-horizontal is-content-justification-left is-nowrap is-layout-flex wp-container-core-buttons-is-layout-135d6855 wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-outline is-style-outline--6" modaltype=""><a class="wp-block-button__link wp-element-button" href="mailto:info@paracelsus-recovery.com">email</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--7" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://api.whatsapp.com/send?phone=41795312379">Whatsapp</a></div>
+
+
+
+<div class="wp-block-button is-style-outline is-style-outline--8" modaltype=""><a class="wp-block-button__link wp-element-button" href="https://t.me/ParacelsusRecovery">telegram</a></div>
+</div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+
+<div style="height:30px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+		
+	        </section>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-33370267 wp-block-group-is-layout-constrained" style="padding-right:20px;padding-bottom:20px;padding-left:20px" loadtransition=""><div class="Hubspot_Form Form ">
+  <div class="Hubspot_Form--innerblocks">
+    <div class="acf-innerblocks-container">
+
+<h2 class="wp-block-heading is-style-subtitle has-large-font-size">Send us an enquiry</h2>
+
+
+
+<div style="margin-top:0px;margin-bottom:0px;height:1px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+  </div>
+  <script data-hubspot-rendered="true">
+    // Use intersection observer to load HubSpot forms only when visible
+    (function() {
+      const hubspotContainer = document.currentScript.parentElement;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Load HubSpot script and create form when container becomes visible
+            window.hubSpotLoader.load()
+              .then(hbspt => {
+                hbspt.forms.create({
+                  portalId: "144185588",
+                  formId: "860cc935-80b7-4f19-add1-7eed6e028aa4",
+                  target: "",
+                  onFormSubmitted: function ($form) {
+                    $form.closest('.Hubspot_Form').querySelector('.Hubspot_Form--innerblocks').classList.add('hidden');
+                  }
+                });
+              })
+              .catch(error => {
+                console.error('Failed to load HubSpot form:', error);
+              });
+            
+            observer.disconnect();
+          }
+        });
+      });
+      
+      observer.observe(hubspotContainer);
+    })();
+  </script><div id="hbspt-form-2265d1b3-716a-4ba3-b726-160f7627caa0" class="hbspt-form" data-hs-forms-root="true"><form id="hsForm_860cc935-80b7-4f19-add1-7eed6e028aa4" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms-eu1.hsforms.com/submissions/v3/public/submit/formsnext/multipart/144185588/860cc935-80b7-4f19-add1-7eed6e028aa4" class="hs-form-private hsForm_860cc935-80b7-4f19-add1-7eed6e028aa4 hs-form-860cc935-80b7-4f19-add1-7eed6e028aa4 hs-form-860cc935-80b7-4f19-add1-7eed6e028aa4_2265d1b3-716a-4ba3-b726-160f7627caa0 hs-form stacked" target="target_iframe_860cc935-80b7-4f19-add1-7eed6e028aa4" data-instance-id="2265d1b3-716a-4ba3-b726-160f7627caa0" data-form-id="860cc935-80b7-4f19-add1-7eed6e028aa4" data-portal-id="144185588" data-test-id="hsForm_860cc935-80b7-4f19-add1-7eed6e028aa4"><div class="hs_firstname hs-firstname hs-fieldtype-text field hs-form-field"><label id="label-firstname-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="firstname-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>First Name</span><span class="hs-form-required">*</span></label><div class="input"><input id="firstname-860cc935-80b7-4f19-add1-7eed6e028aa4" name="firstname" required="" placeholder="First Name" type="text" class="hs-input" inputmode="text" autocomplete="given-name" value=""></div></div><div class="hs_lastname hs-lastname hs-fieldtype-text field hs-form-field"><label id="label-lastname-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="lastname-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>Last Name</span><span class="hs-form-required">*</span></label><div class="input"><input id="lastname-860cc935-80b7-4f19-add1-7eed6e028aa4" name="lastname" required="" placeholder="Last Name" type="text" class="hs-input" inputmode="text" autocomplete="family-name" value=""></div></div><div class="hs_email hs-email hs-fieldtype-text field hs-form-field"><label id="label-email-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="email-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>Email</span><span class="hs-form-required">*</span></label><div class="input"><input id="email-860cc935-80b7-4f19-add1-7eed6e028aa4" name="email" required="" placeholder="Email" type="email" class="hs-input" inputmode="email" autocomplete="email" value=""></div></div><div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field"><label id="label-phone-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="phone-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>Phone Number</span><span class="hs-form-required">*</span></label><div class="input"><input id="phone-860cc935-80b7-4f19-add1-7eed6e028aa4" name="phone" required="" placeholder="Phone Number" type="tel" class="hs-input" inputmode="tel" autocomplete="tel" value=""></div></div><div class="hs_behandlungswunsch hs-behandlungswunsch hs-fieldtype-select field hs-form-field"><label id="label-behandlungswunsch-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="behandlungswunsch-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>Which treatment are you interested in?</span><span class="hs-form-required">*</span></label><div class="input"><select id="behandlungswunsch-860cc935-80b7-4f19-add1-7eed6e028aa4" required="" class="hs-input is-placeholder" name="behandlungswunsch"><option disabled="" value="">Which treatment are you interested in?</option><option value="Residential Rehabilitation Programme">Residential Rehabilitation Programme</option><option value="Executive Detox Programme">Executive Detox Programme</option><option value="3 Day Comprehensive Health Assessment">3 Day Comprehensive Health Assessment</option><option value="7-Day Comprehensive Health Check-Up">7-Day Comprehensive Health Check-Up</option><option value="Aftercare Services">Aftercare Services</option></select></div></div><div class="hs_message hs-message hs-fieldtype-textarea field hs-form-field"><label id="label-message-860cc935-80b7-4f19-add1-7eed6e028aa4" class="" for="message-860cc935-80b7-4f19-add1-7eed6e028aa4"><span>Message</span><span class="hs-form-required">*</span></label><div class="input"><textarea id="message-860cc935-80b7-4f19-add1-7eed6e028aa4" class="hs-input hs-fieldtype-textarea" name="message" required="" placeholder="Message"></textarea></div></div><div class="hs_submit hs-submit"><div class="hs-field-desc" style="display: none;"></div><div class="actions"><input type="submit" class="hs-button primary large" value="Submit"></div></div><input name="hs_context" type="hidden" value="{&quot;embedAtTimestamp&quot;:&quot;1768327349833&quot;,&quot;formDefinitionUpdatedAt&quot;:&quot;1743504901711&quot;,&quot;lang&quot;:&quot;en&quot;,&quot;embedType&quot;:&quot;REGULAR&quot;,&quot;notifyHubSpotOwner&quot;:&quot;true&quot;,&quot;renderRawHtml&quot;:&quot;true&quot;,&quot;userAgent&quot;:&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36&quot;,&quot;pageTitle&quot;:&quot;Luxury Alcohol Treatment Center and Detox Facility - Paracelsus Recovery&quot;,&quot;pageUrl&quot;:&quot;/treatment/luxury-alcohol-treatment-center/&quot;,&quot;isHubSpotCmsGeneratedPage&quot;:false,&quot;formTarget&quot;:&quot;#hbspt-form-2265d1b3-716a-4ba3-b726-160f7627caa0&quot;,&quot;rumScriptExecuteTime&quot;:1404.2000000011176,&quot;rumTotalRequestTime&quot;:2034.6000000014901,&quot;rumTotalRenderTime&quot;:2083.800000000745,&quot;rumServiceResponseTime&quot;:630.4000000003725,&quot;rumFormRenderTime&quot;:49.19999999925494,&quot;connectionType&quot;:&quot;4g&quot;,&quot;firstContentfulPaint&quot;:0,&quot;largestContentfulPaint&quot;:0,&quot;locale&quot;:&quot;en&quot;,&quot;timestamp&quot;:1768327349305,&quot;originalEmbedContext&quot;:{&quot;portalId&quot;:&quot;144185588&quot;,&quot;formId&quot;:&quot;860cc935-80b7-4f19-add1-7eed6e028aa4&quot;,&quot;region&quot;:&quot;eu1&quot;,&quot;target&quot;:&quot;#hbspt-form-2265d1b3-716a-4ba3-b726-160f7627caa0&quot;,&quot;isBuilder&quot;:false,&quot;isTestPage&quot;:false,&quot;isPreview&quot;:false,&quot;isMobileResponsive&quot;:true},&quot;correlationId&quot;:&quot;2265d1b3-716a-4ba3-b726-160f7627caa0&quot;,&quot;renderedFieldsIds&quot;:[&quot;firstname&quot;,&quot;lastname&quot;,&quot;email&quot;,&quot;phone&quot;,&quot;behandlungswunsch&quot;,&quot;message&quot;],&quot;captchaStatus&quot;:&quot;NOT_APPLICABLE&quot;,&quot;emailResubscribeStatus&quot;:&quot;NOT_APPLICABLE&quot;,&quot;isInsideCrossOriginFrame&quot;:false,&quot;source&quot;:&quot;forms-embed-1.10356&quot;,&quot;sourceName&quot;:&quot;forms-embed&quot;,&quot;sourceVersion&quot;:&quot;1.10356&quot;,&quot;sourceVersionMajor&quot;:&quot;1&quot;,&quot;sourceVersionMinor&quot;:&quot;10356&quot;,&quot;allPageIds&quot;:{},&quot;_debug_embedLogLines&quot;:[{&quot;clientTimestamp&quot;:1768327349244,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved customer callbacks used on embed context: [\\&quot;onFormSubmitted\\&quot;]&quot;},{&quot;clientTimestamp&quot;:1768327349244,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved pageContext values which may be overriden by the embed context: {\\&quot;pageTitle\\&quot;:\\&quot;Luxury Alcohol Treatment Center and Detox Facility - Paracelsus Recovery\\&quot;,\\&quot;pageUrl\\&quot;:\\&quot;/treatment/luxury-alcohol-treatment-center/\\&quot;,\\&quot;userAgent\\&quot;:\\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\\&quot;,\\&quot;isHubSpotCmsGeneratedPage\\&quot;:false}&quot;},{&quot;clientTimestamp&quot;:1768327349248,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved countryCode property from normalized embed definition response: \\&quot;US\\&quot;&quot;}]}"><iframe name="target_iframe_860cc935-80b7-4f19-add1-7eed6e028aa4" style="display: none;"></iframe></form></div>
+</div></div>
+
+</div>
+</div>
+
+                
+            </article>
+
+</div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full" role="dialog" aria-label="Modal" aria-modal="true" id="modal-2">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+
+            <article id="page-87219" class="Modal__Form Modal__Position">
+                                        <section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:20px;padding-right:0;padding-bottom:40px; ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-dark-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-560feaf3 wp-block-group-is-layout-constrained" loadtransition="">
+<h2 class="wp-block-heading has-pale-01-color has-text-color has-link-color has-x-large-font-size wp-elements-ca9463b3403a64cf2bad84402bbe0b0e" id="802a1182-559c-4f4e-b1fe-5696d30b4754">Download Factsheet</h2>
+
+
+
+<hr class="wp-block-separator has-text-color has-alpha-channel-opacity has-background is-style-wide" style="margin-top:4px;margin-bottom:var(--wp--preset--spacing--20);background-color:#363836;color:#363836">
+
+
+<div class="Hubspot_Form Form light-text">
+  <div class="Hubspot_Form--innerblocks">
+    <div class="acf-innerblocks-container"></div>
+  </div>
+  <script data-hubspot-rendered="true">
+    // Use intersection observer to load HubSpot forms only when visible
+    (function() {
+      const hubspotContainer = document.currentScript.parentElement;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Load HubSpot script and create form when container becomes visible
+            window.hubSpotLoader.load()
+              .then(hbspt => {
+                hbspt.forms.create({
+                  portalId: "144185588",
+                  formId: "79545743-fc92-479f-9557-238ccd59cfeb",
+                  target: "",
+                  onFormSubmitted: function ($form) {
+                    $form.closest('.Hubspot_Form').querySelector('.Hubspot_Form--innerblocks').classList.add('hidden');
+                  }
+                });
+              })
+              .catch(error => {
+                console.error('Failed to load HubSpot form:', error);
+              });
+            
+            observer.disconnect();
+          }
+        });
+      });
+      
+      observer.observe(hubspotContainer);
+    })();
+  </script><div id="hbspt-form-d9d5a441-5454-4633-ade8-fd443035198c" class="hbspt-form" data-hs-forms-root="true"><form id="hsForm_79545743-fc92-479f-9557-238ccd59cfeb" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms-eu1.hsforms.com/submissions/v3/public/submit/formsnext/multipart/144185588/79545743-fc92-479f-9557-238ccd59cfeb" class="hs-form-private hsForm_79545743-fc92-479f-9557-238ccd59cfeb hs-form-79545743-fc92-479f-9557-238ccd59cfeb hs-form-79545743-fc92-479f-9557-238ccd59cfeb_d9d5a441-5454-4633-ade8-fd443035198c hs-form stacked" target="target_iframe_79545743-fc92-479f-9557-238ccd59cfeb" data-instance-id="d9d5a441-5454-4633-ade8-fd443035198c" data-form-id="79545743-fc92-479f-9557-238ccd59cfeb" data-portal-id="144185588" data-test-id="hsForm_79545743-fc92-479f-9557-238ccd59cfeb"><div class="hs_firstname hs-firstname hs-fieldtype-text field hs-form-field"><label id="label-firstname-79545743-fc92-479f-9557-238ccd59cfeb" class="" for="firstname-79545743-fc92-479f-9557-238ccd59cfeb"><span>First name</span><span class="hs-form-required">*</span></label><div class="input"><input id="firstname-79545743-fc92-479f-9557-238ccd59cfeb" name="firstname" required="" placeholder="First Name" type="text" class="hs-input" inputmode="text" autocomplete="given-name" value=""></div></div><div class="hs_lastname hs-lastname hs-fieldtype-text field hs-form-field"><label id="label-lastname-79545743-fc92-479f-9557-238ccd59cfeb" class="" for="lastname-79545743-fc92-479f-9557-238ccd59cfeb"><span>Last name</span><span class="hs-form-required">*</span></label><div class="input"><input id="lastname-79545743-fc92-479f-9557-238ccd59cfeb" name="lastname" required="" placeholder="Last Name" type="text" class="hs-input" inputmode="text" autocomplete="family-name" value=""></div></div><div class="hs_email hs-email hs-fieldtype-text field hs-form-field"><label id="label-email-79545743-fc92-479f-9557-238ccd59cfeb" class="" for="email-79545743-fc92-479f-9557-238ccd59cfeb"><span>Email</span><span class="hs-form-required">*</span></label><div class="input"><input id="email-79545743-fc92-479f-9557-238ccd59cfeb" name="email" required="" placeholder="Email" type="email" class="hs-input" inputmode="email" autocomplete="email" value=""></div></div><div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field"><label id="label-phone-79545743-fc92-479f-9557-238ccd59cfeb" class="" for="phone-79545743-fc92-479f-9557-238ccd59cfeb"><span>Phone number</span><span class="hs-form-required">*</span></label><div class="input"><input id="phone-79545743-fc92-479f-9557-238ccd59cfeb" name="phone" required="" placeholder="Phone Number" type="tel" class="hs-input" inputmode="tel" autocomplete="tel" value=""></div></div><div class="hs_submit hs-submit"><div class="hs-field-desc" style="display: none;"></div><div class="actions"><input type="submit" class="hs-button primary large" value="Submit"></div></div><input name="hs_context" type="hidden" value="{&quot;embedAtTimestamp&quot;:&quot;1768327349833&quot;,&quot;formDefinitionUpdatedAt&quot;:&quot;1744718561719&quot;,&quot;lang&quot;:&quot;en&quot;,&quot;embedType&quot;:&quot;REGULAR&quot;,&quot;clonedFromForm&quot;:&quot;4efc002f-5492-42c3-96ab-fb79bb9b7c82&quot;,&quot;renderRawHtml&quot;:&quot;true&quot;,&quot;userAgent&quot;:&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36&quot;,&quot;pageTitle&quot;:&quot;Luxury Alcohol Treatment Center and Detox Facility - Paracelsus Recovery&quot;,&quot;pageUrl&quot;:&quot;/treatment/luxury-alcohol-treatment-center/&quot;,&quot;isHubSpotCmsGeneratedPage&quot;:false,&quot;formTarget&quot;:&quot;#hbspt-form-d9d5a441-5454-4633-ade8-fd443035198c&quot;,&quot;rumScriptExecuteTime&quot;:1404.2000000011176,&quot;rumTotalRequestTime&quot;:2088.5,&quot;rumTotalRenderTime&quot;:2116.5,&quot;rumServiceResponseTime&quot;:684.4000000003725,&quot;rumFormRenderTime&quot;:28,&quot;connectionType&quot;:&quot;4g&quot;,&quot;firstContentfulPaint&quot;:0,&quot;largestContentfulPaint&quot;:0,&quot;locale&quot;:&quot;en&quot;,&quot;timestamp&quot;:1768327349337,&quot;originalEmbedContext&quot;:{&quot;portalId&quot;:&quot;144185588&quot;,&quot;formId&quot;:&quot;79545743-fc92-479f-9557-238ccd59cfeb&quot;,&quot;region&quot;:&quot;eu1&quot;,&quot;target&quot;:&quot;#hbspt-form-d9d5a441-5454-4633-ade8-fd443035198c&quot;,&quot;isBuilder&quot;:false,&quot;isTestPage&quot;:false,&quot;isPreview&quot;:false,&quot;isMobileResponsive&quot;:true},&quot;correlationId&quot;:&quot;d9d5a441-5454-4633-ade8-fd443035198c&quot;,&quot;renderedFieldsIds&quot;:[&quot;firstname&quot;,&quot;lastname&quot;,&quot;email&quot;,&quot;phone&quot;],&quot;captchaStatus&quot;:&quot;NOT_APPLICABLE&quot;,&quot;emailResubscribeStatus&quot;:&quot;NOT_APPLICABLE&quot;,&quot;isInsideCrossOriginFrame&quot;:false,&quot;source&quot;:&quot;forms-embed-1.10356&quot;,&quot;sourceName&quot;:&quot;forms-embed&quot;,&quot;sourceVersion&quot;:&quot;1.10356&quot;,&quot;sourceVersionMajor&quot;:&quot;1&quot;,&quot;sourceVersionMinor&quot;:&quot;10356&quot;,&quot;allPageIds&quot;:{},&quot;_debug_embedLogLines&quot;:[{&quot;clientTimestamp&quot;:1768327349301,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved customer callbacks used on embed context: [\\&quot;onFormSubmitted\\&quot;]&quot;},{&quot;clientTimestamp&quot;:1768327349301,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved pageContext values which may be overriden by the embed context: {\\&quot;pageTitle\\&quot;:\\&quot;Luxury Alcohol Treatment Center and Detox Facility - Paracelsus Recovery\\&quot;,\\&quot;pageUrl\\&quot;:\\&quot;/treatment/luxury-alcohol-treatment-center/\\&quot;,\\&quot;userAgent\\&quot;:\\&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\\&quot;,\\&quot;isHubSpotCmsGeneratedPage\\&quot;:false}&quot;},{&quot;clientTimestamp&quot;:1768327349302,&quot;level&quot;:&quot;INFO&quot;,&quot;message&quot;:&quot;Retrieved countryCode property from normalized embed definition response: \\&quot;US\\&quot;&quot;}]}"><iframe name="target_iframe_79545743-fc92-479f-9557-238ccd59cfeb" style="display: none;"></iframe></form></div>
+</div></div>
+
+</div>
+		
+	        </section>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+                
+            </article>
+
+</div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><div x-data="singleModal()" @modalopen.window="handleModalOpen" class="Modal Modal--Full" role="dialog" aria-label="Modal" aria-modal="true" id="modal-3">
+
+            <div x-show="open" x-transition:enter="ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity" @click="handleModalClose" aria-hidden="true" style="display: none;"></div>
+
+            <div x-show="open" x-transition:enter="ease-out duration-600 transition-all" x-transition:enter-start="opacity-0 -translate-x-full" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="ease-in duration-500 transition-none" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-full" class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform" style="display: none;">
+
+                <div x-show="open" class="Modal__dialog relative w-full h-full transform" style="display: none;">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"></path></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+
+            <article id="page-160" class=" ">
+                                        <section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:292px;padding-bottom:44px; ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-02-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:82%"><section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="margin-top:0;margin-bottom:0;height:38px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p class="is-style-eyebrow has-dark-02-color has-text-color has-link-color has-x-small-font-size wp-elements-fa0a41643deb2adf9c42fd149885cdc1 is-style-eyebrow--1 wp-block-paragraph" style="text-transform:uppercase"><br>OUR APPROACH</p>
+
+
+
+<h1 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xxxx-large-font-size wp-elements-4eaab304ce403e708e814dd68e4edb7d">The most comprehensive, innovative and cutting-edge treatment worldwide&nbsp;</h1>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<p class="has-text-align-center has-dark-02-color has-text-color has-link-color has-x-small-font-size wp-elements-eaac518a18535bc0fcc6a1ad8f6fb88b wp-block-paragraph" style="text-transform:uppercase">OUR APPROACH</p>
+
+
+
+<h1 class="wp-block-heading has-text-align-center has-xxxx-large-font-size">The most comprehensive and innovative treatment worldwide&nbsp;</h1>
+
+</div>
+		
+	        </section>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:18%"></div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fixed  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow has-background" style=" --height-fixed: 600px;   ;background-image:url('/wp-content/uploads/2025/01/Parac-Reco-0983.webp');background-position:72% 48%;background-size:cover;">
+	        
+								
+    <picture><source srcset="/wp-content/uploads/2025/01/Parac-Reco-0983.webp 8309w, /wp-content/uploads/2025/01/Parac-Reco-0983-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-0983-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-0983-150x150.webp 150w, /wp-content/uploads/2025/01/Parac-Reco-0983-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-0983-1536x1024.webp 1536w, /wp-content/uploads/2025/01/Parac-Reco-0983-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-0983-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source srcset="/wp-content/uploads/2025/01/Parac-Reco-0983-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-0983-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-0983-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-0983-1536x1024.webp 1536w, /wp-content/uploads/2025/01/Parac-Reco-0983-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-0983-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="1620" height="1080" class="row-background w-full h-full top-0 absolute object-cover left-0 overflow-hidden" loading="eager" decoding="sync" fetchpriority="high" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-0983.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-0983-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-0983-1024x683.webp 1024w, /wp-content/uploads/2025/01/Parac-Reco-0983-768x512.webp 768w, /wp-content/uploads/2025/01/Parac-Reco-0983-1536x1024.webp 1536w, /wp-content/uploads/2025/01/Parac-Reco-0983-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-0983-640x427.webp 640w"></picture>
+
+				
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full"></div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:60px; ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full"></div>
+		
+	        </section>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-41bf9a96 wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--30);padding-right:20px;padding-bottom:var(--wp--preset--spacing--30);padding-left:20px" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:33%"><section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<p class="is-style-eyebrow has-dark-02-color has-text-color has-link-color wp-elements-3cc2d63481362a5aaccf7c5b5e18212d is-style-eyebrow--2 wp-block-paragraph" style="text-transform:uppercase">A proven method</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+</div>
+		
+	        </section>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:66%">
+<p class="has-dark-01-color has-text-color has-link-color has-medium-font-size wp-elements-a50d76c8a640141335ec4bb59d8becd6 wp-block-paragraph">At Paracelsus Recovery, we recognise that our health is a product of our relationship with ourselves. That is why we do not adopt a ‘one-size-fits-all’ approach. Instead, we adapt each programme to each client’s unique set of needs. Our approach uses cutting-edge treatments combined with holistic care and guidance from our team of world-renowned doctors, therapists, and specialists to inform and support you on your journey to recovery.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+</div>
+</div>
+</div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:60px; ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full"></div>
+		
+	        </section>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px" loadtransition=""></div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-reverse is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-right:0;padding-left:var(--wp--preset--spacing--20); border-style:none;border-width:0px;">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-83ff873d wp-block-column-is-layout-flow" style="padding-right:20px;padding-left:20px;flex-basis:50%">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex" loadtransition="">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xx-large-font-size wp-elements-2f37f60d9b6836d46465fa0aa7e14b3f" style="margin-top:var(--wp--preset--spacing--100);margin-right:0;margin-bottom:0;margin-left:0">A 360-degree treatment that considers the whole person: mind, body, and soul.</h2>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-a69b95324c6c5898073f316dc6ed2ea5 wp-block-paragraph">Paracelsus Recovery was the first treatment centre to introduce functional medicine and interdisciplinary methods into its treatment programme. Since the beginning, we’ve known that symptoms are a consequence of imbalances in life. Healing requires understanding how and why they came to be so that we can treat the underlying cause, not just the symptoms.<br></p>
+
+
+
+<div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-pale-01-background-color has-text-color has-background has-link-color wp-element-button" href="/assessments/">Assessments+</a></div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:60px"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;flex-basis:50%"><section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden layout-1 parallax-init" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture><source srcset="/wp-content/uploads/2025/01/Parac-Reco-1518.webp 9166w, /wp-content/uploads/2025/01/Parac-Reco-1518-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1518-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-1518-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source srcset="/wp-content/uploads/2025/01/Parac-Reco-1518-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1518-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1518-540x360.webp 540w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="640" height="427" class="absolute-center w-full !h-full object-cover" loading="eager" decoding="sync" fetchpriority="high" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-1518.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1518-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1518-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1518-540x360.webp 540w"></picture>
+    </div>
+
+        </div>
+    <div class="OverlappingImages__image-1 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture><source srcset="/wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x.webp 1150w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-300x279.webp 300w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-1024x953.webp 1024w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-150x150.webp 150w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-768x715.webp 768w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-387x360.webp 387w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-640x595.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source srcset="/wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x.webp 1150w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-300x279.webp 300w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-1024x953.webp 1024w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-768x715.webp 768w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-387x360.webp 387w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-640x595.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="1150" height="1070" class="absolute-center w-full !h-full object-contain" loading="eager" decoding="sync" fetchpriority="high" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x.png" srcset="/wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x.webp 1150w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-300x279.webp 300w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-1024x953.webp 1024w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-768x715.webp 768w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-387x360.webp 387w, /wp-content/uploads/2025/03/PR_dial_02__LEFTCOMBO@3x-640x595.webp 640w"></picture>
+    </div>
+
+        </div>
+</section></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-f798d21e wp-block-columns-is-layout-flex" style="margin-top:0;margin-bottom:0">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-right-color:var(--wp--preset--color--mid);border-right-width:1px;padding-top:0;padding-bottom:0" loadtransition="">
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px" loadtransition=""></div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--20);flex-basis:50%"><section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden layout-3 parallax-init" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture><source srcset="/wp-content/uploads/2025/01/Parac-Reco-4769.webp 8568w, /wp-content/uploads/2025/01/Parac-Reco-4769-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4769-150x150.webp 150w, /wp-content/uploads/2025/01/Parac-Reco-4769-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-4769-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><source srcset="/wp-content/uploads/2025/01/Parac-Reco-4769-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-4769-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4769-540x360.webp 540w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" type="image/webp"><img width="640" height="427" class="absolute-center w-full !h-full object-contain" loading="eager" decoding="sync" fetchpriority="high" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-4769.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-4769-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-4769-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-4769-540x360.webp 540w"></picture>
+    </div>
+
+        </div>
+    <div class="OverlappingImages__image-1 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544.webp 5654w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-276x300.webp 276w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-331x360.webp 331w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-589x640.webp 589w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-589x640.webp 589w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-276x300.webp 276w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-331x360.webp 331w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="589" height="640" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-589x640.webp 589w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-276x300.webp 276w, /wp-content/uploads/2025/01/Parac-Reco-6316-1-e1739980015544-331x360.webp 331w"></picture>
+    </div>
+
+        </div>
+</section></div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-83ff873d wp-block-column-is-layout-flow" style="padding-right:20px;padding-left:20px;flex-basis:50%">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:60px"></div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex" loadtransition="">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xx-large-font-size wp-elements-54a259f22b2bbe5a75075e10daca21dc" style="margin-top:var(--wp--preset--spacing--100);margin-right:0;margin-bottom:0;margin-left:0">Our path to healing, tailored entirely to you.</h2>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-1c616b0a3374126230385c18bba7ab0b wp-block-paragraph">Each of our treatment programmes is carefully curated to each client’s unique set of needs. Those needs may be physical and psychological, e.g. if our team identifies nutritional deficiencies or signs of depression during the assessment period, your programme would be shaped with these in mind. Our pragmatic nature extends into the every day; from work to travel obligations, we are happy to accommodate client needs.</p>
+
+
+
+<div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex" style="margin-top:16px">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color wp-element-button" href="/programmes/">Programmes+</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-f798d21e wp-block-columns-is-layout-flex" style="margin-top:0;margin-bottom:0">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-right-color:var(--wp--preset--color--mid);border-right-width:1px" loadtransition="">
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px" loadtransition=""></div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-reverse is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-83ff873d wp-block-column-is-layout-flow" style="padding-right:20px;padding-left:20px;flex-basis:50%">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex" loadtransition="">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xx-large-font-size wp-elements-0c8a4e93cafd8fd7edadfaadf0ff2139" style="margin-top:var(--wp--preset--spacing--100);margin-right:0;margin-bottom:0;margin-left:0">Cutting edge medicine</h2>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-9387f736c79e5ef859947e25843a23de wp-block-paragraph">We work closely with the Zurich University Clinic, ensuring we remain at the forefront of medical research. Many of our key team members have played pivotal roles in shaping the present, and continue to shape the future, of their respective disciplines.</p>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-a9ca43fa52c70bca369d1da4f81ce2c3 wp-block-paragraph">Your programme will be curated by world-renowned doctors, including a Nobel Prize laureate and Harvard Medical School alumni. Cutting-edge advancements in medical care guide our work; whether it’s a full-body MRI, one of our 70+ laboratory tests, or psychedelic psychotherapy and vitamin infusions, we will make sure to provide each diagnostic and treatment necessary for your recovery.</p>
+
+
+
+<div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex" style="margin-top:16px">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color wp-element-button" href="/tech/">diagnostics &amp; Technologies+</a></div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:60px"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;flex-basis:50%"><section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden layout-1 parallax-init" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/_P4L2050-scaled.webp 1737w, /wp-content/uploads/2025/02/_P4L2050-204x300.webp 204w, /wp-content/uploads/2025/02/_P4L2050-150x150.webp 150w, /wp-content/uploads/2025/02/_P4L2050-244x360.webp 244w, /wp-content/uploads/2025/02/_P4L2050-434x640.webp 434w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/_P4L2050-434x640.webp 434w, /wp-content/uploads/2025/02/_P4L2050-204x300.webp 204w, /wp-content/uploads/2025/02/_P4L2050-244x360.webp 244w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="434" height="640" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/_P4L2050-scaled.webp" srcset="/wp-content/uploads/2025/02/_P4L2050-434x640.webp 434w, /wp-content/uploads/2025/02/_P4L2050-204x300.webp 204w, /wp-content/uploads/2025/02/_P4L2050-244x360.webp 244w"></picture>
+    </div>
+
+        </div>
+    <div class="OverlappingImages__image-1 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815.webp 1276w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-300x205.webp 300w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-150x150.webp 150w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-528x360.webp 528w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-640x436.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-640x436.webp 640w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-300x205.webp 300w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-528x360.webp 528w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="640" height="436" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815.webp" srcset="/wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-640x436.webp 640w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-300x205.webp 300w, /wp-content/uploads/2025/02/P4L2909-scaled-1-e1740128011815-528x360.webp 528w"></picture>
+    </div>
+
+        </div>
+</section></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-f798d21e wp-block-columns-is-layout-flex" style="margin-top:0;margin-bottom:0">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-right-color:var(--wp--preset--color--mid);border-right-width:1px" loadtransition="">
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px" loadtransition=""></div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:0;flex-basis:50%"><section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden layout-3 parallax-init" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0291.webp 9195w, /wp-content/uploads/2025/02/Parac-Reco-0291-300x200.webp 300w, /wp-content/uploads/2025/02/Parac-Reco-0291-540x360.webp 540w, /wp-content/uploads/2025/02/Parac-Reco-0291-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0291-640x427.webp 640w, /wp-content/uploads/2025/02/Parac-Reco-0291-300x200.webp 300w, /wp-content/uploads/2025/02/Parac-Reco-0291-540x360.webp 540w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="640" height="427" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-0291.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0291-640x427.webp 640w, /wp-content/uploads/2025/02/Parac-Reco-0291-300x200.webp 300w, /wp-content/uploads/2025/02/Parac-Reco-0291-540x360.webp 540w"></picture>
+    </div>
+
+        </div>
+    <div class="OverlappingImages__image-1 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676.webp 6397w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-300x193.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-559x360.webp 559w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-640x412.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-640x412.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-300x193.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-559x360.webp 559w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="640" height="412" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-640x412.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-300x193.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1295-1-e1740061060676-559x360.webp 559w"></picture>
+    </div>
+
+        </div>
+</section></div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-83ff873d wp-block-column-is-layout-flow" style="padding-right:20px;padding-left:20px;flex-basis:50%">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:60px"></div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex" loadtransition="">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xx-large-font-size wp-elements-cb4500fed98b50570ed50c963b091b58" style="margin-top:var(--wp--preset--spacing--100);margin-right:0;margin-bottom:0;margin-left:0">We meet you where you are at</h2>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-15d9ee564c9204794bd8f747d5183a62 wp-block-paragraph">For over 12 years, we have treated all kinds of health conditions. Often, our clients find themselves alienated, deeply dependent on something that’s harming their health, and feeling shame or paranoia. At Paracelsus Recovery, we strive for growth, whether that’s working with your team or solely with you, or treating you for weeks or just hours at a time. We take the steps to ease you into your journey to healing.&nbsp;</p>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-8d5c7b0394ba96eca90599de46f15c9d wp-block-paragraph">For instance, if you’re struggling with substance abuse, growth might mean total sobriety or it might mean using less. If it’s a mental health issue, it might mean completely eradicating the condition from your life, or it might involve finding ways to make your symptoms work for you, rather than against you.&nbsp;</p>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-667a80fa43d104376bfc940f2c4a9efa wp-block-paragraph">Alongside tailoring our programme to your specific needs, we guarantee complete confidentiality throughout your time with us. So, whatever growth means for you, we are here to help you achieve it.&nbsp;</p>
+
+
+
+<div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color wp-element-button" href="/types-of-therapies/">therapies+</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-f798d21e wp-block-columns-is-layout-flex" style="margin-top:0;margin-bottom:0">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-right-color:var(--wp--preset--color--mid);border-right-width:1px" loadtransition="">
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-top-color:var(--wp--preset--color--mid);border-top-width:1px" loadtransition=""></div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-reverse is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-01-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-vertically-aligned-center is-layout-flow wp-container-core-column-is-layout-83ff873d wp-block-column-is-layout-flow" style="padding-right:20px;padding-left:20px;flex-basis:50%">
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-fe9cc265 wp-block-group-is-layout-flex" loadtransition="">
+<h2 class="wp-block-heading has-dark-01-color has-text-color has-link-color has-xx-large-font-size wp-elements-676bcf7552728ad981393d8306c04200" style="margin-top:var(--wp--preset--spacing--100);margin-right:0;margin-bottom:0;margin-left:0">A place of healing</h2>
+
+
+
+<p class="has-dark-02-color has-text-color has-link-color wp-elements-a1751e6cad828d80bb800c0b061fbb75 wp-block-paragraph">Switzerland is synonymous with medical excellence, and for good reason. Health and well-being are ingrained into our way of life; a product of the safety, nature, and quality of care we grow up with.<br><br>We are based in Zurich – a city with some of the world’s best hospitals, clinics, and medical facilities, many of which are our partner hospitals and centres. The city’s blend of modern medicine, clean air, and world-renowned landscapes makes it an unparalleled place for growth, clarity, and starting over.</p>
+
+
+
+<div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex" style="margin-top:16px">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color wp-element-button" href="/hospitality/">Residences+</a></div>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:60px"></div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="padding-top:var(--wp--preset--spacing--20);flex-basis:50%"><section x-data="overlappingImages" class="OverlappingImages relative overflow-hidden layout-3 parallax-init" style="--parallax-offset:1">
+    <div class="OverlappingImages__image-2 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608.webp 6728w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-300x220.webp 300w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-491x360.webp 491w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-640x469.webp 640w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-640x469.webp 640w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-300x220.webp 300w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-491x360.webp 491w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="640" height="469" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608.webp" srcset="/wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-640x469.webp 640w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-300x220.webp 300w, /wp-content/uploads/2025/02/Paracelsus_Still_Life-0005-1-e1740060945608-491x360.webp 491w"></picture>
+    </div>
+
+        </div>
+    <div class="OverlappingImages__image-1 absolute">
+                <div class="relative w-full h-full overflow-hidden" style="min-height: ">
+                <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1471.webp 9166w, /wp-content/uploads/2025/01/Parac-Reco-1471-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1471-540x360.webp 540w, /wp-content/uploads/2025/01/Parac-Reco-1471-640x427.webp 640w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1471-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1471-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1471-540x360.webp 540w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="640" height="427" class="absolute-center w-full !h-full object-contain" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-1471.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-1471-640x427.webp 640w, /wp-content/uploads/2025/01/Parac-Reco-1471-300x200.webp 300w, /wp-content/uploads/2025/01/Parac-Reco-1471-540x360.webp 540w"></picture>
+    </div>
+
+        </div>
+</section></div>
+</div>
+</div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:60px;padding-bottom:60px; ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full"></div>
+		
+	        </section>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard    has-border-top is-layout-flow wp-block-pegasus-container-is-layout-flow" style="  padding-top:0;padding-bottom:var(--wp--preset--spacing--30); border-top-color:var(--wp--preset--color--mid);border-top-width:1px;">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-03-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  container">
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-9c22b1e3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="border-right-color:var(--wp--preset--color--mid);border-right-width:1px">
+<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full block sm:hidden md:hidden  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" loadtransition="">
+<div class="wp-block-columns is-not-stacked-on-mobile is-layout-flex wp-container-core-columns-is-layout-28232c24 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"><section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   border-right-color:var(--wp--preset--color--mid);border-right-width:1px;">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="height:50px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+		
+	        </section>
+</div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+</div>
+
+</div>
+		
+	        </section>
+
+
+
+<p class="has-text-align-center is-style-eyebrow has-dark-02-color has-text-color has-link-color has-x-small-font-size wp-elements-aff5d6b4e358fad9867f92b6a40b2118 is-style-eyebrow--3 wp-block-paragraph" style="text-transform:uppercase">Expertise</p>
+
+
+
+<h3 class="wp-block-heading has-text-align-center has-xxxx-large-font-size">A truly meaningful experience</h3>
+
+
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-8c890a87 wp-block-group-is-layout-constrained" loadtransition="">
+<p class="has-text-align-center has-medium-font-size wp-block-paragraph">We are the only treatment centre in the world to provide a minimum of 15 dedicated professionals to each client. So, throughout your stay, you will be guided by a team of world-renowned doctors, therapists, and specialists.<br><br>Hear directly from the minds and hearts of our staff below</p>
+</div>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:16px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-container-core-buttons-is-layout-a89b3969 wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-text-button" modaltype=""><a class="wp-block-button__link has-dark-01-color has-text-color has-link-color wp-element-button" href="/team/">Meet the team</a></div>
+</div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="margin-top:0;margin-bottom:0;height:0px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+		
+	        </section>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit overflow-hidden text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-03-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div class="wp-block-group has-global-padding is-layout-constrained wp-container-core-group-is-layout-767db906 wp-block-group-is-layout-constrained" style="padding-bottom:var(--wp--preset--spacing--20)" loadtransition=""><section x-data="teamGridSlider('', 1)" class="Team__Grid-slider relative arrow-vertical-" x-intersect="inView = true" style="--carousel-arrow-spacing: %; --carousel-arrow-inset: rem">
+				
+				
+	
+	
+	<div class="relative slider-container ">
+				<div x-ref="slider" class="slider w-full flickity-enabled is-draggable" tabindex="0">
+																		
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+														<div class="flickity-viewport" style="height: 0px; touch-action: pan-y;"><div class="flickity-slider" style="left: 0px;"><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/prof-dr-thomas-suedhof/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Thomas Suedhof</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936.webp 1306w, /wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936-200x300.webp 200w, /wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936.webp" srcset="/wp-content/uploads/2025/02/Prof.T.Suedhof-002-scaled-e1757676961936-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Nobel Laureate</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">Prof. Dr. med.</span>
+                                                <a href="/team-member/prof-dr-thomas-suedhof/" class="block heading-three pt-px">Thomas Suedhof</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/prof-dr-thomas-suedhof/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/jan-gerber/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Jan Gerber</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365.webp 3332w, /wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3516-1-e1739874187365-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">CEO</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MSc</span>
+                                                <a href="/team-member/jan-gerber/" class="block heading-three pt-px">Jan Gerber</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/jan-gerber/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/14057/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Anna Erat</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-scaled.webp 1280w, /wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-200x300.webp 200w, /wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-scaled.webp" srcset="/wp-content/uploads/2025/01/Parac-Reco-2420-1-e1740765989238-1-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Medical Doctor</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">Dr. Dr. med. MD</span>
+                                                <a href="/team-member/14057/" class="block heading-three pt-px">Anna Erat</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/14057/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/thilo-beck/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Thilo Beck</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340.webp 3000w, /wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340-199x300.webp 199w, /wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340-199x300.webp 199w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="199" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2344-1-e1739885615340-199x300.webp 199w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Lead Psychiatrist</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">Dr. med.</span>
+                                                <a href="/team-member/thilo-beck/" class="block heading-three pt-px">Thilo Beck</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/thilo-beck/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/3244/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Lindsay Farrell</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444.webp 7030w, /wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444-300x238.webp 300w, /wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444-300x238.webp 300w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="300" height="238" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2563-1-e1739870952444-300x238.webp 300w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Clinical Coordinator</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MScN, RN</span>
+                                                <a href="/team-member/3244/" class="block heading-three pt-px">Lindsay Farrell</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/3244/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/foto-test-pablo-rowit-kumar/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Rowit Kumar</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400.webp 5103w, /wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3121-1-e1739873826400-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Clinical Coordinator</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MD</span>
+                                                <a href="/team-member/foto-test-pablo-rowit-kumar/" class="block heading-three pt-px">Rowit Kumar</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/foto-test-pablo-rowit-kumar/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/kjell-r-brolund-spaether/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Kjell R. Brolund-Spaether</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-scaled.webp 1879w, /wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-220x300.webp 220w, /wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-220x300.webp 220w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="220" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-scaled.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-0498-1-e1742411943604-220x300.webp 220w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Group Medical Director</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">Dr. med.</span>
+                                                <a href="/team-member/kjell-r-brolund-spaether/" class="block heading-three pt-px">Kjell R. Brolund-Spaether</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/kjell-r-brolund-spaether/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/priscilla-sanchez/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Priscilla Sanchez</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231.webp 4721w, /wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231-201x300.webp 201w, /wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231-201x300.webp 201w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="201" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2488-1-e1739883988231-201x300.webp 201w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Nutritional Scientist</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MSc, MPH, RND</span>
+                                                <a href="/team-member/priscilla-sanchez/" class="block heading-three pt-px">Priscilla Sanchez</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/priscilla-sanchez/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/hassan-gencal/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Hassan Gencal</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722.webp 4037w, /wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-2897-1-e1739874834722-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Live-In Therapist</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/hassan-gencal/" class="block heading-three pt-px">Hassan Gencal</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/hassan-gencal/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/annette-ruesch-ilardo/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Annette Rüesch Ilardo</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270.webp 3970w, /wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270-200x300.webp 200w, /wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270.webp" srcset="/wp-content/uploads/2025/02/A.Rusch-011-1-e1740730625270-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Pilates Trainer</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/annette-ruesch-ilardo/" class="block heading-three pt-px">Annette Rüesch Ilardo</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/annette-ruesch-ilardo/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/david-fenn/" class="block relative rounded-[5px] ">
+            <span class="sr-only">David Fenn</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846.webp 4026w, /wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846-200x300.webp 200w, /wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846.webp" srcset="/wp-content/uploads/2025/02/David_Fenn-0080-1-e1739892642846-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Live-In Therapist</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/david-fenn/" class="block heading-three pt-px">David Fenn</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/david-fenn/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/maria-pena/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Maria Pena</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361.webp 3806w, /wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3442-1-e1739874313361-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Office Manager</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/maria-pena/" class="block heading-three pt-px">Maria Pena</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/maria-pena/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/chanel-mc-cormick/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Chanel Mc Cormick</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926.webp 3724w, /wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-5253-1-e1739876117926-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Client Scheduling</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/chanel-mc-cormick/" class="block heading-three pt-px">Chanel Mc Cormick</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/chanel-mc-cormick/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/negar-marazzi/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Négar Marazzi</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332.webp 4487w, /wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332-200x300.webp 200w, /wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332.webp" srcset="/wp-content/uploads/2025/02/N.Marazzi-034-1-e1740731754332-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Pilates Trainer</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]"></span>
+                                                <a href="/team-member/negar-marazzi/" class="block heading-three pt-px">Négar Marazzi</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/negar-marazzi/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/evgenia-zraychikova/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Evgenia Zraychikova</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760.webp 1310w, /wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760-200x300.webp 200w, /wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760.webp" srcset="/wp-content/uploads/2025/03/E.Zraychikova-101-e1742408235738-1-scaled-e1742982222760-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Clinical Coordinator</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MScN, RN</span>
+                                                <a href="/team-member/evgenia-zraychikova/" class="block heading-three pt-px">Evgenia Zraychikova</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/evgenia-zraychikova/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div><div class="slide is-selected" style="--slide-width: 31.948881789137%; position: absolute; left: 0px;">
+							<div class="Team__Grid-post h-full px-2 sm:px-[5px] pb-[60px] sm:pb-0" data-pegasus-single-card="">
+    <div class="group relative text-white">
+                        <a href="/team-member/elizabeth-carter-msc-ncc-lpca/" class="block relative rounded-[5px] ">
+            <span class="sr-only">Elizabeth Carter</span>
+            <div class="w-full relative overflow-hidden h-0 pb-[150%]">
+                                    <picture class="pegasus-lazy-wrapper is-loaded"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565.webp 3345w, /wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565-200x300.webp 200w, /wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565-150x150.webp 150w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><source type="image/webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565-200x300.webp 200w" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw"><img width="200" height="300" class="w-full object-cover transition-transform duration-500 ease-in-out aspect-[.66] rounded-[5px] h-auto" loading="lazy" decoding="async" sizes="(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px, 100vw" src="/wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565.webp" srcset="/wp-content/uploads/2025/02/Parac-Reco-3027-1-e1739874099565-200x300.webp 200w"></picture>
+                            </div>
+            <div class="absolute inset-0 bg-black/20 rounded-[5px]"></div>
+        </a>
+                
+                <div class="absolute inset-0 px-[27px] py-[39px] sm:py-[61px] flex flex-col justify-between">
+                                            <div class="flex flex-wrap -mx-px has-x-small-font-size capitalize gap-2">
+                                                                                                                                                                                                        <span class="font-body has-x-small-font-size p-2 border rounded-full border-white text-white">Counsellor</span>
+                                                                                                                                                        </div>
+                            
+            
+                                                <div class="div_for_arabic">
+                <div class="subtitle-sm relative">
+                    <div class="absolute top-0 left-0 transform">
+                        <span class="ml-[2px]">MSc, NCC, LCMHC</span>
+                                                <a href="/team-member/elizabeth-carter-msc-ncc-lpca/" class="block heading-three pt-px">Elizabeth Carter</a>
+                                                                    </div>
+                    </div>
+                </div>
+                            
+            
+            
+                        <a href="/team-member/elizabeth-carter-msc-ncc-lpca/" class="block w-full pt-6 has-x-small-font-size uppercase !underline underline-offset-8">Read</a>
+                    </div>
+            </div>
+</div>
+						</div></div></div></div>
+		
+								</div>
+
+			<div class="w-full px-5 sm:px-0 sm:hidden">
+			<div class="relative w-full">
+				<div class="scroll-progress-bg absolute rounded left-0 right-0 h-[2px] bg-[#e1e1dd]"></div>
+				<div x-ref="progressBar" class="scroll-progress rounded max-w-full h-[2px] bg-black relative transition-all" id="scroll-progress" style="width: 100%;"></div>
+			</div>
+		</div>
+	
+		<div id="lightboxesGlobalTeamMemberSlider" class="h-0 overflow-hidden"></div>
+    <div x-ref="videoPlaceholder"></div>
+	</section>
+</div>
+
+</div>
+		
+	        </section>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full   relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							<div class="row-background absolute w-full bottom-0 left-0 z-0 h-full has-pale-03-background-color" style="">
+</div>
+					
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+<section x-data="" x-init="pegasus.parallaxScroll($refs.paralaxScrollElem)" class="Pegasus__Container w-full hidden sm:block  relative h-fit  text-content-dark mobile-stacking-standard is-layout-flow wp-block-pegasus-container-is-layout-flow" style="   ">
+	        
+							
+						
+		        		
+							
+			<div class="relative h-full is-flex-layout flex flex-col justify-start  w-full">
+
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+</div>
+		
+	        </section>
+
+
+<section style="background-image:url('/wp-content/uploads/2025/02/Parac-Reco-0045.webp');background-position:66% 33%;background-size:cover;background-attachment:scroll;" x-data="callToAction" x-intersect.half.once="visible = true" class="CallToAction relative w-full mx-auto px-5 py-[120px] md:py-24 sm:px-20 sm:max-w-[85vw] xl:max-w-[80vw] rounded-t md:rounded text-center sm:text-left transition duration-700 ease-in-out bg-dark-01 has-background translate-y-1/2" :class="visible ? 'translate-y-0' : 'translate-y-1/2'">
+    <div class="relative z-10">
+        <div class="acf-innerblocks-container">
+
+<div class="wp-block-group has-global-padding is-content-justification-left is-layout-constrained wp-container-core-group-is-layout-d494ece3 wp-block-group-is-layout-constrained" loadtransition="">
+<h3 class="wp-block-heading has-text-align-left has-white-color has-text-color has-link-color has-xxxx-large-font-size wp-elements-ad53a84a0d73ae81ab08ea4ed1280b96">Treatments unique to you</h3>
+
+
+
+<div style="margin-top:0;margin-bottom:0;height:1px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-buttons alignfull is-layout-flex wp-block-buttons-is-layout-flex">
+<div class="wp-block-button is-style-arrow" modaltype=""><a data-pegasus-modal="Modal--Full" class="wp-block-button__link has-dark-01-color has-white-background-color has-text-color has-background has-link-color wp-element-button" href="/contact/">Discuss with us</a></div>
+</div>
+</div>
+
+</div>
+    </div>
+    
+    </section>
+        <div class="hidden sm:block bg-dark-01 w-full h-[230px] mt-[-138px]">
+    </div>
+    
+</div>
+		
+	        </section>
+
+                
+            </article>
+
+</div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script>
+        (function() {
+            let adformLoaded = false;
+            
+            const adformConfig = {
+                httpHost: 'track.adform.net',
+                pm: 2883116,
+                scriptUrl: 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'
+            };
+            
+            function loadAdform() {
+                if (adformLoaded) return;
+                adformLoaded = true;
+                
+                try {
+                    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+                    window._adftrack.push({
+                        HttpHost: adformConfig.httpHost,
+                        pm: adformConfig.pm
+                    });
+
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.async = true;
+                    script.src = adformConfig.scriptUrl;
+                    script.onerror = () => console.warn('Adform script failed to load');
+                    document.head.appendChild(script);
+                    
+                    // Track conversion after delay
+                    setTimeout(() => {
+                        try {
+                            window._adftrack.push({
+                                HttpHost: adformConfig.httpHost,
+                                pm: adformConfig.pm,
+                                divider: encodeURIComponent('|'),
+                                pagename: encodeURIComponent('Conversion')
+                            });
+                        } catch(e) {}
+                    }, 60000);
+                    
+                    // Handle page visit tracking
+                    const pageVisits = parseInt(localStorage.getItem('adformPageVisits') || '0') + 1;
+                    localStorage.setItem('adformPageVisits', pageVisits.toString());
+                    
+                    if (pageVisits >= 3) {
+                        window._adftrack.push({
+                            HttpHost: adformConfig.httpHost,
+                            pm: adformConfig.pm,
+                            divider: encodeURIComponent('|'),
+                            pagename: encodeURIComponent('Three Page Visits')
+                        });
+                    }
+                } catch(error) {
+                    console.warn('Adform tracking error:', error);
+                }
+            }
+            
+            // Load on user interaction OR after 5 seconds (whichever comes first)
+            const events = ['mousedown', 'touchstart', 'keydown', 'scroll'];
+            const loadOnInteraction = () => {
+                loadAdform();
+                events.forEach(event => document.removeEventListener(event, loadOnInteraction));
+            };
+            
+            events.forEach(event => document.addEventListener(event, loadOnInteraction, {once: true, passive: true}));
+            setTimeout(loadAdform, 5000); // Fallback after 5 seconds
+        })();
+        </script>
+        
+
+    
+
+
+<script src="https://js-eu1.hsforms.net/forms/embed/v2.js" async=""></script>        <script id="" text="" charset="" type="text/javascript" src="https://js.adsrvr.org/up_loader.1.1.0.js"></script><script id="" text="" charset="" type="text/javascript" src="https://js.adsrvr.org/up_loader.1.1.0.js"></script><script type="text/javascript" id="" charset="">document.addEventListener("wpcf7mailsent",function(a){window.dataLayer.push({event:"cf7submission",formId:a.detail.contactFormId,response:a.detail.inputs})});</script><script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","260708920040414");fbq("track","PageView");</script>
+<noscript>
+<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260708920040414&amp;ev=ButtonClicked&amp;noscript=1"></noscript>
+<script id="" text="" charset="" type="text/javascript" src="https://pxl.growth-channel.net/s/89406010-f059-410e-a542-aca47b93bae7"></script><script type="text/javascript" id="" charset="">(function(){var f="utm_source utm_medium utm_campaign utm_term utm_content gclid fbclid".split(" "),g=20,h=setInterval(function(){var d=document.querySelector("form");if(d||g<=0){if(d)for(var e=0;e<f.length;e++){var c=f[e];var a=c;a=a.replace(/[\\[\\]]/g,"\\\\$\\x26");a=new RegExp("[?\\x26]"+a+"\\x3d([^\\x26#]*)");a=a.exec(window.location.search);if(a=a===null?"":decodeURIComponent(a[1].replace(/\\+/g," "))){var b=d.querySelector('input[name\\x3d"'+c+'"]');b?(b.value=a,console.log("\\u2705 Populated existing field:",
+c,a)):(b=document.createElement("input"),b.type="hidden",b.name=c,b.value=a,d.appendChild(b),console.log("\\u2705 Injected + populated hidden field:",c,a))}}clearInterval(h)}g--},500)})();</script><script type="text/javascript" id="" charset="">(function(){function d(a){var c={};a&&a.length&&a.forEach(function(b){b.name&&b.value!==void 0&&(c[b.name]=b.value)});return c}window.addEventListener("message",function(a){if(a.data.type==="hsFormCallback"){var c=a.data.id||null,b=a.data.data||[];a.data.eventName==="onFormSubmit"&&window.dataLayer.push({event:"hubspot-form-data","hs-form-guid":c,"hs-form-fields":d(b)});a.data.eventName==="onFormSubmitted"&&window.dataLayer.push({event:"hubspot-form-success","hs-form-guid":c})}})})();</script>
+
+<script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src="https://connect.facebook.net/en_US/fbevents.js",d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script");fbq("init","260708920040414");fbq("track","PageView");</script>
+<noscript>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260708920040414&amp;ev=PageView&amp;noscript=1">
+</noscript>
+
+<script type="text/javascript" id="" charset="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","3804563836500315");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3804563836500315&amp;ev=PageView&amp;noscript=1"></noscript>
+<img src="https://t.co/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=b24f810c-6f58-4749-a12a-7a8cca410994&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=98e492a6-2cec-4a28-bc79-3bf70a0e7daa&amp;pt=Luxury%20Alcohol%20Treatment%20Center%20and%20Detox%20Facility%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Ftreatment%2Fluxury-alcohol-treatment-center%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;"><img src="https://analytics.twitter.com/1/i/adsct?bci=4&amp;dv=America%2FNew_York%26en-US%2Cen%26Google%20Inc.%26Win32%26255%261920%261080%2612%2624%261920%261032%2610%26na&amp;eci=3&amp;event=%7B%7D&amp;event_id=b24f810c-6f58-4749-a12a-7a8cca410994&amp;integration=gtm&amp;p_id=Twitter&amp;p_user_id=0&amp;pl_id=98e492a6-2cec-4a28-bc79-3bf70a0e7daa&amp;pt=Luxury%20Alcohol%20Treatment%20Center%20and%20Detox%20Facility%20-%20Paracelsus%20Recovery&amp;tw_document_href=https%3A%2F%2Fparacelsus-recovery.com%2Ftreatment%2Fluxury-alcohol-treatment-center%2F&amp;tw_iframe_status=0&amp;txn_id=o0zsu&amp;type=javascript&amp;version=2.3.35" height="1" width="1" style="display: none;">        <script type="text/javascript" id="" charset="">ttd_dom_ready(function(){if("function"===typeof TTDUniversalPixelApi){var a=new TTDUniversalPixelApi;a.init("8v29p3l",["ymwjpv4"],"https://insight.adsrvr.org/track/up")}});</script> <script type="text/javascript" id="" charset="">ttd_dom_ready(function(){if("function"===typeof TTDUniversalPixelApi){var a=new TTDUniversalPixelApi;a.init("8v29p3l",["ymwjpv4"],"https://insight.adsrvr.org/track/up")}});</script>
+<iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/treatment/luxury-alcohol-treatment-center/" title="TTD Universal Pixel"></iframe><iframe id="universal_pixel_ymwjpv4" height="0" width="0" style="display:none;" src="https://insight.adsrvr.org/track/cei?advertiser_id=8v29p3l&amp;cookie_sync=1&amp;upv=3.0.0&amp;upid=ymwjpv4&amp;ref=/treatment/luxury-alcohol-treatment-center/" title="TTD Universal Pixel"></iframe>

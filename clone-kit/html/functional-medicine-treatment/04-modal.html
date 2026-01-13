@@ -1,0 +1,209 @@
+<div x-data="allModals()" id="all-modals">
+
+    <div x-ref="modalSkeleton" id="Modal__Skeleton">
+        <div x-data="singleModal()" x-cloak @modalopen.window="handleModalOpen" class="ModalSkeleton" role="dialog" aria-label="Modal" aria-modal="true">
+
+            <div x-show="open"
+                 x-transition:enter="ease duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="ease duration-300"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="Modal__backdrop z-0 fixed inset-0 bg-black/50 transition-opacity"
+                 @click="handleModalClose" aria-hidden="true"></div>
+
+            <div x-show="open"
+                 x-transition:enter="ease-out duration-600 transition-all"
+                 x-transition:enter-start="opacity-0 -translate-x-full"
+                 x-transition:enter-end="opacity-100 translate-x-0"
+                 x-transition:leave="ease-in duration-500 transition-none"
+                 x-transition:leave-start="opacity-100 translate-x-0"
+                 x-transition:leave-end="opacity-0 -translate-x-full"
+                 class="Modal__dialog-wrapper z-10 fixed inset-0 right-auto md:left-8 w-full sm:w-3/4 md:w-1/2 sm:h-screen overflow-hidden transform">
+
+                <div x-show="open"
+                     class="Modal__dialog relative w-full h-full transform">
+
+                    <div class="Modal__content relative w-full h-full flex flex-col justify-end">
+                        <div class="relative w-full max-h-full overflow-y-auto rounded-[5px] md:mb-8">
+                            <header class="Modal__header absolute top-0 w-full py-6 z-50">
+                                <div class="flex items-center md:px-5">
+                                    <button @click="handleModalClose" class="Modal__close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M15 5 5 15M5 5l10 10"/></svg>
+
+                                    </button>
+                                </div>
+                            </header>
+                            <div class="Modal__body @container w-full overflow-x-hidden overflow-y-auto no-scrollbar bg-theme-clay text-content-dark ">
+                                <p class="Modal__error hidden" x-cloak>An error has occurred, please try again later.An error has occurred, please try again later.</p>
+                            </div>
+                            <footer class="Modal__footer absolute bottom-0 w-full hidden justify-end items-center z-10">
+                                <div class="Modal__navigation py-4 sm:py-10 lg:py-6 bg-white bg-opacity-90 backdrop-blur-sm"></div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        
+
+        <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pegasus/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+        <noscript>
+            <p style="margin:0;padding:0;border:0;">
+                <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+            </p>
+        </noscript>
+        <!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+
+
+<!-- Adform Tracking Code BEGIN -->
+<script type="text/javascript">
+    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+    window._adftrack.push({
+        HttpHost: 'track.adform.net',
+        pm: 2883116,
+        divider: encodeURIComponent('|'),
+        pagename: encodeURIComponent('Conversion_New')
+    });
+    (function () { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); })();
+
+</script>
+<noscript>
+    <p style="margin:0;padding:0;border:0;">
+        <img src="https://track.adform.net/Serving/TrackPoint/?pm=2883116&ADFPageName=Conversion_New&ADFdivider=|" width="1" height="1" alt="" />
+    </p>
+</noscript>
+<!-- Adform Tracking Code END -->
+<script type="text/javascript" id="hubspot-loader-js-after">
+/* <![CDATA[ */
+        // HubSpot loader - only loads when explicitly called
+        window.hubSpotLoader = {
+            promise: null,
+            load: function() {
+                if (!this.promise) {
+                    this.promise = new Promise((resolve, reject) => {
+                        if (window.hbspt) {
+                            resolve(window.hbspt);
+                            return;
+                        }
+
+                        const script = document.createElement("script");
+                        script.src = "https://js-eu1.hsforms.net/forms/embed/v2.js";
+                        script.async = true;
+                        
+                        script.onload = () => {
+                            if (window.hbspt) {
+                                resolve(window.hbspt);
+                            } else {
+                                reject(new Error("HubSpot failed to load"));
+                            }
+                        };
+                        
+                        script.onerror = () => {
+                            reject(new Error("Failed to load HubSpot script"));
+                        };
+                        
+                        document.body.appendChild(script);
+                    });
+                }
+                return this.promise;
+            }
+        };
+    
+//# sourceURL=hubspot-loader-js-after
+/* ]]> */
+</script>
+<script type="text/javascript" src="/wp-content/themes/pegasus/dist/CGBqs_Rr.js?ver=1.0.0" id="Main-js"></script>
+        <script>
+        (function() {
+            let adformLoaded = false;
+            
+            const adformConfig = {
+                httpHost: 'track.adform.net',
+                pm: 2883116,
+                scriptUrl: 'https://s2.adform.net/banners/scripts/st/trackpoint-async.js'
+            };
+            
+            function loadAdform() {
+                if (adformLoaded) return;
+                adformLoaded = true;
+                
+                try {
+                    window._adftrack = Array.isArray(window._adftrack) ? window._adftrack : (window._adftrack ? [window._adftrack] : []);
+                    window._adftrack.push({
+                        HttpHost: adformConfig.httpHost,
+                        pm: adformConfig.pm
+                    });
+
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.async = true;
+                    script.src = adformConfig.scriptUrl;
+                    script.onerror = () => console.warn('Adform script failed to load');
+                    document.head.appendChild(script);
+                    
+                    // Track conversion after delay
+                    setTimeout(() => {
+                        try {
+                            window._adftrack.push({
+                                HttpHost: adformConfig.httpHost,
+                                pm: adformConfig.pm,
+                                divider: encodeURIComponent('|'),
+                                pagename: encodeURIComponent('Conversion')
+                            });
+                        } catch(e) {}
+                    }, 60000);
+                    
+                    // Handle page visit tracking
+                    const pageVisits = parseInt(localStorage.getItem('adformPageVisits') || '0') + 1;
+                    localStorage.setItem('adformPageVisits', pageVisits.toString());
+                    
+                    if (pageVisits >= 3) {
+                        window._adftrack.push({
+                            HttpHost: adformConfig.httpHost,
+                            pm: adformConfig.pm,
+                            divider: encodeURIComponent('|'),
+                            pagename: encodeURIComponent('Three Page Visits')
+                        });
+                    }
+                } catch(error) {
+                    console.warn('Adform tracking error:', error);
+                }
+            }
+            
+            // Load on user interaction OR after 5 seconds (whichever comes first)
+            const events = ['mousedown', 'touchstart', 'keydown', 'scroll'];
+            const loadOnInteraction = () => {
+                loadAdform();
+                events.forEach(event => document.removeEventListener(event, loadOnInteraction));
+            };
+            
+            events.forEach(event => document.addEventListener(event, loadOnInteraction, {once: true, passive: true}));
+            setTimeout(loadAdform, 5000); // Fallback after 5 seconds
+        })();
+        </script>

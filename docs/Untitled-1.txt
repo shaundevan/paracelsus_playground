@@ -1,0 +1,16 @@
+Propmts:
+1st:
+
+
+
+
+Refer to @paracelsus-clone/docs/page-rebuild-guide.md 
+Rebuild this page: 
+Make sure it is accessible from the homepage
+Use chrome dev tools and other MCPs
+
+
+Upon completion:
+Great, now document this in @paracelsus-clone/docs/page-rebuild-guide.md 
+And under @paracelsus-clone/docs/page-rebuild , create a document specifically outlining 
+how you rebuilt this. The endgoal is to be able to give the rebuild document to any agent and have it one-shot rebuild it.

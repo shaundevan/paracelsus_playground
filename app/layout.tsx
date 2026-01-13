@@ -574,6 +574,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   }));
                 }
                 
+                // CRITICAL FIX: Register pageNavigation as fallback
+                // This handles the sticky sidebar navigation with scroll-based highlighting
+                if (typeof Alpine.data('pageNavigation') !== 'function') {
+                  console.warn('[Fallback] Registering pageNavigation - bundle registration may have failed');
+                  Alpine.data('pageNavigation', () => ({
+                    item: 1,
+                    setItem(item) {
+                      this.item = item;
+                    },
+                    addIntersect(targetId, index) {
+                      const target = document.querySelector('#' + targetId);
+                      if (target) {
+                        target.dataset.index = index;
+                        const observer = new IntersectionObserver(
+                          (entries) => {
+                            entries.forEach((entry) => {
+                              if (entry.isIntersecting) {
+                                this.item = parseInt(entry.target.dataset.index, 10);
+                              }
+                            });
+                          },
+                          { rootMargin: '0px 0px -50% 0px' }
+                        );
+                        observer.observe(target);
+                      }
+                    }
+                  }));
+                }
+                
                 // VideoBanner - register if not in bundle
                 if (typeof Alpine.data('videoBanner') !== 'function') {
                   Alpine.data('videoBanner', () => ({
@@ -761,6 +790,67 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               document.addEventListener('alpine:initialized', setupOverlappingImagesObservers);
               // Also run after a short delay as fallback
               setTimeout(setupOverlappingImagesObservers, 1000);
+              
+              // CRITICAL: Set up page navigation highlighting
+              // This directly manages the opacity classes on navigation links based on which section is visible
+              const setupPageNavigationHighlighting = () => {
+                const navContainer = document.querySelector('[x-data="pageNavigation()"]');
+                if (!navContainer) return;
+                
+                // Skip if already processed
+                if (navContainer.hasAttribute('data-nav-observer-set')) return;
+                navContainer.setAttribute('data-nav-observer-set', 'true');
+                
+                const navLinks = navContainer.querySelectorAll('a[href^="#"]');
+                if (navLinks.length === 0) return;
+                
+                let currentActiveIndex = 0;
+                
+                const updateActiveLink = (newIndex) => {
+                  if (newIndex === currentActiveIndex) return;
+                  currentActiveIndex = newIndex;
+                  
+                  navLinks.forEach((link, i) => {
+                    if (i === newIndex) {
+                      link.classList.remove('opacity-50');
+                    } else {
+                      link.classList.add('opacity-50');
+                    }
+                  });
+                };
+                
+                // Set up intersection observers for each target section
+                navLinks.forEach((link, index) => {
+                  const href = link.getAttribute('href');
+                  if (!href || !href.startsWith('#')) return;
+                  
+                  const targetId = href.substring(1);
+                  const target = document.getElementById(targetId);
+                  
+                  if (!target) return;
+                  
+                  const observer = new IntersectionObserver(
+                    (entries) => {
+                      entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                          updateActiveLink(index);
+                        }
+                      });
+                    },
+                    { rootMargin: '0px 0px -50% 0px' }
+                  );
+                  
+                  observer.observe(target);
+                });
+                
+                // Initialize with first link active
+                updateActiveLink(0);
+              };
+              
+              // Run after Alpine starts and DOM is ready
+              document.addEventListener('alpine:initialized', setupPageNavigationHighlighting);
+              // Also run after a short delay as fallback
+              setTimeout(setupPageNavigationHighlighting, 2000);
             `,
           }}
         />
