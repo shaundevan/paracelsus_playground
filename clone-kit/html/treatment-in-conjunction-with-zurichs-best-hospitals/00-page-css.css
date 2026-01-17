@@ -1,0 +1,27 @@
+/* Page-specific wp-container CSS for treatment-in-conjunction-with-zurichs-best-hospitals */
+.wp-container-core-group-is-layout-5d641bfa > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:1400px !important;margin-left:auto !important;margin-right:auto !important;}
+.wp-container-core-group-is-layout-5d641bfa > .alignwide{max-width:1400px !important;}
+.wp-container-core-group-is-layout-5d641bfa .alignfull{max-width:none;}
+.wp-container-core-group-is-layout-5d641bfa > .alignfull{margin-right:calc(20px * -1);margin-left:calc(20px * -1);}
+.wp-container-core-group-is-layout-2017c0b7 > .alignfull{margin-right:calc(0px * -1);margin-left:calc(0px * -1);}
+.wp-container-core-group-is-layout-3b0f2f7d > .alignfull{margin-right:calc(20px * -1);margin-left:calc(20px * -1);}
+.wp-container-3{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}
+.wp-container-4{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}
+.wp-container-core-column-is-layout-fd134cff > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-fd134cff > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-group-is-layout-866ffef6 > .alignfull{margin-right:calc(0px * -1);margin-left:calc(0px * -1);}
+.wp-container-core-group-is-layout-64c317c9 > .alignfull{margin-right:calc(0px * -1);margin-left:calc(0px * -1);}
+.wp-container-core-columns-is-layout-28232c24{flex-wrap:nowrap;gap:0 0;}
+.wp-container-core-column-is-layout-eeaf3a62 > *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-column-is-layout-eeaf3a62 > * + *{margin-block-start:0;margin-block-end:0;}
+.wp-container-core-buttons-is-layout-ca13948c{justify-content:flex-end;align-items:flex-end;}
+.wp-container-core-buttons-is-layout-b5994976{justify-content:center;align-items:center;}
+.wp-container-core-group-is-layout-c385debf.wp-block-group-is-layout-constrained {
+    height: 100%;
+    min-height: 100vh;
+    display: flex
+;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}

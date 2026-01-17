@@ -2229,3 +2229,44 @@ $matches | ForEach-Object { $_.Value }
 - `app/holistic-complementary-therapies/page.tsx`
 
 **Detailed Rebuild Document:** See `docs/page-rebuild/holistic-complementary-therapies.md` for step-by-step instructions that can be used to reproduce this rebuild.
+
+---
+
+### 2026-01-14: treatment-in-conjunction-with-zurichs-best-hospitals Page Rebuild
+
+**Status:** Success
+
+**Process:**
+1. Captured HTML from live WordPress site using PowerShell Invoke-WebRequest (259 KB)
+2. Split HTML using `node scripts/split-page-html.js treatment-in-conjunction-with-zurichs-best-hospitals`
+   - Header: 86,541 bytes
+   - Main: 91,603 bytes (36 lazy-loaded images fixed)
+   - Footer: 17,497 bytes
+   - Modal: 10,319 bytes
+3. Extracted page-specific CSS using `node scripts/extract-page-css.js treatment-in-conjunction-with-zurichs-best-hospitals` (18 rules)
+4. Created Next.js page at `app/treatment-in-conjunction-with-zurichs-best-hospitals/page.tsx`
+
+**Verification Results:**
+- Page loads with 200 status (699 KB rendered)
+- Header icons visible (dark on light background)
+- Hamburger menu opens and shows full navigation
+- Hero section displays "Treatment in Conjunction with Zurich's Best Hospitals" heading
+- All main content sections present:
+  - "What conditions do we treat in a hospital setting?"
+  - "What does treatment involve?"
+  - "What are the benefits?"
+- Footer displays correctly with Treatment, Information, and Connect sections
+- All 36 images loading via rewrites proxy
+- No 404 errors for WordPress assets
+- Accessible from homepage via Types of Therapies > Treatment in Conjunction with Zurich's Best Hospitals
+
+**Files Created:**
+- `clone-kit/raw/treatment-in-conjunction-with-zurichs-best-hospitals.outer.html` (259 KB)
+- `clone-kit/html/treatment-in-conjunction-with-zurichs-best-hospitals/00-page-css.css` (2 KB, 18 rules)
+- `clone-kit/html/treatment-in-conjunction-with-zurichs-best-hospitals/01-header.html` (86.5 KB)
+- `clone-kit/html/treatment-in-conjunction-with-zurichs-best-hospitals/02-main.html` (91.6 KB)
+- `clone-kit/html/treatment-in-conjunction-with-zurichs-best-hospitals/03-footer.html` (17.5 KB)
+- `clone-kit/html/treatment-in-conjunction-with-zurichs-best-hospitals/04-modal.html` (10.3 KB)
+- `app/treatment-in-conjunction-with-zurichs-best-hospitals/page.tsx`
+
+**Detailed Rebuild Document:** See `docs/page-rebuild/treatment-in-conjunction-with-zurichs-best-hospitals.md` for step-by-step instructions that can be used to reproduce this rebuild.
